@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# go path
+export GOPATH="${HOME}/.go"
+
+# update path
+export PATH=/usr/local/bin:${PATH}:/sbin
+
+# Add homebrew sbin
+export PATH="/usr/local/sbin:${PATH}"
+
+# Add gnu tar
+export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:${PATH}"
+
+# add go path
+export PATH="/usr/local/go/bin:${GOPATH}/bin:${PATH}"
+
+# add doom
+export PATH="${HOME}/.emacs.d/bin:${PATH}"
+
+# update cdpath
+export CDPATH=${CDPATH}:${GOPATH}/src/github.com:${GOPATH}/src/golang.org:${GOPATH}/src
+
+# update path for brew install curl
+export PATH=/usr/local/opt/curl/bin:$PATH
+
+# update path for gnu coreutils, make & find on darwin
+export PATH=/usr/local/opt/coreutils/libexec/gnubin:${PATH}
+export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}
+export PATH=/usr/local/opt/make/libexec/gnubin:${PATH}
+export MANPATH=/usr/local/opt/make/libexec/gnuman:${MANPATH}
+export PATH=/usr/local/opt/findutils/libexec/gnubin:${PATH}
+export MANPATH=/usr/local/opt/findutils/libexec/gnuman:${MANPATH}

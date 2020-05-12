@@ -70,3 +70,7 @@ done
 [ -f "${HOME}/.fzf.bash" ] && . "${HOME}/.fzf.bash"
 
 eval "$(direnv hook bash)"
+
+export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent

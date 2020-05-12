@@ -1,5 +1,6 @@
 [user]
   name = Jim Anders
+  signingkey = 0x61EFDD56848C9DF8
 [alias]
   l = log --pretty=oneline -n 20 --graph --abbrev-commit
   s = status -sb

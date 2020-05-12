@@ -5,16 +5,16 @@
         "revision": "9b68df715d9f6a7463ea7c0bb9e476d9aa30339c"
       },
       "homebrew/bundle": {
-        "revision": "6cc55a61616f6c4c195bdc13847060b699a0e407"
+        "revision": "e283efa0d908b3ddbf86d1f6bd95a042827aacc4"
       },
       "homebrew/cask": {
-        "revision": "e748e84fe2b703b465afae8fa802cec938dfc616"
+        "revision": "19dcccf0a9d720f0a36cb715e1ab1eba40468199"
       },
       "homebrew/cask-fonts": {
         "revision": "2997a377d214b56d9f5ee864bea6b5c7f2581ca6"
       },
       "homebrew/core": {
-        "revision": "3cb9e9cb17236f71a675ff260a01c3009502dfa9"
+        "revision": "a02ca588643ddff966601cc31422d8f7e50ca28e"
       },
       "homebrew/services": {
         "revision": "c8fee02f479d20cf286c20babe696e56d8680205"
@@ -425,6 +425,152 @@
             }
           }
         }
+      },
+      "gnupg": {
+        "version": "2.2.20",
+        "bottle": {
+          "cellar": "/usr/local/Cellar",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/gnupg-2.2.20.catalina.bottle.tar.gz",
+              "sha256": "527ac31afe998a9931a6648c6fcc7288462ae73d6e6e8b84ecf46561c82d50ec"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/gnupg-2.2.20.mojave.bottle.tar.gz",
+              "sha256": "e826cf4b1764da749eba007097be8077f433e52d8f96405044e57a384b114942"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/gnupg-2.2.20.high_sierra.bottle.tar.gz",
+              "sha256": "179b68a29fe9f6731a294a674fbd439623acf22c1997c68b6358808adc83b763"
+            }
+          }
+        }
+      },
+      "hopenpgp-tools": {
+        "version": "0.23.1",
+        "bottle": {
+          "cellar": ":any_skip_relocation",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/hopenpgp-tools-0.23.1.catalina.bottle.tar.gz",
+              "sha256": "88cc07df1b31c65ada4dd47dc78a3bcdd1017baa777ebb82c3d444c9a4a44e17"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/hopenpgp-tools-0.23.1.mojave.bottle.tar.gz",
+              "sha256": "7d841a2f18aee831c985b9c11b2d8204dd83983483f8d8fa813be893452456ed"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/hopenpgp-tools-0.23.1.high_sierra.bottle.tar.gz",
+              "sha256": "ce17132f983463ba3465a05a9c203026e5ea07326da34cb68224f035656ddc9b"
+            }
+          }
+        }
+      },
+      "pinentry-mac": {
+        "version": "0.9.4",
+        "bottle": {
+          "cellar": ":any_skip_relocation",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/pinentry-mac-0.9.4.catalina.bottle.tar.gz",
+              "sha256": "936dba5c3bdd8279e5380012645a349a6ef8c69d1cc9066f28f9c6fa6642fd64"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/pinentry-mac-0.9.4.mojave.bottle.tar.gz",
+              "sha256": "6b2e8f260b2c9d2d7cd3f39516d7794656492cf7726a92a847aa86ba02d83179"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/pinentry-mac-0.9.4.high_sierra.bottle.tar.gz",
+              "sha256": "aa7a00ec594541e43a74cf7ae16cb05317d5b73c7b6b6647ca349584280eaad7"
+            },
+            "sierra": {
+              "url": "https://homebrew.bintray.com/bottles/pinentry-mac-0.9.4.sierra.bottle.tar.gz",
+              "sha256": "3da6a88abbd4bb04eb2455d8e6998f4fc4db77c3f765d52b7eadf364e82aeaa7"
+            },
+            "el_capitan": {
+              "url": "https://homebrew.bintray.com/bottles/pinentry-mac-0.9.4.el_capitan.bottle.tar.gz",
+              "sha256": "c3d508c96256c50b6a62f9e64fc4cb28810a910927c21f7defbe8af11a3c5961"
+            },
+            "yosemite": {
+              "url": "https://homebrew.bintray.com/bottles/pinentry-mac-0.9.4.yosemite.bottle.tar.gz",
+              "sha256": "b96a51a263a9447101d4bb8dc4247f324531bd4fd96218f6e170edfc983a87f7"
+            },
+            "mavericks": {
+              "url": "https://homebrew.bintray.com/bottles/pinentry-mac-0.9.4.mavericks.bottle.tar.gz",
+              "sha256": "c2538b57edce2eb7ccc10a32e16ccfbbbe8e61c384c4db8d5a62b04d3815c0ed"
+            }
+          }
+        }
+      },
+      "wget": {
+        "version": "1.20.3_2",
+        "bottle": {
+          "cellar": "/usr/local/Cellar",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/wget-1.20.3_2.catalina.bottle.tar.gz",
+              "sha256": "ef65c759c5097a36323fa9c77756468649e8d1980a3a4e05695c05e39568967c"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/wget-1.20.3_2.mojave.bottle.tar.gz",
+              "sha256": "28f4090610946a4eb207df102d841de23ced0d06ba31cb79e040d883906dcd4f"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/wget-1.20.3_2.high_sierra.bottle.tar.gz",
+              "sha256": "91dd0caca9bd3f38c439d5a7b6f68440c4274945615fae035ff0a369264b8a2f"
+            }
+          }
+        }
+      },
+      "ykpers": {
+        "version": "1.20.0",
+        "bottle": {
+          "cellar": ":any",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/ykpers-1.20.0.catalina.bottle.tar.gz",
+              "sha256": "0b11199f0ee0d96c456d700043073eaea499a2e379ce21ce3fd13fe826f3a667"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/ykpers-1.20.0.mojave.bottle.tar.gz",
+              "sha256": "5a77e8978ad9cf3ed1d596d5ec209cf94a4eb1f13ec7b7b228847c6d6241e662"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/ykpers-1.20.0.high_sierra.bottle.tar.gz",
+              "sha256": "5907731c71ecd35c52caebbda5b1cd2bca595a06d2a1571c3ffeadb745e33054"
+            },
+            "sierra": {
+              "url": "https://homebrew.bintray.com/bottles/ykpers-1.20.0.sierra.bottle.tar.gz",
+              "sha256": "1f2863cf8132643dc9c3572b649792430d3fc932a5e6d49709a7076b10718d8c"
+            }
+          }
+        }
+      },
+      "ykman": {
+        "version": "3.1.1_1",
+        "bottle": {
+          "cellar": ":any",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/ykman-3.1.1_1.catalina.bottle.tar.gz",
+              "sha256": "c06a8cb44d6cd76c638c88ef5812e4c2dcce922f30014f875eaf61bf63ae7404"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/ykman-3.1.1_1.mojave.bottle.tar.gz",
+              "sha256": "e1d502f836a9403fd191f8f7bab1cec7b09236de0f035d24385b0f55e82ea63a"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/ykman-3.1.1_1.high_sierra.bottle.tar.gz",
+              "sha256": "8c00a4aa2502ef29c8dc9c02f0ce0f6a04299aeeae00168536f55623c1c21b8a"
+            }
+          }
+        }
       }
     },
     "cask": {
@@ -505,6 +651,12 @@
         "options": {
           "full_name": "zoomus"
         }
+      },
+      "keybase": {
+        "version": "5.4.2-20200424204055,7b0bbf1e3c",
+        "options": {
+          "full_name": "keybase"
+        }
       }
     }
   },
@@ -517,6 +669,14 @@
         "CLT": "10.3.0.0.1.1562985497",
         "Xcode": "10.3",
         "macOS": "10.14.6"
+      },
+      "catalina": {
+        "HOMEBREW_VERSION": "2.2.16",
+        "HOMEBREW_PREFIX": "/usr/local",
+        "Homebrew/homebrew-core": "a02ca588643ddff966601cc31422d8f7e50ca28e",
+        "CLT": "11.4.1.0.1.1586360307",
+        "Xcode": "11.4.1",
+        "macOS": "10.15.4"
       }
     }
   }

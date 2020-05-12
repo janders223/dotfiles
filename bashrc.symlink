@@ -67,10 +67,19 @@ for option in autocd globstar; do
 	shopt -s "$option" 2> /dev/null
 done
 
+# shellcheck source=$HOME/.fzf.bash
 [ -f "${HOME}/.fzf.bash" ] && . "${HOME}/.fzf.bash"
 
 eval "$(direnv hook bash)"
 
-export GPG_TTY="$(tty)"
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-gpgconf --launch gpg-agent
+eval $(gpg-agent --daemon)
+GPG_TTY=$(tty)
+export GPG_TTY
+if [ -f "${HOME}/.gpg-agent-info" ]; then
+	# shellcheck source=$HOME/.gpg-agent-info
+	. "${HOME}/.gpg-agent-info"
+	export GPG_AGENT_INFO
+	export SSH_AUTH_SOCK
+fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

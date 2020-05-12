@@ -55,3 +55,7 @@
 (setq glab-default-host "gitlab.kroger.com/api/v4")
 
 (setq auth-sources '("~/.authinfo") )
+
+(load "~/.doom.d/prolog.el")
+(add-to-list 'auto-mode-alist '("\\.pl$" . prolog-mode))
+(setq prolog-electric-if-then-else-flag t)

@@ -1,5 +1,5 @@
 .PHONY: all
-all: symlinks brew
+all: brew symlinks
 
 .PHONY: symlinks
 symlinks: $(patsubst %.symlink,~/.%,$(wildcard *.symlink))

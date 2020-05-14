@@ -59,3 +59,5 @@
 (load "~/.doom.d/prolog.el")
 (add-to-list 'auto-mode-alist '("\\.pl$" . prolog-mode))
 (setq prolog-electric-if-then-else-flag t)
+
+(setq treemacs-width 20)

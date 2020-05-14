@@ -77,7 +77,7 @@
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       spell             ; tasing you for misspelling mispelling
+       ;;spell             ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 
        :tools
@@ -174,3 +174,7 @@
        :config
        ;;literate
        (default +bindings +smartparens))
+
+(when noninteractive
+  (setq doom-env-ignored-vars (delete "^SSH_AGENT_PID$" doom-env-ignored-vars))
+  (setq doom-env-ignored-vars (delete "^SSH_AUTH_SOCK$" doom-env-ignored-vars)))

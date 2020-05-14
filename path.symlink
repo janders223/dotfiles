@@ -24,6 +24,9 @@ export CDPATH=${CDPATH}:${GOPATH}/src/github.com:${GOPATH}/src/golang.org:${GOPA
 # update path for brew install curl
 export PATH=/usr/local/opt/curl/bin:$PATH
 
+# update path for ruby path
+export PATH=/usr/local/lib/ruby/gems/2.7.0/bin:$PATH
+
 # update path for gnu coreutils, make & find on darwin
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:${PATH}
 export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}

@@ -5,16 +5,16 @@
         "revision": "9b68df715d9f6a7463ea7c0bb9e476d9aa30339c"
       },
       "homebrew/bundle": {
-        "revision": "e283efa0d908b3ddbf86d1f6bd95a042827aacc4"
+        "revision": "6cc55a61616f6c4c195bdc13847060b699a0e407"
       },
       "homebrew/cask": {
-        "revision": "19dcccf0a9d720f0a36cb715e1ab1eba40468199"
+        "revision": "e748e84fe2b703b465afae8fa802cec938dfc616"
       },
       "homebrew/cask-fonts": {
         "revision": "2997a377d214b56d9f5ee864bea6b5c7f2581ca6"
       },
       "homebrew/core": {
-        "revision": "a02ca588643ddff966601cc31422d8f7e50ca28e"
+        "revision": "3cb9e9cb17236f71a675ff260a01c3009502dfa9"
       },
       "homebrew/services": {
         "revision": "c8fee02f479d20cf286c20babe696e56d8680205"
@@ -571,6 +571,52 @@
             }
           }
         }
+      },
+      "fzf": {
+        "version": "0.21.1",
+        "bottle": {
+          "cellar": ":any_skip_relocation",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/fzf-0.21.1.catalina.bottle.tar.gz",
+              "sha256": "733f79496c3246979ca05eeb5677a5fd9e8ec532e69e8b2012102cacddba8ae6"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/fzf-0.21.1.mojave.bottle.tar.gz",
+              "sha256": "3c03bb9715be153a0f776d06cf4acd436ad4faa4266f7bd875a0d37594291516"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/fzf-0.21.1.high_sierra.bottle.tar.gz",
+              "sha256": "d15a616156eb92071f1cfc50f10366532af92ca1635d309162141ad67f785865"
+            }
+          }
+        }
+      },
+      "icu4c": {
+        "version": "66.1",
+        "bottle": {
+          "cellar": ":any",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/icu4c-66.1.catalina.bottle.tar.gz",
+              "sha256": "f01dbe4266d1180c1da01d973200ed897cfa8ec8bf505c0f57f7f693bc566062"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/icu4c-66.1.mojave.bottle.tar.gz",
+              "sha256": "60e51b89507cf03f1d6ed59deda226b600f96f763dea9a415dfa8ebb42c197a0"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/icu4c-66.1.high_sierra.bottle.tar.gz",
+              "sha256": "87f2446c5de0991c6bf959a61e63a746ebb6687f6bd68186ecd74ff6801a41b1"
+            }
+          }
+        }
+      },
+      "yarn": {
+        "version": "1.22.4",
+        "bottle": false
       }
     },
     "cask": {
@@ -656,6 +702,12 @@
         "version": "5.4.2-20200424204055,7b0bbf1e3c",
         "options": {
           "full_name": "keybase"
+        }
+      },
+      "gpg-suite": {
+        "version": "2019.2",
+        "options": {
+          "full_name": "gpg-suite"
         }
       }
     }

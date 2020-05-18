@@ -57,7 +57,7 @@
 (setq treemacs-width 20)
 
 (map! :leader
-      :desc "elfeed" "o n" #'=rss)
+      :desc "elfeed" "o n" #'elfeed)
 
 (setq elfeed-search-filter "@6-months-ago +unread")
 (setq elfeed-search-title-max-width 150)

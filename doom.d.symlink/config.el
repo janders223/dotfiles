@@ -57,9 +57,11 @@
 (setq treemacs-width 20)
 
 (map! :leader
-       :desc "elfeed" "o n" #'=rss)
+      :desc "elfeed" "o n" #'=rss)
 
 (setq elfeed-search-filter "@6-months-ago +unread")
+(setq elfeed-search-title-max-width 150)
+(setq elfeed-search-trailing-width 30)
 (setq elfeed-feeds
       (quote
        ("https://www.timetestedtools.net/feed/"
@@ -143,3 +145,19 @@
         "http://sachachua.com/wp/category/emacs/feed/"
         "http://charity.wtf/feed/")))
 
+
+(set-email-account! "GMAIL"
+                    '((mu4e-sent-folder       . "/gmail/sent")
+                      (mu4e-trash-folder      . "/gmail/trash")
+                      (mu4e-drafts-folder     . "/gmail/drafts")
+                      (mu4e-refile-folder     . "/gmail/archive")
+                      (smtpmail-smtp-user     . "jimanders223@gmail.com")
+                      (mu4e-compose-signature . "janders"))
+                    t)
+
+(set-email-account! "INGAGE"
+                    '((mu4e-sent-folder       . "/ingage/sent")
+                      (mu4e-trash-folder      . "/ingage/trash")
+                      (mu4e-drafts-folder     . "/ingage/drafts")
+                      (mu4e-refile-folder     . "/ingage/archive")
+                      (smtpmail-smtp-user     . "jim.anders@ingagepartners.com")))

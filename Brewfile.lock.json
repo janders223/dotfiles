@@ -2,19 +2,19 @@
   "entries": {
     "tap": {
       "d12frosted/emacs-plus": {
-        "revision": "9b68df715d9f6a7463ea7c0bb9e476d9aa30339c"
+        "revision": "b422ccfc820b542e1a8d505710566c1a03aa872c"
       },
       "homebrew/bundle": {
-        "revision": "6cc55a61616f6c4c195bdc13847060b699a0e407"
+        "revision": "d7a2636c3974c4448cb55a8a51fe83ca57cbf1c2"
       },
       "homebrew/cask": {
-        "revision": "5991611bfbf2d70b79dff2940d1252220acfd414"
+        "revision": "5d339f1cb417bcd155168b005961c709cccf9553"
       },
       "homebrew/cask-fonts": {
-        "revision": "2997a377d214b56d9f5ee864bea6b5c7f2581ca6"
+        "revision": "50d12b3d69d8c89fe49c8fcd48aa22418c9b6b2d"
       },
       "homebrew/core": {
-        "revision": "8b32afcf7c8ce445aaaa79bb80f19957162045a2"
+        "revision": "a47b3f69ac98e2dabe360148bd60df83fba98bab"
       },
       "homebrew/services": {
         "revision": "c8fee02f479d20cf286c20babe696e56d8680205"
@@ -393,22 +393,22 @@
         }
       },
       "terraform": {
-        "version": "0.12.24",
+        "version": "0.12.25",
         "bottle": {
           "cellar": ":any_skip_relocation",
           "prefix": "/usr/local",
           "files": {
             "catalina": {
-              "url": "https://homebrew.bintray.com/bottles/terraform-0.12.24.catalina.bottle.tar.gz",
-              "sha256": "cdfb0e90156ee1bedb30f52a9e260340ff7c08580c12dd35138bf63c01fe1000"
+              "url": "https://homebrew.bintray.com/bottles/terraform-0.12.25.catalina.bottle.tar.gz",
+              "sha256": "aed44cc014be831a8148b0e3d469c7b49439ca9a576d09cd3bed032d568765f4"
             },
             "mojave": {
-              "url": "https://homebrew.bintray.com/bottles/terraform-0.12.24.mojave.bottle.tar.gz",
-              "sha256": "2a21a77589673b2064c9fa7587a79a0375d69a8e02f824e5dc22dc960bf2d78b"
+              "url": "https://homebrew.bintray.com/bottles/terraform-0.12.25.mojave.bottle.tar.gz",
+              "sha256": "ec4b54ad081e4915ec38fddb08b01b58c15e68f1eb10efa39e36553c1ba047db"
             },
             "high_sierra": {
-              "url": "https://homebrew.bintray.com/bottles/terraform-0.12.24.high_sierra.bottle.tar.gz",
-              "sha256": "1eefeff3899922cc643b82dcc8fec52ce9ea65fd789a73639588e6123239fa0c"
+              "url": "https://homebrew.bintray.com/bottles/terraform-0.12.25.high_sierra.bottle.tar.gz",
+              "sha256": "f7cab3c4023c625e47e00f2ead49b68fee1c01a2cfdc4e34e46757df0f10c080"
             }
           }
         }
@@ -457,22 +457,22 @@
         }
       },
       "hopenpgp-tools": {
-        "version": "0.23.1",
+        "version": "0.23.1_1",
         "bottle": {
           "cellar": ":any_skip_relocation",
           "prefix": "/usr/local",
           "files": {
             "catalina": {
-              "url": "https://homebrew.bintray.com/bottles/hopenpgp-tools-0.23.1.catalina.bottle.tar.gz",
-              "sha256": "88cc07df1b31c65ada4dd47dc78a3bcdd1017baa777ebb82c3d444c9a4a44e17"
+              "url": "https://homebrew.bintray.com/bottles/hopenpgp-tools-0.23.1_1.catalina.bottle.tar.gz",
+              "sha256": "9d03ebe24464c62fae11b856eb20f9b1ea4d67470ac65b8f770b20cf5f319913"
             },
             "mojave": {
-              "url": "https://homebrew.bintray.com/bottles/hopenpgp-tools-0.23.1.mojave.bottle.tar.gz",
-              "sha256": "7d841a2f18aee831c985b9c11b2d8204dd83983483f8d8fa813be893452456ed"
+              "url": "https://homebrew.bintray.com/bottles/hopenpgp-tools-0.23.1_1.mojave.bottle.tar.gz",
+              "sha256": "4e4744a3d82755df2e2d03c775f99414faa5d13cdc1efa2462b16d65db1561e1"
             },
             "high_sierra": {
-              "url": "https://homebrew.bintray.com/bottles/hopenpgp-tools-0.23.1.high_sierra.bottle.tar.gz",
-              "sha256": "ce17132f983463ba3465a05a9c203026e5ea07326da34cb68224f035656ddc9b"
+              "url": "https://homebrew.bintray.com/bottles/hopenpgp-tools-0.23.1_1.high_sierra.bottle.tar.gz",
+              "sha256": "a2184881695b6d7209c40467a5c57c5ce32b1604fa909df13c84b3ed1aab3408"
             }
           }
         }
@@ -695,22 +695,22 @@
         }
       },
       "mu": {
-        "version": "1.4.5",
+        "version": "1.4.6",
         "bottle": {
           "cellar": ":any",
           "prefix": "/usr/local",
           "files": {
             "catalina": {
-              "url": "https://homebrew.bintray.com/bottles/mu-1.4.5.catalina.bottle.tar.gz",
-              "sha256": "8221c8b425bd5c3ec95740e494e8d1111480a2127f58cae0d4b6e49d69aaaefc"
+              "url": "https://homebrew.bintray.com/bottles/mu-1.4.6.catalina.bottle.tar.gz",
+              "sha256": "c3f1a3a24fe5b3f896b11141cb29d14bdb0792fb365905337036c47d8b0adf11"
             },
             "mojave": {
-              "url": "https://homebrew.bintray.com/bottles/mu-1.4.5.mojave.bottle.tar.gz",
-              "sha256": "7c1d1a683b8ce73dd2f97153a0fc87148de1f153ee3c377845553d91ed117e17"
+              "url": "https://homebrew.bintray.com/bottles/mu-1.4.6.mojave.bottle.tar.gz",
+              "sha256": "b2f871bae773dd87eaba5a6741a691f650f7bd345757f47f18e2709a03ec0447"
             },
             "high_sierra": {
-              "url": "https://homebrew.bintray.com/bottles/mu-1.4.5.high_sierra.bottle.tar.gz",
-              "sha256": "7f4f6b8422c5e0558e3ae997fd37042311b9ce593d6cde4905b82cafd3a0e965"
+              "url": "https://homebrew.bintray.com/bottles/mu-1.4.6.high_sierra.bottle.tar.gz",
+              "sha256": "9eed3037a373a31a5666c4b1cff7a4013d715079569876ce87f0db51fac9ba9c"
             }
           }
         }
@@ -808,13 +808,13 @@
         }
       },
       "virtualbox": {
-        "version": "6.1.6,137129",
+        "version": "6.1.8,137981",
         "options": {
           "full_name": "virtualbox"
         }
       },
       "virtualbox-extension-pack": {
-        "version": "6.1.6",
+        "version": "6.1.8",
         "options": {
           "full_name": "virtualbox-extension-pack"
         }
@@ -894,7 +894,7 @@
       "catalina": {
         "HOMEBREW_VERSION": "2.2.16",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "8b32afcf7c8ce445aaaa79bb80f19957162045a2",
+        "Homebrew/homebrew-core": "a47b3f69ac98e2dabe360148bd60df83fba98bab",
         "CLT": "11.4.1.0.1.1586360307",
         "Xcode": "11.4.1",
         "macOS": "10.15.4"

@@ -22,7 +22,6 @@ brew "git"
 brew "gitlab-runner", restart_service: true
 brew "gnupg"
 brew "gnu-tar"
-brew "icu4c"
 brew "gnuplot"
 brew "graphviz"
 brew "hopenpgp-tools"

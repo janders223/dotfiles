@@ -56,30 +56,27 @@
 
 (setq treemacs-width 20)
 
-(map! :leader
-      :desc "elfeed" "o n" #'elfeed)
+(setq org-directory "/Volumes/data/emacs/org")
 
-(setq elfeed-search-filter "@6-months-ago +unread")
+(map! :leader
+      :desc "elfeed" "o n" #'=rss)
+
+(setq rmh-elfeed-org-files (list "/Volumes/data/emacs/org/elfeed.org"))
+(setq elfeed-db-directory "/Volumes/data/emacs/elfeed/db")
+(setq elfeed-enclosure-default-dir "/Volumes/data/emacs/elfeed/enclosures/")
+(setq +rss-initial-search-filter "@1-month-ago +unread")
 (setq elfeed-search-title-max-width 150)
 (setq elfeed-search-trailing-width 30)
 ;; Mark all YouTube entries
 (add-hook 'elfeed-new-entry-hook
-          (elfeed-make-tagger :feed-url "youtube\\.com"
-                              :add '(video youtube)))
+         (elfeed-make-tagger :feed-url "youtube\\.com"
+                             :add '(video youtube)))
+;; Mark old entries as read
 (add-hook 'elfeed-new-entry-hook
-          (elfeed-make-tagger :before "1 week ago"
-                      :remove 'unread))
+         (elfeed-make-tagger :before "1 month ago"
+                     :remove 'unread))
 
-(setq elfeed-feeds
-      (quote
-       (
-        ("https://www.youtube.com/feeds/videos.xml?channel_id=UCSXaUIOBGbqvwnm_qii0FDA" wood)
-    <outline type="rss" text="Lie-Nielsen Toolworks"
-    title="Lie-Nielsen Toolworks"
-    xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCv4YYB2UbfkMc1LiWWYL5sw"
-    htmlUrl="https://www.youtube.com/channel/UCv4YYB2UbfkMc1LiWWYL5sw" />
-        )))
-
+(add-hook! 'elfeed-search-mode-hook 'elfeed-update)
 
 (set-email-account! "GMAIL"
                     '((mu4e-sent-folder       . "/gmail/sent")

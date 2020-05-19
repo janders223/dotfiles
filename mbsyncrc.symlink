@@ -5,7 +5,7 @@ SyncState *
 IMAPAccount gmail
 Host imap.gmail.com
 User jimanders223@gmail.com
-PassCmd "security find-generic-password -a jimanders223@gmail.com -w"
+PassCmd "security find-generic-password -a jimanders223@gmail.com -s imap.gmail.com -w"
 AuthMechs LOGIN
 SSLType IMAPS
 SSLVersions SSLv3
@@ -14,7 +14,7 @@ CertificateFile /usr/local/ssl/certs/cacert.pem
 IMAPAccount ingage
 Host imap.gmail.com
 User jim.anders@ingagepartners.com
-PassCmd "security find-generic-password -a jim.anders@ingagepartners.com -w"
+PassCmd "security find-generic-password -a jim.anders@ingagepartners.com -s imap.gmail.com -w"
 AuthMechs LOGIN
 SSLType IMAPS
 SSLVersions SSLv3

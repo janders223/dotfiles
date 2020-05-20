@@ -1,55 +1,14 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets.
 (setq user-full-name "Jim Anders"
       user-mail-address "jimanders223@gmail.com")
 
-;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
-;; are the three important ones:
-;;
-;; + `doom-font'
-;; + `doom-variable-pitch-font'
-;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
 (setq doom-font (font-spec :family "Hasklug Nerd Font" :size 18))
 
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-nord)
 
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
-
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
-
-;; Here are some additional functions/macros that could help you configure Doom:
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c g k').
-;; This will open documentation for it, including demos of how they are used.
-;;
-;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
-;; they are implemented.
-
+(setq browse-url-browser-function 'eww-browse-url)
 (load "~/.doom.d/prolog.el")
 (add-to-list 'auto-mode-alist '("\\.pl$" . prolog-mode))
 (setq prolog-electric-if-then-else-flag t)
@@ -67,14 +26,31 @@
 (setq +rss-initial-search-filter "@1-month-ago +unread")
 (setq elfeed-search-title-max-width 150)
 (setq elfeed-search-trailing-width 30)
-;; Mark all YouTube entries
-(add-hook 'elfeed-new-entry-hook
-         (elfeed-make-tagger :feed-url "youtube\\.com"
-                             :add '(video youtube)))
-;; Mark old entries as read
-(add-hook 'elfeed-new-entry-hook
-         (elfeed-make-tagger :before "1 month ago"
-                     :remove 'unread))
+(after! youtube-dl-emacs
+  (setq youtube-dl-directory "~/Videos"
+        youtube-dl-arguments '("--netrc" "--mark-watched")))
+
+(after! elfeed
+  (setq elfeed-search-filter "@1-month-ago +unread")
+  (defun elfeed-youtube-dl (&optional use-generic-p)
+    "Youtube-DL link"
+    (interactive "P")
+    (let ((entries (elfeed-search-selected)))
+      (cl-loop for entry in entries
+               do (elfeed-untag entry 'unread)
+               when (elfeed-entry-link entry)
+               do (youtube-dl it))
+      (mapc #'elfeed-search-update-entry entries)
+      (unless (use-region-p) (forward-line))))
+
+  (map! :map elfeed-search-mode-map
+        :n "d" 'elfeed-youtube-dl)
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :feed-url "youtube\\.com"
+                                :add '(video youtube)))
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :before "1 month ago"
+                                :remove 'unread)))
 
 (add-hook! 'elfeed-search-mode-hook 'elfeed-update)
 
@@ -93,3 +69,23 @@
                       (mu4e-drafts-folder     . "/ingage/drafts")
                       (mu4e-refile-folder     . "/ingage/archive")
                       (smtpmail-smtp-user     . "jim.anders@ingagepartners.com")))
+
+(defun xah-dired-sort ()
+  "Sort dired dir listing in different ways.
+Prompt for a choice.
+URL `http://ergoemacs.org/emacs/dired_sort.html'
+Version 2018-12-23"
+  (interactive)
+  (let ($sort-by $arg)
+    (setq $sort-by (ido-completing-read "Sort by:" '( "date" "size" "name" )))
+    (cond
+     ((equal $sort-by "name") (setq $arg "-hAFl "))
+     ((equal $sort-by "date") (setq $arg "-hAFl -t"))
+     ((equal $sort-by "size") (setq $arg "-hAFlr -S"))
+     (t (error "logic error 09535" )))
+    (dired-sort-other $arg )))
+
+(setq dired-listing-switches "-hAFl --group-directories-first")
+
+(map! :map dired-mode-map
+      :ng "C-c C-s" 'xah-dired-sort)

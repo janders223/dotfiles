@@ -50,3 +50,5 @@
 (package! literate-calc-mode)
 (package! youtube-dl-emacs
   :recipe (:host github :repo "skeeto/youtube-dl-emacs"))
+(package! vlc
+  :recipe (:host github :repo "mrvdb/vlc.el"))

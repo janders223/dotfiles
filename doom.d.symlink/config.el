@@ -88,4 +88,14 @@ Version 2018-12-23"
 (setq dired-listing-switches "-hAFl --group-directories-first")
 
 (map! :map dired-mode-map
-      :ng "C-c C-s" 'xah-dired-sort)
+      :ng "C-c C-s" 'xah-dired-sort
+      :ng "C-c C-p" 'add-video-to-queue)
+
+(require 'vlc)
+(defun add-video-to-queue ()
+  "Add the video at point to the VLC queue"
+  (interactive)
+  (let ((videos (dired-get-marked-files)))
+    (cl-loop for video in videos
+             do (vlc/enqueue video)))
+  (vlc/play))

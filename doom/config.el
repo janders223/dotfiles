@@ -38,8 +38,24 @@
       (mapc #'elfeed-search-update-entry entries)
       (unless (use-region-p) (forward-line))))
 
+  (defun  ar/elfeed-search-browse-background-url ()
+   "Open current ` elfeed ' entry (or region entries) in browser without losing focus."
+  (interactive)
+  (let ((entries (elfeed-search-selected)))
+    (mapc (lambda (entry)
+            (assert (memq system-type '(darwin)) t  "open command is macOS only")
+            (start-process (concat  "open " (elfeed-entry-link entry))
+                            ;;  macOS only. Modify for linux.
+                           nil  "open"  "--background" (elfeed-entry-link entry))
+            (elfeed-untag entry 'unread)
+            (elfeed-search-update-entry entry))
+          entries)
+    (unless (or elfeed-search-remain-on-entry (use-region-p))
+      (forward-line))))
+
   (map! :map elfeed-search-mode-map
-        :n "d" 'elfeed-youtube-dl)
+        :n "d" 'elfeed-youtube-dl
+        :n "B" 'ar/elfeed-search-browse-background-url)
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :feed-url "youtube\\.com"
                                 :add '(video youtube)))
@@ -94,13 +110,13 @@ Version 2018-12-23"
   (let ($sort-by $arg)
     (setq $sort-by (ido-completing-read "Sort by:" '( "date" "size" "name" )))
     (cond
-     ((equal $sort-by "name") (setq $arg "-hAFl "))
+     ((equal $sort-by "name") (setq $arg "-vhAFl "))
      ((equal $sort-by "date") (setq $arg "-hAFl -t"))
      ((equal $sort-by "size") (setq $arg "-hAFlr -S"))
      (t (error "logic error 09535" )))
     (dired-sort-other $arg )))
 
-(setq dired-listing-switches "-hAFl --group-directories-first")
+(setq dired-listing-switches "-vhAFl --group-directories-first")
 
 (map! :map dired-mode-map
       :ng "C-c C-s" 'xah-dired-sort

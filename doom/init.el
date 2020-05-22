@@ -25,7 +25,6 @@
        (ivy
         +fuzzy
         +prescient
-        +childframe
         +icons)               ; a search engine for love and life
 
        :ui

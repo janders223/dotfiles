@@ -115,6 +115,16 @@ in {
     programs.go = {
       enable = true;
       goPath = "${xdg.cacheHome}/go";
+      # packages = {
+      #   "github.com/motemen/gore/cmd/gore" = builtins.fetchGit "github.com/motemen/gore/cmd/gore";
+      #     "github.com/stamblerre/gocode" = builtins.fetchGit "github.com/stamblerre/gocode";
+      #     "golang.org/x/tools/cmd/godoc" = builtins.fetchGit "golang.org/x/tools/cmd/godoc";
+      #     "golang.org/x/tools/cmd/goimports" =  builtins.fetchGit "golang.org/x/tools/cmd/goimports";
+      #     "golang.org/x/tools/cmd/gorename" = builtins.fetchGit "golang.org/x/tools/cmd/gorename";
+      #     "golang.org/x/tools/cmd/guru" = builtins.fetchGit "golang.org/x/tools/cmd/guru";
+      #     "github.com/cweill/gotests" = builtins.fetchGit "github.com/cweill/gotests";
+      #     "github.com/fatih/gomodifytags" = builtins.fetchGit "github.com/fatih/gomodifytags";
+      # };
     };
 
     xdg = {

@@ -52,7 +52,6 @@ in {
         export PATH=$PATH:${home_directory}/.emacs/bin
         export PATH=$PATH:${pkgs.coreutils}/bin
         export PATH=$PATH:/Applications/VLC.app/Contents/MacOS
-        export PATH=$PATH:/Applications/Yubikey\ Manager.app/Contents/MacOS
       '';
 
       shellAliases = { l = "ls -halF"; };
@@ -144,7 +143,6 @@ in {
       configFile."doom/config.el".text = builtins.readFile ./doom/config.el;
       configFile."doom/init.el".text = builtins.readFile ./doom/init.el;
       configFile."doom/packages.el".text = builtins.readFile ./doom/packages.el;
-      configFile."doom/prolog.el".text = builtins.readFile ./doom/prolog.el;
     };
 
     home.file.".mbsyncrc".text = import ./config/mbsync.nix { inherit pkgs; };

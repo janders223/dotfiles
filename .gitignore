@@ -5,3 +5,4 @@ tmp/
 
 
 gnupg.symlink/*
+/.config/zsh/history

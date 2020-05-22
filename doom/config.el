@@ -22,10 +22,11 @@
 (setq elfeed-enclosure-default-dir "/Volumes/data/emacs/elfeed/enclosures/")
 (setq elfeed-search-title-max-width 100)
 (setq elfeed-search-trailing-width 30)
-(after! youtube-dl-emacs
-  (setq youtube-dl-directory "~/Videos"))
 
 (after! elfeed
+  (require 'youtube-dl)
+  (setq youtube-dl-directory "~/Videos"
+        youtube-dl-arguments '("--restrict-filenames" "-o%(title)s.%(ext)s"))
   (setq elfeed-search-filter "@1-month-ago +unread")
   (defun elfeed-youtube-dl (&optional use-generic-p)
     "Youtube-DL link"
@@ -113,7 +114,7 @@ Version 2018-12-23"
      ((equal $sort-by "name") (setq $arg "-vhAFl "))
      ((equal $sort-by "date") (setq $arg "-hAFl -t"))
      ((equal $sort-by "size") (setq $arg "-hAFlr -S"))
-     (t (error "logic error 09535" )))
+     (t (error "Logic error 09535" )))
     (dired-sort-other $arg )))
 
 (setq dired-listing-switches "-vhAFl --group-directories-first")
@@ -123,8 +124,9 @@ Version 2018-12-23"
       :ng "C-c C-p" 'add-video-to-queue)
 
 (require 'vlc)
+(setq vlc-program-name "VLC")
 (defun add-video-to-queue ()
-  "Add the video at point to the VLC queue"
+  "Add the video at point to the VLC queue."
   (interactive)
   (let ((videos (dired-get-marked-files)))
     (cl-loop for video in videos
@@ -133,6 +135,3 @@ Version 2018-12-23"
 
 (after! magit
   (setq magit-view-git-manual-method 'man))
-
-;; (after! nix
-;;   (setq nix-path "/nix/var/nix/profiles/default/bin/nix"))

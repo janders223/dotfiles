@@ -1,19 +1,9 @@
 .PHONY: all
-all: brew symlinks setup
+all: darwin doom
 
-.PHONY: symlinks
-symlinks: $(patsubst %.symlink,~/.%,$(wildcard *.symlink))
-
-~/.%: %.symlink
-	ln -sf $(realpath $<) $@
-
-.PHONY: brew
-brew:
-	@brew bundle
-
-.PHONY: brewfile
-brewfile:
-	@brew bundle dump --force
+.PHONY: darwin
+darwin:
+	@darwin-rebuild switch
 
 .PHONY: setup
 setup:
@@ -21,5 +11,5 @@ setup:
 
 .PHONY: doom
 doom:
-	@doom sync
+	@doom sync -e
 	@doom env -a "^SSH_"

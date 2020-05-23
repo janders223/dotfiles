@@ -1,0 +1,3 @@
+- [ ] xcode command line tools
+- [ ] touchpad scroll speed and direction
+- [ ] iterm2 nord theme

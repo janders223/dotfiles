@@ -1,0 +1,12 @@
+1. curl -O https://raw.githubusercontent.com/LnL7/nix/darwin-10.15-install/scripts/create-darwin-volume.sh
+2. bash create-darwin-volume.sh
+3. sh <(curl -L https://nixos.org/nix/install) --daemon
+4. nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
+5. ./result/bin/darwin-installer
+6. nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
+7. nix-channel --update
+8. export NIX_PATH=darwin-config=$HOME/src/dotfiles/darwin.nix:/nix/var/nix/profiles/per-user/root/channels:/Users/kon8522/.nix-defexpr/channels
+9. darwin-rebuild switch
+10. Reboot
+11. git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
+12. ./.emacs.d/bin/doom install

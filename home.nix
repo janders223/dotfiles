@@ -1,15 +1,45 @@
 { config, pkgs, lib, ... }:
 
-let home_directory = builtins.getEnv "HOME";
+let
+
+  home_directory = builtins.getEnv "HOME";
+  name = "Jim Anders";
+  gmail = "jimanders223@gmail.com";
+  notmuchrc = "${home_directory}/.config/notmuch/notmuchrc";
 
 in {
   home-manager.users.kon8522 = rec {
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
 
+    accounts.email = {
+      certificatesFile = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+      maildirBasePath = "${home_directory}/.mail";
+      accounts = {
+        Gmail = {
+          address = "${gmail}";
+          userName = "${gmail}";
+          flavor = "gmail.com";
+          passwordCommand =
+            "security find-generic-password -a ${gmail} -s imap.gmail.com -w";
+          primary = true;
+          mbsync = {
+            enable = true;
+            create = "both";
+            expunge = "both";
+            patterns = [ "*" "[Gmail]*" ]; # "[Gmail]/Sent Mail" ];
+          };
+          realName = "${name}";
+          msmtp.enable = true;
+          notmuch.enable = true;
+        };
+        Inagage = { };
+        Personal = { };
+      };
+    };
+
     home.sessionVariables = {
-      GNUPGHOME = "${xdg.configHome}/gnupg";
-      CURL_HOME = "${xdg.configHome}/curl";
+      NOTMUCH_CONFIG = "${notmuchrc}";
       MANPAGER = "less -X";
       ftp_proxy = "http://127.0.0.1:3128";
       http_proxy = "http://127.0.0.1:3128";
@@ -19,11 +49,11 @@ in {
       HTTPS_PROXY = "http://127.0.0.1:3128";
     };
 
-    home.file.".wgetrc".text = ''
-      use_proxy=yes
-      http_proxy=http://127.0.0.1:3128
-      https_proxy=http://127.0.0.1:3128
-    '';
+    #home.file.".wgetrc".text = ''
+    #  use_proxy=yes
+    #  http_proxy=http://127.0.0.1:3128
+    #  https_proxy=http://127.0.0.1:3128
+    #'';
 
     programs.bash = { enable = true; };
 
@@ -42,14 +72,13 @@ in {
         share = true;
       };
 
-      profileExtra = ''
-        export GPG_TTY=$(tty)
-        ${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye > /dev/null
-      '';
+      # profileExtra = ''
+      #   export GPG_TTY=$(tty)
+      #   ${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye > /dev/null
+      # '';
 
       initExtra = ''
-        export SSH_AUTH_SOCK=$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)
-        export PATH=$PATH:${home_directory}/.emacs/bin
+        export PATH=$PATH:${home_directory}/.emacs.d/bin
         export PATH=$PATH:${pkgs.coreutils}/bin
         export PATH=$PATH:/Applications/VLC.app/Contents/MacOS
       '';
@@ -126,6 +155,43 @@ in {
       # };
     };
 
+    programs = {
+      msmtp.enable = true;
+      mbsync.enable = true;
+      notmuch = {
+        enable = true;
+        hooks = {
+          postNew =
+            "${pkgs.afew}/bin/afew -C ${notmuchrc} --tag --new --verbose";
+        };
+        new = {
+          ignore = [ "trash" "*.json" ];
+          tags = [ "new" ];
+        };
+        search.excludeTags = [ "trash" "deleted" "spam" ];
+        maildir.synchronizeFlags = true;
+      };
+    };
+
+    programs.afew = {
+      enable = true;
+      extraConfig = ''
+        [SpamFilter]
+        [KillThreadsFilter]
+        [ListMailsFilter]
+        [SentMailsFilter]
+        sent_tag = sent
+        [ArchiveSentMailsFilter]
+        [InboxFilter]
+        [MailMover]
+        folders = Gmail/Inbox
+        rename = True
+        max_age = 15
+        Gmail/Inbox = 'tag:spam':Gmail/[Gmail]/Spam 'tag:trash':Gmail/[Gmail]/Trash \
+                      'NOT tag:inbox':'Gmail/[Gmail]/All Mail'
+      '';
+    };
+
     xdg = {
       enable = true;
 
@@ -133,19 +199,19 @@ in {
       dataHome = "${home_directory}/.local/share";
       cacheHome = "${home_directory}/.cache";
 
-      configFile."curl/.curlrc".text = import ./config/curlrc.nix;
+      # configFile."curl/.curlrc".text = import ./config/curlrc.nix;
 
-      configFile."gnupg/gpg-agent.conf".text =
-        import ./config/gpg-agent.nix { inherit pkgs; };
+      # configFile."gnupg/gpg-agent.conf".text =
+      #   import ./config/gpg-agent.nix { inherit pkgs; };
 
-      configFile."gnupg/gpg.conf".text = import ./config/gpg.nix;
+      # configFile."gnupg/gpg.conf".text = import ./config/gpg.nix;
 
       configFile."doom/config.el".text = builtins.readFile ./doom/config.el;
       configFile."doom/init.el".text = builtins.readFile ./doom/init.el;
       configFile."doom/packages.el".text = builtins.readFile ./doom/packages.el;
     };
 
-    home.file.".mbsyncrc".text = import ./config/mbsync.nix { inherit pkgs; };
+    # home.file.".mbsyncrc".text = import ./config/mbsync.nix { inherit pkgs; };
 
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage

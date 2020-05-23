@@ -66,37 +66,40 @@
 
 (add-hook! 'elfeed-search-mode-hook 'elfeed-update)
 
-(after! mu4e
-  (add-to-list 'mu4e-bookmarks
-               '(:name  "Gmail Inbox"
-                 :query "maildir:/gmail/inbox"
-                 :key   ?g))
-  (add-to-list 'mu4e-bookmarks
-               '(:name "Ingage Inbox"
-                 :query "maildir:/ingage/inbox"
-                 :key ?i))
-  (add-to-list 'mu4e-view-actions
-               '("ViewInBrowser" . mu4e-action-view-in-browser) t)
-  (setq mu4e-maildir-shortcuts
-        '((:maildir "/gmail/inbox"  :key ?g)
-          (:maildir "/ingage/inbox" :key ?i))))
+(after! notmuch
+  (setq +notmuch-sync-backend 'mbsync))
 
-(set-email-account! "INGAGE"
-                    '((mu4e-sent-folder       . "/ingage/sent")
-                      (mu4e-trash-folder      . "/ingage/trash")
-                      (mu4e-drafts-folder     . "/ingage/drafts")
-                      (mu4e-refile-folder     . "/ingage/archive")
-                      (smtpmail-smtp-user     . "jim.anders@ingagepartners.com"))
-                    nil)
+;; (after! mu4e
+;;   (add-to-list 'mu4e-bookmarks
+;;                '(:name  "Gmail Inbox"
+;;                  :query "maildir:/gmail/inbox"
+;;                  :key   ?g))
+;;   (add-to-list 'mu4e-bookmarks
+;;                '(:name "Ingage Inbox"
+;;                  :query "maildir:/ingage/inbox"
+;;                  :key ?i))
+;;   (add-to-list 'mu4e-view-actions
+;;                '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+;;   (setq mu4e-maildir-shortcuts
+;;         '((:maildir "/gmail/inbox"  :key ?g)
+;;           (:maildir "/ingage/inbox" :key ?i))))
 
-(set-email-account! "GMAIL"
-                    '((mu4e-sent-folder       . "/gmail/sent")
-                      (mu4e-trash-folder      . "/gmail/trash")
-                      (mu4e-drafts-folder     . "/gmail/drafts")
-                      (mu4e-refile-folder     . "/gmail/archive")
-                      (smtpmail-smtp-user     . "jimanders223@gmail.com")
-                      (mu4e-compose-signature . "janders"))
-                    t)
+;; (set-email-account! "INGAGE"
+;;                     '((mu4e-sent-folder       . "/ingage/sent")
+;;                       (mu4e-trash-folder      . "/ingage/trash")
+;;                       (mu4e-drafts-folder     . "/ingage/drafts")
+;;                       (mu4e-refile-folder     . "/ingage/archive")
+;;                       (smtpmail-smtp-user     . "jim.anders@ingagepartners.com"))
+;;                     nil)
+
+;; (set-email-account! "GMAIL"
+;;                     '((mu4e-sent-folder       . "/gmail/sent")
+;;                       (mu4e-trash-folder      . "/gmail/trash")
+;;                       (mu4e-drafts-folder     . "/gmail/drafts")
+;;                       (mu4e-refile-folder     . "/gmail/archive")
+;;                       (smtpmail-smtp-user     . "jimanders223@gmail.com")
+;;                       (mu4e-compose-signature . "janders"))
+;;                     t)
 
 ;; gls is installed and managed by nix
 (after! dired

@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 
 let
+  home_directory = builtins.getEnv "HOME";
+  notmuchrc = "${home_directory}/.config/notmuch/notmuchrc";
+
   callPackage = pkgs.callPackage;
 
   # brave = callPackage ./packages/brave.nix {};
@@ -26,6 +29,7 @@ in {
   environment.systemPackages = with pkgs; [
     # brave
     # vlc
+    afew
     aspell
     cacert
     coreutils
@@ -49,8 +53,8 @@ in {
     iterm
     jq
     kya
-    mu
     nixfmt
+    notmuch
     packer
     pandoc
     pinentry_mac
@@ -91,9 +95,20 @@ in {
   system.defaults.NSGlobalDomain.NSAutomaticPeriodSubstitutionEnabled = false;
   system.defaults.NSGlobalDomain.NSAutomaticQuoteSubstitutionEnabled = false;
   system.defaults.NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = false;
+  system.defaults.NSGlobalDomain._HIHideMenuBar = true;
+  system.defaults.NSGlobalDomain.NSTableViewDefaultSizeMode = 2;
+  system.defaults.NSGlobalDomain.AppleShowScrollBars = "Automatic";
+  system.defaults.NSGlobalDomain.NSUseAnimatedFocusRing = false;
+  system.defaults.NSGlobalDomain.NSWindowResizeTime = "0.001";
   system.defaults.NSGlobalDomain.NSNavPanelExpandedStateForSaveMode = true;
   system.defaults.NSGlobalDomain.NSNavPanelExpandedStateForSaveMode2 = true;
-  system.defaults.NSGlobalDomain._HIHideMenuBar = true;
+  system.defaults.NSGlobalDomain.PMPrintingExpandedStateForPrint = true;
+  system.defaults.NSGlobalDomain.PMPrintingExpandedStateForPrint2 = true;
+  system.defaults.NSGlobalDomain.NSTextShowsControlCharacters = true;
+  system.defaults.NSGlobalDomain.NSDisableAutomaticTermination = true;
+  system.defaults.NSGlobalDomain.AppleShowAllExtensions = true;
+
+  system.defaults.LaunchServices.LSQuarantine = false;
 
   system.defaults.dock.autohide = true;
   system.defaults.dock.mru-spaces = false;
@@ -103,9 +118,6 @@ in {
   system.defaults.finder.AppleShowAllExtensions = true;
   system.defaults.finder.QuitMenuItem = true;
   system.defaults.finder.FXEnableExtensionChangeWarning = false;
-
-  system.defaults.trackpad.Clicking = true;
-  system.defaults.trackpad.TrackpadThreeFingerDrag = true;
 
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
@@ -122,15 +134,36 @@ in {
   programs.bash.enable = true;
   programs.zsh = {
     enable = true;
+    enableCompletion = true;
+    enableBashCompletion = true;
     enableFzfCompletion = true;
     enableFzfGit = true;
     enableFzfHistory = true;
     enableSyntaxHighlighting = true;
   };
 
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
   system.stateVersion = 4;
 
   environment.darwinConfig = "$HOME/src/dotfiles/darwin.nix";
+
+  launchd.user.agents = {
+    mbsync = {
+      script = ''
+        ${pkgs.afew}/bin/afew -C ${notmuchrc} --move-mails --verbose
+        ${pkgs.isync}/bin/mbsync --all
+        ${pkgs.notmuch}/bin/notmuch new
+      '';
+      environment = { NOTMUCH_CONFIG = "${notmuchrc}"; };
+      serviceConfig.StartInterval = 900;
+      serviceConfig.RunAtLoad = true;
+      serviceConfig.KeepAlive = true;
+    };
+  };
 
   nix.maxJobs = 8;
   nix.buildCores = 8;

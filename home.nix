@@ -5,11 +5,11 @@ let
   home_directory = builtins.getEnv "HOME";
   name = "Jim Anders";
   gmail = "jimanders223@gmail.com";
+  ingage = "jim.anders@ingagepartners.com";
   notmuchrc = "${home_directory}/.config/notmuch/notmuchrc";
 
 in {
   home-manager.users.kon8522 = rec {
-    # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
 
     accounts.email = {
@@ -27,14 +27,28 @@ in {
             enable = true;
             create = "both";
             expunge = "both";
-            patterns = [ "*" "[Gmail]*" ]; # "[Gmail]/Sent Mail" ];
+            patterns = [ "*" "[Gmail]*" ];
           };
           realName = "${name}";
           msmtp.enable = true;
           notmuch.enable = true;
         };
-        Inagage = { };
-        Personal = { };
+        Inagage = {
+          address = "${ingage}";
+          userName = "${ingage}";
+          flavor = "gmail.com";
+          passwordCommand =
+            "security find-generic-password -a ${ingage} -s imap.gmail.com -w";
+          mbsync = {
+            enable = true;
+            create = "both";
+            expunge = "both";
+            patterns = [ "*" "[Gmail]*" ];
+          };
+          realName = "${name}";
+          msmtp.enable = true;
+          notmuch.enable = true;
+        };
       };
     };
 
@@ -48,12 +62,6 @@ in {
       HTTP_PROXY = "http://127.0.0.1:3128";
       HTTPS_PROXY = "http://127.0.0.1:3128";
     };
-
-    #home.file.".wgetrc".text = ''
-    #  use_proxy=yes
-    #  http_proxy=http://127.0.0.1:3128
-    #  https_proxy=http://127.0.0.1:3128
-    #'';
 
     programs.bash = { enable = true; };
 
@@ -71,11 +79,6 @@ in {
         ignoreDups = true;
         share = true;
       };
-
-      # profileExtra = ''
-      #   export GPG_TTY=$(tty)
-      #   ${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye > /dev/null
-      # '';
 
       initExtra = ''
         export PATH=$PATH:${home_directory}/.emacs.d/bin
@@ -143,16 +146,6 @@ in {
     programs.go = {
       enable = true;
       goPath = "${xdg.cacheHome}/go";
-      # packages = {
-      #   "github.com/motemen/gore/cmd/gore" = builtins.fetchGit "github.com/motemen/gore/cmd/gore";
-      #     "github.com/stamblerre/gocode" = builtins.fetchGit "github.com/stamblerre/gocode";
-      #     "golang.org/x/tools/cmd/godoc" = builtins.fetchGit "golang.org/x/tools/cmd/godoc";
-      #     "golang.org/x/tools/cmd/goimports" =  builtins.fetchGit "golang.org/x/tools/cmd/goimports";
-      #     "golang.org/x/tools/cmd/gorename" = builtins.fetchGit "golang.org/x/tools/cmd/gorename";
-      #     "golang.org/x/tools/cmd/guru" = builtins.fetchGit "golang.org/x/tools/cmd/guru";
-      #     "github.com/cweill/gotests" = builtins.fetchGit "github.com/cweill/gotests";
-      #     "github.com/fatih/gomodifytags" = builtins.fetchGit "github.com/fatih/gomodifytags";
-      # };
     };
 
     programs = {
@@ -199,28 +192,11 @@ in {
       dataHome = "${home_directory}/.local/share";
       cacheHome = "${home_directory}/.cache";
 
-      # configFile."curl/.curlrc".text = import ./config/curlrc.nix;
-
-      # configFile."gnupg/gpg-agent.conf".text =
-      #   import ./config/gpg-agent.nix { inherit pkgs; };
-
-      # configFile."gnupg/gpg.conf".text = import ./config/gpg.nix;
-
       configFile."doom/config.el".text = builtins.readFile ./doom/config.el;
       configFile."doom/init.el".text = builtins.readFile ./doom/init.el;
       configFile."doom/packages.el".text = builtins.readFile ./doom/packages.el;
     };
 
-    # home.file.".mbsyncrc".text = import ./config/mbsync.nix { inherit pkgs; };
-
-    # This value determines the Home Manager release that your
-    # configuration is compatible with. This helps avoid breakage
-    # when a new Home Manager release introduces backwards
-    # incompatible changes.
-    #
-    # You can update Home Manager without changing this value. See
-    # the Home Manager release notes for a list of state version
-    # changes in each release.
     home.stateVersion = "20.03";
   };
 }

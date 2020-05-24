@@ -10,7 +10,9 @@ let
   docker = callPackage ./packages/docker.nix { };
   doom = callPackage ./packages/doom.nix { };
   firefox = callPackage ./packages/firefox.nix { };
-  #goreleaser = callPackage ./packages/goreleaser.nix { };
+  gore = callPackage ./packages/gore.nix { };
+  guru = callPackage ./packages/guru.nix { };
+  goreleaser = callPackage ./packages/goreleaser.nix { };
   iterm = callPackage ./packages/iterm.nix { };
   kya = callPackage ./packages/kya.nix { };
   spectacle = callPackage ./packages/spectacle.nix { };
@@ -46,8 +48,13 @@ in {
     gitlab-runner
     gnupg
     gnutls
+    gocode
     golangci-lint
-    #goreleaser
+    gomodifytags
+    gore
+    gotests
+    guru
+    goreleaser
     imagemagick
     isync
     iterm

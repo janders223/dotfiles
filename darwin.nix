@@ -10,8 +10,8 @@ let
   doom = callPackage ./packages/doom.nix { };
   firefox = callPackage ./packages/firefox.nix { };
   gore = callPackage ./packages/gore.nix { };
-  guru = callPackage ./packages/guru.nix { };
   goreleaser = callPackage ./packages/goreleaser.nix { };
+  guru = callPackage ./packages/guru.nix { };
   hammerspoon = callPackage ./packages/hammerspoon.nix { };
   iterm = callPackage ./packages/iterm.nix { };
   kya = callPackage ./packages/kya.nix { };
@@ -51,9 +51,9 @@ in {
     golangci-lint
     gomodifytags
     gore
+    goreleaser
     gotests
     guru
-    goreleaser
     hammerspoon
     imagemagick
     isync
@@ -78,10 +78,9 @@ in {
     zsh
     zstd
 
-    nodePackages.dockerfile-language-server-nodejs
-    # nodePackages.vscode-json-languageserver
-    nodePackages.typescript-language-server
     nodePackages.bash-language-server
+    nodePackages.dockerfile-language-server-nodejs
+    nodePackages.typescript-language-server
     nodePackages.yaml-language-server
   ];
 

@@ -10,3 +10,5 @@
 10. Reboot
 11. git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
 12. ./.emacs.d/bin/doom install
+13. chown root:wheel ~/Library/LaunchAgents/org.nixos.*.plist
+14. chmod o-w  ~/Library/LaunchAgents/org.nixos.*.plist

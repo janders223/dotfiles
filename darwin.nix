@@ -6,13 +6,13 @@ let
 
   callPackage = pkgs.callPackage;
 
-  # brave = callPackage ./packages/brave.nix {};
   docker = callPackage ./packages/docker.nix { };
   doom = callPackage ./packages/doom.nix { };
   firefox = callPackage ./packages/firefox.nix { };
   gore = callPackage ./packages/gore.nix { };
   guru = callPackage ./packages/guru.nix { };
   goreleaser = callPackage ./packages/goreleaser.nix { };
+  hammerspoon = callPackage ./packages/hammerspoon.nix { };
   iterm = callPackage ./packages/iterm.nix { };
   kya = callPackage ./packages/kya.nix { };
   spectacle = callPackage ./packages/spectacle.nix { };
@@ -29,7 +29,6 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    # brave
     # vlc
     afew
     aspell
@@ -55,6 +54,7 @@ in {
     gotests
     guru
     goreleaser
+    hammerspoon
     imagemagick
     isync
     iterm

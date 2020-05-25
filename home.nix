@@ -197,6 +197,9 @@ in {
       configFile."doom/packages.el".text = builtins.readFile ./doom/packages.el;
     };
 
+    home.file.".hammerspoon/init.lua".text =
+      builtins.readFile ./config/init.lua;
+
     home.stateVersion = "20.03";
   };
 }

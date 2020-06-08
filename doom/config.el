@@ -12,13 +12,13 @@
 (setq doom-theme 'doom-nord)
 
 (setq display-line-numbers-type 'relative)
-(setq browse-url-browser-function 'eww-browse-url)
 
 (setq treemacs-width 20)
 
 (setq org-directory "~/Documents/org")
 
 (map! :leader
+      :desc "notmuch" "o m" #'notmuch-hello
       :desc "elfeed" "o n" #'=rss)
 
 (setq rmh-elfeed-org-files (list "~/Documents/org/elfeed.org"))

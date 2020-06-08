@@ -210,6 +210,12 @@ in {
     home.file.".hammerspoon/init.lua".text =
       builtins.readFile ./config/init.lua;
 
+    home.file.".ssh/config".text = ''
+      Host *
+          Port 22
+          ProxyCommand `which nc` -x 127.0.0.1:3129 %h %p
+    '';
+
     home.stateVersion = "20.03";
   };
 }

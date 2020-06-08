@@ -6,18 +6,6 @@ let
 
   callPackage = pkgs.callPackage;
 
-  docker = callPackage ./packages/docker.nix { };
-  doom = callPackage ./packages/doom.nix { };
-  firefox = callPackage ./packages/firefox.nix { };
-  gore = callPackage ./packages/gore.nix { };
-  goreleaser = callPackage ./packages/goreleaser.nix { };
-  guru = callPackage ./packages/guru.nix { };
-  hammerspoon = callPackage ./packages/hammerspoon.nix { };
-  iterm = callPackage ./packages/iterm.nix { };
-  kya = callPackage ./packages/kya.nix { };
-  spectacle = callPackage ./packages/spectacle.nix { };
-  spike = callPackage ./packages/spike.nix { };
-  # vlc = callPackage ./packages/vlc.nix {};
 in {
   imports = [ <home-manager/nix-darwin> ./home.nix ];
   home-manager.useUserPackages = true;
@@ -29,46 +17,44 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    # vlc
     afew
-    aspell
+    ansible_2_9
     cacert
+    clojure
+    clojure-lsp
     coreutils
     curl
     direnv
-    docker
-    doom
     editorconfig-core-c
     emacs
     fd
-    firefox
     fontconfig
     git
     gitlab-runner
+    gnumake
     gnupg
     gnutls
     gocode
     golangci-lint
     gomodifytags
-    gore
-    goreleaser
     gotests
-    guru
-    hammerspoon
+    hugo
     imagemagick
     isync
-    iterm
     jq
-    kya
+    leiningen
+    nix-zsh-completions
     nixfmt
+    nixops
+    nodejs-14_x
     notmuch
     packer
     pandoc
     pinentry_mac
+    python37Packages.passlib
     ripgrep
+    rustup
     shellcheck
-    spectacle
-    spike
     sqlite
     terraform
     terraform-lsp
@@ -78,11 +64,35 @@ in {
     zsh
     zstd
 
+    (callPackage ./packages/docker.nix { })
+    (callPackage ./packages/dockfmt.nix { })
+    (callPackage ./packages/doom.nix { })
+    (callPackage ./packages/firefox.nix { })
+    (callPackage ./packages/gore.nix { })
+    (callPackage ./packages/goreleaser.nix { })
+    (callPackage ./packages/guru.nix { })
+    (callPackage ./packages/hammerspoon.nix { })
+    # (callPackage ./packages/kong-terraform.nix { })
+    (callPackage ./packages/kya.nix { })
+    (callPackage ./packages/spectacle.nix { })
+    (callPackage ./packages/spike.nix { })
+    # (callPackage ./packages/vlc.nix { })
+
     nodePackages.bash-language-server
     nodePackages.dockerfile-language-server-nodejs
+    nodePackages.prettier
     nodePackages.typescript-language-server
     nodePackages.yaml-language-server
   ];
+
+  documentation = {
+    enable = true;
+    info.enable = true;
+    man.enable = true;
+  };
+
+  environment.pathsToLink = [ "/bin" "/info" ];
+  environment.extraOutputsToInstall = [ "info" ];
 
   fonts = {
     enableFontDir = true;
@@ -113,6 +123,8 @@ in {
   system.defaults.NSGlobalDomain.NSTextShowsControlCharacters = true;
   system.defaults.NSGlobalDomain.NSDisableAutomaticTermination = true;
   system.defaults.NSGlobalDomain.AppleShowAllExtensions = true;
+  system.defaults.NSGlobalDomain."com.apple.mouse.tapBehavior" = null;
+  system.defaults.NSGlobalDomain."com.apple.swipescrolldirection" = true;
 
   system.defaults.LaunchServices.LSQuarantine = false;
 
@@ -136,6 +148,9 @@ in {
     allowBroken = false;
     allowUnsupportedSystem = false;
   };
+
+  programs.info.enable = true;
+  programs.man.enable = true;
 
   programs.bash.enable = true;
   programs.zsh = {
@@ -170,6 +185,10 @@ in {
       serviceConfig.KeepAlive = true;
     };
   };
+
+  environment.etc."ansible/hosts".text = ''
+    main.janders223.com
+  '';
 
   nix.maxJobs = 8;
   nix.buildCores = 8;

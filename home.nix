@@ -81,9 +81,13 @@ in {
       };
 
       initExtra = ''
+        export PATH=$PATH:${home_directory}/.cargo/bin
         export PATH=$PATH:${home_directory}/.emacs.d/bin
+        export PATH=$PATH:${home_directory}/.yarn/bin
         export PATH=$PATH:${pkgs.coreutils}/bin
         export PATH=$PATH:/Applications/VLC.app/Contents/MacOS
+
+        export INFOPATH=$INFOPATH:/run/current-system/sw/share/info:/usr/share/info
       '';
 
       shellAliases = { l = "ls -halF"; };
@@ -93,11 +97,12 @@ in {
       enable = true;
 
       userName = "Jim Anders";
+      userEmail = "jimanders223@gmail.com";
 
-      signing = {
-        key = "0x61EFDD56848C9DF8";
-        signByDefault = true;
-      };
+      # signing = {
+      #   key = "BCE0899200515C31208B4ADE61EFDD56848C9DF8";
+      #   signByDefault = true;
+      # };
 
       aliases = {
         l = "log --pretty=oneline -n 20 --graph --abbrev-commit";
@@ -118,7 +123,7 @@ in {
         http.proxy = "http://127.0.0.1:3128";
         https.proxy = "http://127.0.0.1:3128";
         merge.log = true;
-
+        "gitlab.gitlab.kroger.com/api/v4".user = "kon8522";
         core = {
           whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
           editor = "emacs";
@@ -131,6 +136,11 @@ in {
           autoupdate = true;
         };
       };
+    };
+
+    programs.info = {
+      enable = true;
+      homeInfoDirLocation = "${xdg.cacheHome}/info";
     };
 
     programs.fzf = {

@@ -53,6 +53,12 @@
   :recipe (:host github :repo "skeeto/youtube-dl-emacs"))
 (package! vlc
   :recipe (:host github :repo "mrvdb/vlc.el"))
-(package! nord-theme)
-(package! request)
 (package! gitlab-ci-mode)
+(package! envrc)
+(package! package-lint)
+(package! paredit)
+(package! evil-paredit)
+(package! org-super-agenda)
+(package! ynab
+  :type 'local
+  :recipe (:local-repo "~/src/ynab.el"))

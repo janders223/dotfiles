@@ -5,10 +5,6 @@ all: darwin doom
 darwin:
 	@darwin-rebuild switch
 
-.PHONY: setup
-setup:
-	@./macos
-
 .PHONY: doom
 doom:
 	@doom sync -e

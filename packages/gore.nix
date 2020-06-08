@@ -18,6 +18,5 @@ buildGoModule rec {
     description = "Yet another Go REPL.";
     homepage = "https://github.com/motemen/gore/cmd/gore";
     license = [ licenses.mit ];
-    # maintainers = [ maintainers.twey maintainers.marsam ];
   };
 }

@@ -1,5 +1,5 @@
-local mash      = {"cmd", "shift", "ctrl"}
-local mash_apps = {"cmd", "shift"}
+local mash      = {"cmd", "alt", "ctrl"}
+local mash_apps = {"cmd", "shift", "ctrl"}
 
 hs.hotkey.bind(mash, "R", function()
   hs.reload()
@@ -8,8 +8,8 @@ end)
 
 hs.fnutils.each({
   { key = "f", app = "Firefox" },
-  { key = "t", app = "iTerm2" },
   { key = "e", app = "Emacs" },
+  { key = "t", app = "Terminal" },
   { key = "v", app = "VLC" }
 }, function(object)
     hs.hotkey.bind(mash_apps, object.key, function() hs.application.launchOrFocus(object.app) end) 

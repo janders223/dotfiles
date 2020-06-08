@@ -1,8 +1,6 @@
+* Todos
 - [ ] xcode command line tools
-- [ ] touchpad scroll speed and direction
-- [ ] iterm2 nord theme
-- [ ] emacs client/server
+- [x] touchpad scroll speed and direction
 - [ ] flyspell error
 - [ ] org capture templates
 - [ ] org global capture
-- [ ]

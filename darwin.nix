@@ -19,6 +19,7 @@ in {
   environment.systemPackages = with pkgs; [
     afew
     ansible_2_9
+    azure-cli
     cacert
     clojure
     clojure-lsp
@@ -57,7 +58,6 @@ in {
     shellcheck
     sqlite
     terraform
-    terraform-lsp
     wget
     yarn
     youtube-dl
@@ -76,6 +76,7 @@ in {
     (callPackage ./packages/kya.nix { })
     (callPackage ./packages/spectacle.nix { })
     (callPackage ./packages/spike.nix { })
+    (callPackage ./packages/terraform-ls.nix { })
     # (callPackage ./packages/vlc.nix { })
 
     nodePackages.bash-language-server
@@ -83,6 +84,12 @@ in {
     nodePackages.prettier
     nodePackages.typescript-language-server
     nodePackages.yaml-language-server
+
+    (let
+      neuronSrc = builtins.fetchTarball
+        "https://github.com/srid/neuron/archive/master.tar.gz";
+    in import neuronSrc)
+
   ];
 
   documentation = {

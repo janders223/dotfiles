@@ -127,17 +127,17 @@ Version 2018-12-23"
                  "gitlab.kroger.com"
                  forge-gitlab-repository)))
 
-(after! envrc
-  (envrc-global-mode))
-
-(after! ynab
-  (setq ynab-personal-token "7aec2ef6916cdb9ef37d07a5de8f64de016c048d5830444a76426b9fed56b21a"))
-
 (after! org
   (setq org-agenda-span 'day
         org-duration-format '((special . h:mm))
         org-agenda-start-on-weekday 1
         org-agenda-start-day nil))
 
-(add-hook 'emacs-lisp-mode 'paredit-mode)
-(add-hook 'paredit-mode 'evil-paredit-mode)
+(after! lispyville
+  (lispyville-set-key-theme '(operators c-w additional-motions commentary slurp/barf-lispy wrap additional)))
+
+;; (add-hook 'emacs-lisp-mode 'paredit-mode)
+(add-hook 'emacs-lisp-mode 'aggressive-indent-mode)
+;; (add-hook 'paredit-mode 'evil-paredit-mode)
+
+(load-file (concat doom-private-dir "private.el"))

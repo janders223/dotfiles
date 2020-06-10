@@ -61,6 +61,7 @@ in {
       FTP_PROXY = "http://127.0.0.1:3128";
       HTTP_PROXY = "http://127.0.0.1:3128";
       HTTPS_PROXY = "http://127.0.0.1:3128";
+      EDITOR = "${pkgs.emacs}/bin/emacsclient";
     };
 
     programs.bash = { enable = true; };
@@ -88,6 +89,7 @@ in {
         export PATH=$PATH:/Applications/VLC.app/Contents/MacOS
 
         export INFOPATH=$INFOPATH:/run/current-system/sw/share/info:/usr/share/info
+        export EDITOR=${pkgs.emacs}/bin/emacsclient
       '';
 
       shellAliases = { l = "ls -halF"; };
@@ -205,6 +207,7 @@ in {
       configFile."doom/config.el".text = builtins.readFile ./doom/config.el;
       configFile."doom/init.el".text = builtins.readFile ./doom/init.el;
       configFile."doom/packages.el".text = builtins.readFile ./doom/packages.el;
+      configFile."doom/private.el".text = builtins.readFile ./doom/private.el;
     };
 
     home.file.".hammerspoon/init.lua".text =

@@ -6,3 +6,4 @@ tmp/
 
 gnupg.symlink/*
 /.config/zsh/history
+/doom/private.el

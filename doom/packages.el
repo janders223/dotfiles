@@ -54,11 +54,14 @@
 (package! vlc
   :recipe (:host github :repo "mrvdb/vlc.el"))
 (package! gitlab-ci-mode)
-(package! envrc)
+;; (package! envrc)
 (package! package-lint)
 (package! paredit)
 (package! evil-paredit)
 (package! org-super-agenda)
+(package! aggressive-indent)
+(package! lispy)
+(package! lispyville)
 (package! ynab
   :type 'local
   :recipe (:local-repo "~/src/ynab.el"))

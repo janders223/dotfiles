@@ -34,7 +34,7 @@
 
        :emacs
        (dired +icons)             ; making dired pretty [functional]
-       electric          ; smarter, keyword-based electric-indent
+       ;; electric          ; smarter, keyword-based electric-indent
        (ibuffer +icons)         ; interactive buffer management
        undo              ; persistent, smarter undo for your inevitable mistakes
        vc                ; version-control and Emacs, sitting in a tree
@@ -58,6 +58,8 @@
        make              ; run make tasks from Emacs
        pdf               ; pdf enhancements
        (terraform +lsp)         ; infrastructure as code
+       neuron
+       direnv
 
        :lang
        (clojure +lsp)

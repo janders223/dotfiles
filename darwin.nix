@@ -58,6 +58,7 @@ in {
     shellcheck
     sqlite
     terraform
+    terraform-lsp
     wget
     yarn
     youtube-dl

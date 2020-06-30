@@ -18,13 +18,15 @@ in {
     shell = pkgs.zsh;
   };
 
+  documentation = {
+    enable = true;
+    info.enable = true;
+    man.enable = true;
+  };
+
   environment.systemPackages = with pkgs; [
     afew
-    # ansible_2_9
-    # azure-cli
     cacert
-    # clojure
-    # clojure-lsp
     coreutils
     curl
     direnv
@@ -34,74 +36,34 @@ in {
     fontconfig
     git
     gitlab-runner
-    # gnumake
     gnupg
     gnutls
-    # gocode
-    # golangci-lint
-    # gomodifytags
-    # gotests
-    # guile
-    # hugo
     imagemagick
     isync
+    jq
     lorri
-    # jq
-    # leiningen
-    # maven
     nix-zsh-completions
     nixfmt
     nixops
-    # nodejs-14_x
     notmuch
-    # packer
-    # pandoc
     (pass.withExtensions
       (ext: with ext; [ pass-otp pass-audit pass-genphrase ]))
     pinentry_mac
     python37Packages.passlib
     ripgrep
-    # rustup
-    # shellcheck
-    # sqlite
-    # terraform
-    # terraform-lsp
     wget
-    # yarn
     youtube-dl
     zsh
     zstd
 
     (callPackage ./packages/docker.nix { })
-    (callPackage ./packages/dockfmt.nix { })
-    (callPackage ./packages/doom.nix { })
     (callPackage ./packages/firefox.nix { })
-    # (callPackage ./packages/gore.nix { })
-    # (callPackage ./packages/goreleaser.nix { })
-    # (callPackage ./packages/guru.nix { })
     (callPackage ./packages/hammerspoon.nix { })
-    # (callPackage ./packages/kong-terraform.nix { })
-    (callPackage ./packages/kya.nix { })
-    (callPackage ./packages/spectacle.nix { })
     (callPackage ./packages/spike.nix { })
-    # (callPackage ./packages/terraform-ls.nix { })
-    # (callPackage ./packages/vlc.nix { })
-
-    # nodePackages.bash-language-server
-    # nodePackages.dockerfile-language-server-nodejs
-    # nodePackages.prettier
-    # nodePackages.typescript-language-server
-    # nodePackages.yaml-language-server
   ];
-
-  documentation = {
-    enable = true;
-    info.enable = true;
-    man.enable = true;
-  };
-
   environment.pathsToLink = [ "/bin" "/info" ];
   environment.extraOutputsToInstall = [ "info" ];
+  environment.shells = [ pkgs.zsh ];
 
   fonts = {
     enableFontDir = true;
@@ -109,48 +71,84 @@ in {
     fonts = with pkgs; [ hasklig ];
   };
 
-  environment.shells = [ pkgs.zsh ];
-
-  system.defaults.NSGlobalDomain.AppleKeyboardUIMode = 3;
-  system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
-  system.defaults.NSGlobalDomain.InitialKeyRepeat = 10;
-  system.defaults.NSGlobalDomain.KeyRepeat = 1;
-  system.defaults.NSGlobalDomain.NSAutomaticCapitalizationEnabled = false;
-  system.defaults.NSGlobalDomain.NSAutomaticDashSubstitutionEnabled = false;
-  system.defaults.NSGlobalDomain.NSAutomaticPeriodSubstitutionEnabled = false;
-  system.defaults.NSGlobalDomain.NSAutomaticQuoteSubstitutionEnabled = false;
-  system.defaults.NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = false;
-  system.defaults.NSGlobalDomain._HIHideMenuBar = false;
-  system.defaults.NSGlobalDomain.NSTableViewDefaultSizeMode = 2;
-  system.defaults.NSGlobalDomain.AppleShowScrollBars = "Automatic";
-  system.defaults.NSGlobalDomain.NSUseAnimatedFocusRing = false;
-  system.defaults.NSGlobalDomain.NSWindowResizeTime = "0.001";
-  system.defaults.NSGlobalDomain.NSNavPanelExpandedStateForSaveMode = true;
-  system.defaults.NSGlobalDomain.NSNavPanelExpandedStateForSaveMode2 = true;
-  system.defaults.NSGlobalDomain.PMPrintingExpandedStateForPrint = true;
-  system.defaults.NSGlobalDomain.PMPrintingExpandedStateForPrint2 = true;
-  system.defaults.NSGlobalDomain.NSTextShowsControlCharacters = true;
-  system.defaults.NSGlobalDomain.NSDisableAutomaticTermination = true;
-  system.defaults.NSGlobalDomain.AppleShowAllExtensions = true;
-  system.defaults.NSGlobalDomain."com.apple.mouse.tapBehavior" = null;
-  system.defaults.NSGlobalDomain."com.apple.swipescrolldirection" = true;
+  system.defaults.NSGlobalDomain = {
+    AppleKeyboardUIMode = 3;
+    ApplePressAndHoldEnabled = false;
+    InitialKeyRepeat = 10;
+    KeyRepeat = 1;
+    NSAutomaticCapitalizationEnabled = false;
+    NSAutomaticDashSubstitutionEnabled = false;
+    NSAutomaticPeriodSubstitutionEnabled = false;
+    NSAutomaticQuoteSubstitutionEnabled = false;
+    NSAutomaticSpellingCorrectionEnabled = false;
+    _HIHideMenuBar = true;
+    NSTableViewDefaultSizeMode = 2;
+    AppleShowScrollBars = "Automatic";
+    NSUseAnimatedFocusRing = false;
+    NSWindowResizeTime = "0.001";
+    NSNavPanelExpandedStateForSaveMode = true;
+    NSNavPanelExpandedStateForSaveMode2 = true;
+    PMPrintingExpandedStateForPrint = true;
+    PMPrintingExpandedStateForPrint2 = true;
+    NSTextShowsControlCharacters = true;
+    NSDisableAutomaticTermination = true;
+    AppleShowAllExtensions = true;
+    "com.apple.mouse.tapBehavior" = null;
+    "com.apple.swipescrolldirection" = true;
+  };
 
   system.defaults.LaunchServices.LSQuarantine = false;
 
-  system.defaults.dock.autohide = true;
-  system.defaults.dock.mru-spaces = false;
-  system.defaults.dock.orientation = "left";
-  system.defaults.dock.showhidden = true;
+  system.defaults.dock = {
+    autohide = true;
+    mru-spaces = false;
+    orientation = "left";
+    showhidden = true;
+  };
 
-  system.defaults.finder.AppleShowAllExtensions = true;
-  system.defaults.finder.QuitMenuItem = true;
-  system.defaults.finder.FXEnableExtensionChangeWarning = false;
+  system.defaults.finder = {
+    AppleShowAllExtensions = true;
+    QuitMenuItem = true;
+    FXEnableExtensionChangeWarning = false;
+  };
 
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
 
   services.nix-daemon.enable = true;
   nix.package = pkgs.nix;
+
+  services.yabai = {
+    enable = true;
+    package = pkgs.yabai;
+    enableScriptingAddition = true;
+    config = {
+      layout = "bsp";
+      window_opacity = "off";
+      top_padding = 10;
+      bottom_padding = 10;
+      left_padding = 10;
+      right_padding = 10;
+      window_gap = 10;
+    };
+  };
+
+  services.skhd = {
+    enable = true;
+    skhdConfig = ''
+      # Focus Windows
+      alt - h : yabai -m window --focus west
+      alt - j : yabai -m window --focus north
+      alt - k : yabai -m window --focus south
+      alt - l : yabai -m window --focus east
+
+      # swap managed window
+      shift + alt - h : yabai -m window --swap west
+      shift + alt - j : yabai -m window --swap south
+      shift + alt - k : yabai -m window --swap north
+      shift + alt - l : yabai -m window --swap east
+    '';
+  };
 
   nixpkgs.config = {
     allowUnfree = true;

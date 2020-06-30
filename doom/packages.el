@@ -65,3 +65,5 @@
 (package! ynab
   :type 'local
   :recipe (:local-repo "~/src/ynab.el"))
+(package! org-board
+  :recipe (:host github :repo "scallywag/org-board"))

@@ -1,4 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs ? import (fetchTarball
+  "https://github.com/NixOS/nixpkgs/archive/2cd2e7267e5b9a960c2997756cb30e86f0958a6b.tar.gz")
+  { }, ... }:
 
 let
   home_directory = builtins.getEnv "HOME";
@@ -18,11 +20,11 @@ in {
 
   environment.systemPackages = with pkgs; [
     afew
-    ansible_2_9
-    azure-cli
+    # ansible_2_9
+    # azure-cli
     cacert
-    clojure
-    clojure-lsp
+    # clojure
+    # clojure-lsp
     coreutils
     curl
     direnv
@@ -32,35 +34,40 @@ in {
     fontconfig
     git
     gitlab-runner
-    gnumake
+    # gnumake
     gnupg
     gnutls
-    gocode
-    golangci-lint
-    gomodifytags
-    gotests
-    hugo
+    # gocode
+    # golangci-lint
+    # gomodifytags
+    # gotests
+    # guile
+    # hugo
     imagemagick
     isync
-    jq
-    leiningen
+    lorri
+    # jq
+    # leiningen
+    # maven
     nix-zsh-completions
     nixfmt
     nixops
-    nodejs-14_x
+    # nodejs-14_x
     notmuch
-    packer
-    pandoc
+    # packer
+    # pandoc
+    (pass.withExtensions
+      (ext: with ext; [ pass-otp pass-audit pass-genphrase ]))
     pinentry_mac
     python37Packages.passlib
     ripgrep
-    rustup
-    shellcheck
-    sqlite
-    terraform
-    terraform-lsp
+    # rustup
+    # shellcheck
+    # sqlite
+    # terraform
+    # terraform-lsp
     wget
-    yarn
+    # yarn
     youtube-dl
     zsh
     zstd
@@ -69,28 +76,22 @@ in {
     (callPackage ./packages/dockfmt.nix { })
     (callPackage ./packages/doom.nix { })
     (callPackage ./packages/firefox.nix { })
-    (callPackage ./packages/gore.nix { })
-    (callPackage ./packages/goreleaser.nix { })
-    (callPackage ./packages/guru.nix { })
+    # (callPackage ./packages/gore.nix { })
+    # (callPackage ./packages/goreleaser.nix { })
+    # (callPackage ./packages/guru.nix { })
     (callPackage ./packages/hammerspoon.nix { })
     # (callPackage ./packages/kong-terraform.nix { })
     (callPackage ./packages/kya.nix { })
     (callPackage ./packages/spectacle.nix { })
     (callPackage ./packages/spike.nix { })
-    (callPackage ./packages/terraform-ls.nix { })
+    # (callPackage ./packages/terraform-ls.nix { })
     # (callPackage ./packages/vlc.nix { })
 
-    nodePackages.bash-language-server
-    nodePackages.dockerfile-language-server-nodejs
-    nodePackages.prettier
-    nodePackages.typescript-language-server
-    nodePackages.yaml-language-server
-
-    (let
-      neuronSrc = builtins.fetchTarball
-        "https://github.com/srid/neuron/archive/master.tar.gz";
-    in import neuronSrc)
-
+    # nodePackages.bash-language-server
+    # nodePackages.dockerfile-language-server-nodejs
+    # nodePackages.prettier
+    # nodePackages.typescript-language-server
+    # nodePackages.yaml-language-server
   ];
 
   documentation = {
@@ -119,7 +120,7 @@ in {
   system.defaults.NSGlobalDomain.NSAutomaticPeriodSubstitutionEnabled = false;
   system.defaults.NSGlobalDomain.NSAutomaticQuoteSubstitutionEnabled = false;
   system.defaults.NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = false;
-  system.defaults.NSGlobalDomain._HIHideMenuBar = true;
+  system.defaults.NSGlobalDomain._HIHideMenuBar = false;
   system.defaults.NSGlobalDomain.NSTableViewDefaultSizeMode = 2;
   system.defaults.NSGlobalDomain.AppleShowScrollBars = "Automatic";
   system.defaults.NSGlobalDomain.NSUseAnimatedFocusRing = false;
@@ -181,6 +182,20 @@ in {
   environment.darwinConfig = "$HOME/src/dotfiles/darwin.nix";
 
   launchd.user.agents = {
+    lorri = {
+      serviceConfig = {
+        WorkingDirectory = (builtins.getEnv "HOME");
+        EnvironmentVariables = { };
+        KeepAlive = true;
+        RunAtLoad = true;
+        StandardOutPath = "/var/tmp/lorri.log";
+        StandardErrorPath = "/var/tmp/lorri.log";
+      };
+      script = ''
+        source ${config.system.build.setEnvironment}
+        exec ${pkgs.lorri}/bin/lorri daemon
+      '';
+    };
     mbsync = {
       script = ''
         ${pkgs.afew}/bin/afew -C ${notmuchrc} --move-mails --verbose

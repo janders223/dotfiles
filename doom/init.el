@@ -47,7 +47,7 @@
 
        :tools
        ansible
-       ;;debugger          ; FIXME stepping through code, to help you add bugs
+       debugger          ; FIXME stepping through code, to help you add bugs
        (docker +lsp)
        editorconfig      ; let someone else argue about tabs vs spaces
        (eval +overlay)     ; run code, run (also, repls)
@@ -56,9 +56,10 @@
        macos             ; MacOS-specific commands
        (magit +forge)             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
+       pass
        pdf               ; pdf enhancements
        (terraform +lsp)         ; infrastructure as code
-       neuron
+       ;;neuron
        direnv
 
        :lang
@@ -70,8 +71,9 @@
        lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        nix               ; I hereby declare "nix geht mehr!"
-       (org +hugo)               ; organize your plain life in plain text
+       (org +hugo +roam)               ; organize your plain life in plain text
        rest              ; Emacs as a REST client
+       scheme
        (sh +lsp)                ; she sells {ba,z,fi}sh shells on the C xor
        (yaml +lsp)              ; JSON, but readable
 
@@ -79,7 +81,6 @@
        notmuch
 
        :app
-       ;;calendar
        ;;irc               ; how neckbeards socialize
        (rss +org)        ; emacs as an RSS reader
 

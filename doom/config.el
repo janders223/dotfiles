@@ -7,21 +7,19 @@
       user-mail-address "jimanders223@gmail.com"
       epa-file-select-keys t)
 
-(setq doom-font (font-spec :family "Hasklig" :size 18))
+(setq doom-font (font-spec :family "Hasklig" :size 16))
 
 (setq doom-theme 'doom-nord)
 
 (setq display-line-numbers-type 'relative)
 
-(setq treemacs-width 20)
-
-(setq org-directory "~/Documents/org")
+(setq org-directory "~/Dropbox/org")
 
 (map! :leader
       :desc "notmuch" "o m" #'notmuch-hello
       :desc "elfeed" "o n" #'=rss)
 
-(setq rmh-elfeed-org-files (list "~/Documents/org/elfeed.org"))
+(setq rmh-elfeed-org-files (list "~/Dropbox/org/elfeed.org"))
 
 (after! elfeed
   (elfeed-goodies/setup)
@@ -128,6 +126,11 @@ Version 2018-12-23"
                  forge-gitlab-repository)))
 
 (after! org
+  (setq org-agenda-files '("~/Dropbox/org/gtd.org"
+                           "~/Dropbox/org/todo.org"
+                           "~/Dropbox/org/bread.org"
+                           "~/Dropbox/org/reading.org"))
+  (global-set-key (kbd "C-c c") 'org-capture)
   (setq org-agenda-span 'day
         org-duration-format '((special . h:mm))
         org-agenda-start-on-weekday 1
@@ -136,8 +139,12 @@ Version 2018-12-23"
 (after! lispyville
   (lispyville-set-key-theme '(operators c-w additional-motions commentary slurp/barf-lispy wrap additional)))
 
-;; (add-hook 'emacs-lisp-mode 'paredit-mode)
 (add-hook 'emacs-lisp-mode 'aggressive-indent-mode)
-;; (add-hook 'paredit-mode 'evil-paredit-mode)
+
+(after! org-board
+  (global-set-key (kbd "C-c o") org-board-keymap))
+
+(after! neuron
+  (setq neuron-default-zettelkasten-directory (expand-file-name "~/Dropbox/zettelkasten")))
 
 (load-file (concat doom-private-dir "private.el"))

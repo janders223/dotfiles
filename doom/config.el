@@ -1,4 +1,6 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+(menu-bar-mode t)
+
 (put 'narrow-to-region 'disabled nil)
 
 (setq Info-additional-directory-list '("/run/current-system/sw/share/info"))

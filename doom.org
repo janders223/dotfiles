@@ -1,1 +1,174 @@
 #+TITLE: Doom
+#+AUTHOR: janders223
+
+* Keybinds
+
+| key / ex command           | description                                                |
+|----------------------------+------------------------------------------------------------|
+| =SPC TAB n=                | Create a new, blank workspace                              |
+| =SPC TAB TAB=              | Display open workspaces in the mode-line                   |
+| =SPC TAB l=                | Load a saved workspace into the current session            |
+| =SPC TAB R=                | Restore last session                                       |
+| =SPC TAB r=                | Rename the current workspace                               |
+| =SPC TAB s=                | Save the current workspace to a file                       |
+| =SPC TAB .=                | Switch to an open workspace                                |
+| =SPC TAB `=                | Switch to last workspace                                   |
+| =SPC TAB [= / =[ w= / =gT= | Switch to previous workspace                               |
+| =SPC TAB ]= / =] w= / =gt= | Switch to next workspace                                   |
+| =SPC TAB d=                | Delete the current workspace                               |
+| =SPC TAB x= / =:sclear=    | Clears the current session (kills all windows and buffers) |
+| =SPC f d=                  | Find directory with dired                                  |
+| =q=                        | Exit dired buffer                                          |
+| =C-c C-r=                  | Run =dired-rsync=                                          |
+| =C-c C-e=                  | Rename entries with =wdired=                               |
+
+* =init.el=
+:PROPERTIES:
+:header-args:emacs-lisp: :tangle ~/.config/doom/init.el :cache yes :results silent :comments link
+:END:
+*** Header
+#+BEGIN_SRC emacs-lisp
+;;; init.el -*- lexical-binding: t; -*-
+
+(doom!
+#+END_SRC
+
+*** Completion
+- [[github:company-mode/company-mode][company]]
+
+#+BEGIN_SRC emacs-lisp
+:completion
+    company
+#+END_SRC
+
+*** UI
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/ui/doom][doom core]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/ui/doom-dashboard][doom-dashboard]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/ui/modeline][modeline]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/ui/hl-todo][hl-todo]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/ui/ophints][ophints]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/ui/popup][popup]] with config for all buffers and sane defaults
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/ui/pretty-code][pretty-code]] I like ligatures and I use hasklig
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/ui/workspaces][workspaces]] contain workspaces using [[https://github.com/Bad-ptr/persp-mode.el][persp-mode]]
+
+#+BEGIN_SRC emacs-lisp
+:ui
+    doom
+    doom-dashboard
+    modeline
+    hl-todo
+    ophints
+    (popup +all +defaults)
+    (pretty-code +hasklig)
+    workspaces
+#+END_SRC
+
+*** Editor
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/editor/evil][evil]]... everywhere
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/editor/file-templates][file-templates]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/editor/fold][fold]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/editor/format][format]]
+  [[https://github.com/hlissner/doom-emacs/tree/develop/modules/editor/snippets][snippets]]
+
+#+BEGIN_SRC emacs-lisp
+:editor
+    (evil +everywhere)
+    file-templates
+    fold
+    (format +onsave)
+    snippets
+#+END_SRC
+
+*** Emacs
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/emacs/dired][dired]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/emacs/ibuffer][ibuffer]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/emacs/undo][undo]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/emacs/vc][vc]]
+
+#+BEGIN_SRC emacs-lisp
+:emacs
+    (dired +icons)
+    (ibuffer +icons)
+    undo
+    vc
+#+END_SRC
+*** Terminal
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/term/eshell][eshell]]
+
+#+BEGIN_SRC emacs-lisp
+:term
+    eshell
+#+END_SRC
+*** Checkers
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/checkers/syntax][syntax]]
+ 
+#+BEGIN_SRC emacs-lisp
+:checkers
+    syntax
+#+END_SRC
+*** Tools
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/tools/debugger][debugger]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/tools/direnv][direnv]] =nix-env -qa lorri=
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/tools/docker][docker]] =nix-env -qa nodePackages.dockerfile-language-server-nodejs=
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/tools/editorconfig][editorconfig]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/tools/eval][eval]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/tools/lookup][lookup]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/tools/lsp][lsp]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/tools/macos][macos]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/tools/magit][magit]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/tools/pass][pass]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/tools/pdf][pdf]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/tools/terraform][terraform]] =nix-env -qa terraform terraform.lsp=
+
+#+BEGIN_SRC emacs-lisp
+:tools
+    debugger
+    direnv
+    (docker +lsp)
+    editorconfig
+    (eval +overlay)
+    lookup
+    (lsp +peek)
+    macos
+    (magit +forge)
+    pass
+    pdf
+    (terraform +lsp)
+#+END_SRC
+*** Languages
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/lang/emacs-lisp][emacs-lisp]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/lang/go][golang]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/lang/javascript][javascript]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/lang/json][json]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/lang/markdown][markdown]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/lang/nix][nix]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/lang/org][org]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/lang/rest][rest]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/lang/sh][sh]]
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/lang/yaml][yaml]]
+
+#+BEGIN_SRC emacs-lisp
+:lang
+    emacs-lisp
+    (go +lsp)
+    (javascript +lsp)
+    (json +lsp)
+    markdown
+    nix
+    (org +hugo +roam)
+    rest
+    (sh +lsp)
+    (yaml +lsp)
+#+end_src
+*** Apps
+- [[https://github.com/hlissner/doom-emacs/tree/develop/modules/app/rss][elfeed]]
+
+#+BEGIN_SRC emacs-lisp
+:app
+    (rss +org)
+#+END_SRC
+*** Config
+#+BEGIN_SRC emacs-lisp
+:config
+    (default +bindings +smartparens))
+#+END_SRC

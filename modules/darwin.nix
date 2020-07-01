@@ -137,9 +137,7 @@ with lib; {
         right_padding = 10;
         window_gap = 10;
       };
-      extraConfig = ''
-        yabai -m rule --add app=emacs manage=on
-      '';
+      extraConfig = "";
     };
 
     services.spacebar.enable = true;

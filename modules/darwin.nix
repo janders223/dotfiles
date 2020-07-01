@@ -254,6 +254,7 @@ with lib; {
         privacy-badger
         browserpass
         browserpass-otp
+        vimium
       ];
 
       programs.firefox.profiles = let
@@ -290,20 +291,20 @@ with lib; {
         home = {
           id = 0;
           settings = defaultSettings;
-          # userChrome = (builtins.readFile (pkgs.substituteAll {
-          #   name = "homeUserChrome";
-          #   src = ../conf.d/userChrome.css;
-          #   tabLineColour = "#2aa198";
-          # }));
+          userChrome = (builtins.readFile (pkgs.substituteAll {
+            name = "homeUserChrome";
+            src = ../config/userChrome.css;
+            tabLineColour = "#2aa198";
+          }));
         };
         kroger = {
           id = 1;
           settings = defaultSettings;
-          # userChrome = (builtins.readFile (pkgs.substituteAll {
-          #   name = "workUserChrome";
-          #   src = ../conf.d/userChrome.css;
-          #   tabLineColour = "#cb4b16";
-          # }));
+          userChrome = (builtins.readFile (pkgs.substituteAll {
+            name = "workUserChrome";
+            src = ../config/userChrome.css;
+            tabLineColour = "#cb4b16";
+          }));
         };
       };
 

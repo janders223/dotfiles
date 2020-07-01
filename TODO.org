@@ -1,6 +1,0 @@
-* Todos
-- [ ] xcode command line tools
-- [x] touchpad scroll speed and direction
-- [ ] flyspell error
-- [ ] org capture templates
-- [ ] org global capture

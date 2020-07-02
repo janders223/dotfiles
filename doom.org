@@ -1,7 +1,7 @@
 #+TITLE: Doom
 #+AUTHOR: janders223
 
-* Doom
+* Doom Config
 :PROPERTIES:
 :header-args:emacs-lisp: :cache yes :results silent :comments link
 :END:
@@ -106,7 +106,7 @@ contain workspaces using [[https://github.com/Bad-ptr/persp-mode.el][persp-mode]
 | ~+workspace/delete~               | =SPC TAB d=                | Delete the current workspace                               |
 | ~+workspace/kill-session~         | =SPC TAB x= / =:sclear=    | Clears the current session (kills all windows and buffers) |
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el
 workspaces
 #+END_SRC
 ** Completion
@@ -151,6 +151,11 @@ available to evil users to access specific company backends:
 :completion
 company
 #+END_SRC
+*** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/completion/ivy][ivy]]
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el
+(ivy +fuzzy +prescient +icons)
+#+END_SRC
 
 ** Editor
 *** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/editor/evil][evil]]
@@ -183,7 +188,7 @@ fold
 (format +onsave)
 #+END_SRC
 *** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/editor/snippets][snippets]]
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el
 snippets
 #+END_SRC
 *** narrow to region
@@ -232,20 +237,20 @@ undo
 #+END_SRC
 *** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/emacs/vc][vc]]
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el
 vc
 #+END_SRC
 ** Terminal
 *** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/term/eshell][eshell]]
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el
 :term
 eshell
 #+END_SRC
 ** Checkers
 *** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/checkers/syntax][syntax]]
  
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el
 :checkers
 syntax
 #+END_SRC
@@ -267,7 +272,7 @@ direnv
 #+END_SRC
 
 *** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/tools/editorconfig][editorconfig]]
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el
 editorconfig
 #+END_SRC
 
@@ -313,18 +318,18 @@ macos
 #+END_SRC
 
 *** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/tools/pass][pass]]
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el
 pass
 #+END_SRC
 
 *** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/tools/pdf][pdf]]
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el
 pdf
 #+END_SRC
 
 *** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/tools/terraform][terraform]]
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el
 (terraform +lsp)
 #+END_SRC
 ** Languages

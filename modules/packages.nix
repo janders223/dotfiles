@@ -16,6 +16,7 @@ with pkgs; [
   imagemagick
   jq
   lorri
+  niv
   nix-zsh-completions
   nixfmt
   nixops
@@ -23,6 +24,7 @@ with pkgs; [
   python37Packages.passlib
   ripgrep
   wget
+  zbar
   zsh
   zstd
 ]

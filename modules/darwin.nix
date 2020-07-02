@@ -3,6 +3,9 @@
   { }, ... }:
 
 let
+
+  sources = import ../nix/sources.nix;
+
   cfg = config.local;
 
   homeDir = builtins.getEnv "HOME";
@@ -44,10 +47,7 @@ with lib; {
     };
 
     nixpkgs.config.packageOverrides = pkgs: {
-      nur = import (builtins.fetchTarball
-        "https://github.com/nix-community/NUR/archive/3c7760d603b4eed14aff45f7cb32546a9e928cf3.tar.gz") {
-          inherit pkgs;
-        };
+      nur = import sources.NUR { inherit pkgs; };
     };
 
     environment.shells = [ pkgs.zsh ];

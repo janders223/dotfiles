@@ -1,7 +1,6 @@
 { pkgs }:
 
 with pkgs; [
-  (pass.withExtensions (ext: with ext; [ pass-otp pass-audit pass-genphrase ]))
   cacert
   coreutils
   curl
@@ -10,7 +9,6 @@ with pkgs; [
   editorconfig-core-c
   fd
   fontconfig
-  git
   gnupg
   gnutls
   imagemagick

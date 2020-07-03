@@ -199,131 +199,6 @@ with lib; {
         PATH = "$PATH:${pkgs.coreutils}/bin";
       };
 
-      programs.git = {
-        enable = true;
-        userName = cfg.userName;
-        userEmail = cfg.userEmail;
-
-        aliases = {
-          l = "log --pretty=oneline -n 20 --graph --abbrev-commit";
-          s = "status -sb";
-          tags = "tag -l";
-          branches = "branch -a";
-          remotes = "remote -v";
-          amend = "commit --amend --reuse-message=HEAD";
-        };
-
-        ignores = [ ".envrc" ".DS_Store" ];
-
-        extraConfig = {
-          apply.whitespace = "fix";
-          color.ui = "auto";
-          credential.helper = "osxkeychain";
-          github.user = "janders223";
-          http.proxy = "http://127.0.0.1:3128";
-          https.proxy = "http://127.0.0.1:3128";
-          merge.log = true;
-          "gitlab.gitlab.kroger.com/api/v4".user = "kon8522";
-          core = {
-            whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
-            editor = "emacs";
-            quotepath = "false";
-            trustctime = false;
-          };
-
-          rerere = {
-            enabled = true;
-            autoupdate = true;
-          };
-        };
-
-      };
-
-      programs.emacs.enable = true;
-      programs.emacs.package = pkgs.Emacs; # custom overlay
-
-      programs.firefox.enable = true;
-      programs.firefox.package = pkgs.Firefox; # custom overlay
-
-      programs.firefox.extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-        facebook-container
-        ghostery
-        honey
-        privacy-badger
-        browserpass
-        browserpass-otp
-        vimium
-      ];
-
-      programs.firefox.profiles = let
-        defaultSettings = {
-          "app.update.auto" = false;
-          "browser.startup.homepage" = "about:blank";
-          "browser.search.region" = "US";
-          "browser.search.countryCode" = "US";
-          "browser.search.isUS" = true;
-          "browser.ctrlTab.recentlyUsedOrder" = false;
-          "browser.newtabpage.enabled" = false;
-          "browser.bookmarks.showMobileBookmarks" = true;
-          "browser.uidensity" = 1;
-          "browser.urlbar.placeholderName" = "DuckDuckGo";
-          "browser.urlbar.update1" = true;
-          "distribution.searchplugins.defaultLocale" = "en-US";
-          "general.useragent.locale" = "en-US";
-          "identity.fxaccounts.account.device.name" =
-            config.networking.hostName;
-          "privacy.trackingprotection.enabled" = true;
-          "privacy.trackingprotection.socialtracking.enabled" = true;
-          "privacy.trackingprotection.socialtracking.annotate.enabled" = true;
-          "reader.color_scheme" = "sepia";
-          "services.sync.declinedEngines" = "addons,passwords,prefs";
-          "services.sync.engine.addons" = false;
-          "services.sync.engineStatusChanged.addons" = true;
-          "services.sync.engine.passwords" = false;
-          "services.sync.engine.prefs" = false;
-          "services.sync.engineStatusChanged.prefs" = true;
-          "signon.rememberSignons" = false;
-          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-        };
-      in {
-        home = {
-          id = 0;
-          settings = defaultSettings;
-          userChrome = (builtins.readFile (pkgs.substituteAll {
-            name = "homeUserChrome";
-            src = ../config/userChrome.css;
-            tabLineColour = "#2aa198";
-          }));
-        };
-        kroger = {
-          id = 1;
-          settings = defaultSettings;
-          userChrome = (builtins.readFile (pkgs.substituteAll {
-            name = "workUserChrome";
-            src = ../config/userChrome.css;
-            tabLineColour = "#cb4b16";
-          }));
-        };
-      };
-
-      programs.browserpass.enable = true;
-      programs.browserpass.browsers = [ "firefox" ];
-
-      programs.fzf.enable = true;
-      programs.fzf.enableZshIntegration = true;
-
-      programs.zsh = {
-        enable = true;
-        enableAutosuggestions = true;
-        enableCompletion = true;
-        defaultKeymap = "emacs";
-        sessionVariables = { RPROMPT = ""; };
-
-        shellAliases = { };
-
-        oh-my-zsh.enable = true;
-      };
-
       programs.alacritty = {
         enable = true;
         settings = {
@@ -428,6 +303,177 @@ with lib; {
           #     };
           #   }
           # ];
+        };
+      };
+
+      programs.bat = {
+        enable = true;
+        config = { };
+        themes = { };
+      };
+
+      programs.browserpass.enable = true;
+      programs.browserpass.browsers = [ "firefox" ];
+
+      programs.dircolors = {
+        enable = true;
+        enableZshIntegration = true;
+        settings = { };
+      };
+
+      # programs.direnv = {
+      #   enable = true;
+      #   config = {};
+      # };
+
+      programs.emacs.enable = true;
+      programs.emacs.package = pkgs.Emacs; # custom overlay
+
+      programs.firefox.enable = true;
+      programs.firefox.package = pkgs.Firefox; # custom overlay
+
+      programs.firefox.extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        facebook-container
+        ghostery
+        honey
+        privacy-badger
+        browserpass
+        browserpass-otp
+        vimium
+      ];
+
+      programs.firefox.profiles = let
+        defaultSettings = {
+          "app.update.auto" = false;
+          "browser.startup.homepage" = "about:blank";
+          "browser.search.region" = "US";
+          "browser.search.countryCode" = "US";
+          "browser.search.isUS" = true;
+          "browser.ctrlTab.recentlyUsedOrder" = false;
+          "browser.newtabpage.enabled" = false;
+          "browser.bookmarks.showMobileBookmarks" = true;
+          "browser.uidensity" = 1;
+          "browser.urlbar.placeholderName" = "DuckDuckGo";
+          "browser.urlbar.update1" = true;
+          "distribution.searchplugins.defaultLocale" = "en-US";
+          "general.useragent.locale" = "en-US";
+          "identity.fxaccounts.account.device.name" =
+            config.networking.hostName;
+          "privacy.trackingprotection.enabled" = true;
+          "privacy.trackingprotection.socialtracking.enabled" = true;
+          "privacy.trackingprotection.socialtracking.annotate.enabled" = true;
+          "reader.color_scheme" = "sepia";
+          "services.sync.declinedEngines" = "addons,passwords,prefs";
+          "services.sync.engine.addons" = false;
+          "services.sync.engineStatusChanged.addons" = true;
+          "services.sync.engine.passwords" = false;
+          "services.sync.engine.prefs" = false;
+          "services.sync.engineStatusChanged.prefs" = true;
+          "signon.rememberSignons" = false;
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        };
+      in {
+        home = {
+          id = 0;
+          settings = defaultSettings;
+          userChrome = (builtins.readFile (pkgs.substituteAll {
+            name = "homeUserChrome";
+            src = ../config/userChrome.css;
+            tabLineColour = "#2aa198";
+          }));
+        };
+        kroger = {
+          id = 1;
+          settings = defaultSettings;
+          userChrome = (builtins.readFile (pkgs.substituteAll {
+            name = "workUserChrome";
+            src = ../config/userChrome.css;
+            tabLineColour = "#cb4b16";
+          }));
+        };
+      };
+
+      programs.fzf.enable = true;
+      programs.fzf.enableZshIntegration = true;
+
+      programs.git = {
+        enable = true;
+        package = pkgs.gitAndTools.gitFull;
+        userName = cfg.userName;
+        userEmail = cfg.userEmail;
+
+        aliases = {
+          l = "log --pretty=oneline -n 20 --graph --abbrev-commit";
+          s = "status -sb";
+          tags = "tag -l";
+          branches = "branch -a";
+          remotes = "remote -v";
+          amend = "commit --amend --reuse-message=HEAD";
+        };
+
+        ignores = [ ".envrc" ".DS_Store" ];
+
+        extraConfig = {
+          apply.whitespace = "fix";
+          color.ui = "auto";
+          credential.helper = "osxkeychain";
+          github.user = "janders223";
+          http.proxy = "http://127.0.0.1:3128";
+          https.proxy = "http://127.0.0.1:3128";
+          merge.log = true;
+          "gitlab.gitlab.kroger.com/api/v4".user = "kon8522";
+          core = {
+            whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
+            editor = "emacs";
+            quotepath = "false";
+            trustctime = false;
+          };
+
+          rerere = {
+            enabled = true;
+            autoupdate = true;
+          };
+        };
+
+      };
+
+      programs.man.enable = true;
+
+      programs.password-store = {
+        enable = true;
+        package = pkgs.pass.withExtensions
+          (ext: with ext; [ pass-otp pass-audit pass-genphrase ]);
+        settings = { PASSWORD_STORE_DIR = "${homeDir}/.password-store"; };
+      };
+
+      programs.zsh = {
+        enable = true;
+        enableAutosuggestions = true;
+        enableCompletion = true;
+        defaultKeymap = "emacs";
+        sessionVariables = { RPROMPT = ""; };
+
+        shellAliases = { };
+
+        oh-my-zsh = {
+          enable = true;
+
+          theme = "robbyrussell";
+
+          plugins = [
+            "direnv"
+            "docker"
+            "emacs"
+            "fd"
+            "fzf"
+            "git"
+            "man"
+            "osx"
+            "pass"
+            "ripgrep"
+            "sudo"
+            "terraform"
+          ];
         };
       };
 

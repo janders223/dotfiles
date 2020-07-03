@@ -4,7 +4,6 @@ with pkgs; [
   cacert
   coreutils
   curl
-  direnv
   Docker
   editorconfig-core-c
   fd
@@ -17,12 +16,10 @@ with pkgs; [
   niv
   nix-zsh-completions
   nixfmt
-  nixops
   pinentry_mac
   python37Packages.passlib
   ripgrep
   wget
   zbar
-  zsh
   zstd
 ]

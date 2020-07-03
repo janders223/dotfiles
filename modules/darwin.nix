@@ -1,10 +1,21 @@
-{ config, lib, pkgs ? import (fetchTarball
-  "https://github.com/NixOS/nixpkgs/archive/2cd2e7267e5b9a960c2997756cb30e86f0958a6b.tar.gz")
-  { }, ... }:
+{ config, lib, ... }:
 
 let
 
   sources = import ../nix/sources.nix;
+
+  pkgs = import sources.nixpkgs {
+    overlays = [ (import ../overlays) ];
+    config = {
+      allowUnfree = true;
+      allowBroken = false;
+      allowUnsupportedSystem = false;
+    };
+
+    config.packageOverrides = pkgs: {
+      nur = import sources.NUR { inherit pkgs; };
+    };
+  };
 
   cfg = config.local;
 
@@ -38,22 +49,12 @@ with lib; {
     nix.buildCores = 8;
     nix.package = pkgs.nix;
 
-    nixpkgs.overlays = [ (import ../overlays) ];
     nix.trustedUsers = [ "root" cfg.userName ];
-    nixpkgs.config = {
-      allowUnfree = true;
-      allowBroken = false;
-      allowUnsupportedSystem = false;
-    };
-
-    nixpkgs.config.packageOverrides = pkgs: {
-      nur = import sources.NUR { inherit pkgs; };
-    };
 
     environment.shells = [ pkgs.zsh ];
-    environment.systemPackages = [ pkgs.zsh pkgs.gcc ];
+    # environment.systemPackages = [ pkgs.zsh pkgs.gcc ];
     programs.bash.enable = false;
-    programs.zsh.enable = true;
+    programs.zsh.enable = false;
     environment.darwinConfig =
       "${homeDir}/src/dotfiles/machines/${cfg.machineName}/configuration.nix";
 
@@ -321,10 +322,10 @@ with lib; {
         settings = { };
       };
 
-      # programs.direnv = {
-      #   enable = true;
-      #   config = {};
-      # };
+      programs.direnv = {
+        enable = true;
+        config = { };
+      };
 
       programs.emacs.enable = true;
       programs.emacs.package = pkgs.Emacs; # custom overlay
@@ -441,8 +442,8 @@ with lib; {
 
       programs.password-store = {
         enable = true;
-        package = pkgs.pass.withExtensions
-          (ext: with ext; [ pass-otp pass-audit pass-genphrase ]);
+        package =
+          pkgs.pass.withExtensions (ext: with ext; [ pass-otp pass-genphrase ]);
         settings = { PASSWORD_STORE_DIR = "${homeDir}/.password-store"; };
       };
 

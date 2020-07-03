@@ -11,8 +11,8 @@
       repo = "emacs";
 
       # 27.0.90
-      rev = "c5f255d68156926923232b1edadf50faac527861";
-      sha256 = "13n82lxbhmkcmlzbh0nml8ydxyfvz8g7wsdq7nszlwmq914gb5nk";
+      rev = "c36c5a3dedbb2e0349be1b6c3b7567ea7b594f1c";
+      sha256 = "0mlrg2npy1r79laahkgzhxd1qassfcdz8qk1cpw7mqgf6y5x505h";
     };
 
     enableParallelBuilding = true;

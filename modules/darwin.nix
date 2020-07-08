@@ -17,6 +17,12 @@ let
     };
   };
 
+  pureZshPrompt = pkgs.fetchgit {
+    url = "https://github.com/sindresorhus/pure";
+    rev = "3b182b0b898c943e54286b085602e7d8f88eafc9";
+    sha256 = "023i6x9axm3q09g5qqfiw7sr27g6f8cb5c1lm2viif6hra1g97pp";
+  };
+
   cfg = config.local;
 
   homeDir = builtins.getEnv "HOME";
@@ -52,9 +58,33 @@ with lib; {
     nix.trustedUsers = [ "root" cfg.userName ];
 
     environment.shells = [ pkgs.zsh ];
-    # environment.systemPackages = [ pkgs.zsh pkgs.gcc ];
+    environment.shellAliases = { l = "ls -halF"; };
+
+    environment.extraInit = ''
+      mkdir -p ~/.zfunctions
+      ln -sfn ${pureZshPrompt}/pure.zsh ~/.zfunctions/prompt_pure_setup
+      ln -sfn ${pureZshPrompt}/async.zsh ~/.zfunctions/async
+    '';
+
     programs.bash.enable = false;
-    programs.zsh.enable = false;
+    programs.zsh = {
+      enable = true;
+      enableBashCompletion = true;
+      enableCompletion = true;
+      enableFzfCompletion = true;
+      enableFzfGit = true;
+      enableFzfHistory = true;
+      enableSyntaxHighlighting = true;
+
+      promptInit = ''
+        fpath=( "${homeDir}/.zfunctions" $fpath )
+        autoload -U promptinit && promptinit && prompt pure
+      '';
+
+      loginShellInit = ''
+        eval "$(direnv hook zsh)"
+      '';
+    };
     environment.darwinConfig =
       "${homeDir}/src/dotfiles/machines/${cfg.machineName}/configuration.nix";
 
@@ -318,7 +348,7 @@ with lib; {
 
       programs.dircolors = {
         enable = true;
-        enableZshIntegration = true;
+        # enableZshIntegration = true;
         settings = { };
       };
 
@@ -395,7 +425,7 @@ with lib; {
       };
 
       programs.fzf.enable = true;
-      programs.fzf.enableZshIntegration = true;
+      # programs.fzf.enableZshIntegration = true;
 
       programs.git = {
         enable = true;
@@ -445,37 +475,6 @@ with lib; {
         package =
           pkgs.pass.withExtensions (ext: with ext; [ pass-otp pass-genphrase ]);
         settings = { PASSWORD_STORE_DIR = "${homeDir}/.password-store"; };
-      };
-
-      programs.zsh = {
-        enable = true;
-        enableAutosuggestions = true;
-        enableCompletion = true;
-        defaultKeymap = "emacs";
-        sessionVariables = { RPROMPT = ""; };
-
-        shellAliases = { };
-
-        oh-my-zsh = {
-          enable = true;
-
-          theme = "robbyrussell";
-
-          plugins = [
-            "direnv"
-            "docker"
-            "emacs"
-            "fd"
-            "fzf"
-            "git"
-            "man"
-            "osx"
-            "pass"
-            "ripgrep"
-            "sudo"
-            "terraform"
-          ];
-        };
       };
 
       home.file.".ssh/config".text = ''

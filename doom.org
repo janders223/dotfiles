@@ -58,6 +58,15 @@ Set a fancy ass doom logo
 #+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/config.el
 (setq fancy-splash-image "~/Dropbox/banner/doom.png")
 #+END_SRC
+*** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/ui/deft][deft]]
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el
+deft
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/config.el
+(setq deft-directory "~/Dropbox/org/roam")
+#+END_SRC
 *** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/ui/modeline][modeline]]
 #+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el
 modeline
@@ -254,6 +263,11 @@ eshell
 :checkers
 syntax
 #+END_SRC
+*** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/checkers/spell][spell]]
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el
+(spell +aspell)
+#+END_SRC
 ** Tools
 *** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/tools/debugger][debugger]]
 
@@ -342,6 +356,10 @@ emacs-lisp
 #+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el
 (go +lsp)
 #+end_src
+*** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/lang/haskell][haskell]]
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el
+(haskell +ghcide)
+#+end_src
 *** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/lang/javascript][javascript]]
 #+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el
 (javascript +lsp)
@@ -360,7 +378,7 @@ nix
 #+end_src
 *** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/lang/org][org]]
 #+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el
-(org +hugo +roam)
+(org +hugo +roam +journal)
 #+end_src
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/packages.el
@@ -374,6 +392,19 @@ nix
 #+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/packages.el
 (package! org-board
   :recipe (:host github :repo "scallywag/org-board"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/packages.el
+(package! org-download)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/config.el
+(use-package org-download
+  :after org
+  :bind
+  (:map org-mode-map
+        (("s-Y" . org-download-screenshot)
+         ("s-y" . org-download-yank))))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/config.el
@@ -390,6 +421,7 @@ nix
   (setq org-agenda-files '("~/Dropbox/org/gtd.org"
                            "~/Dropbox/org/todo.org"
                            "~/Dropbox/org/bread.org"
+                           "~/Dropbox/org/recipes.org"
                            "~/Dropbox/org/reading.org")
         org-agenda-span 'day
         org-duration-format '((special . h:mm))
@@ -403,7 +435,18 @@ nix
   :hook
   (after-init . org-roam-mode)
   :config
-  (setq org-roam-directory "~/Dropbox/org/roam/"))
+  (setq
+   org-roam-index-file "index.org"
+   org-roam-directory "~/Dropbox/org/roam/"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/config.el
+(use-package! org-journal
+  :custom
+  (org-journal-date-prefix "#+TITLE: ")
+  (org-journal-file-format "%Y-%m-%d.org")
+  (org-journal-dir "~/Dropbox/org/roam/")
+  (org-journal-date-format "%A, %d %B %Y"))
 #+END_SRC
 *** [[https://github.com/hlissner/doom-emacs/tree/develop/modules/lang/rest][rest]]
 #+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/init.el

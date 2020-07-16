@@ -1,6 +1,9 @@
 { pkgs }:
 
 with pkgs; [
+  aspell
+  aspellDicts.en
+  aspellDicts.en-computers
   cacert
   coreutils
   curl
@@ -10,6 +13,7 @@ with pkgs; [
   fontconfig
   gnupg
   gnutls
+  graphviz
   imagemagick
   jq
   lorri
@@ -19,6 +23,7 @@ with pkgs; [
   pinentry_mac
   python37Packages.passlib
   ripgrep
+  units
   wget
   zbar
   zstd

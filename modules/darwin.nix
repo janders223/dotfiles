@@ -233,13 +233,13 @@ with lib; {
       programs.alacritty = {
         enable = true;
         settings = {
+          window.dynamic_title = false;
           window.padding.x = 15;
           window.padding.y = 15;
           window.decorations = "buttonless";
           scrolling.history = 100000;
           live_config_reload = true;
           selection.save_to_clipboard = true;
-          dynamic_title = false;
           mouse.hide_when_typing = true;
 
           font = {
@@ -475,6 +475,66 @@ with lib; {
         package =
           pkgs.pass.withExtensions (ext: with ext; [ pass-otp pass-genphrase ]);
         settings = { PASSWORD_STORE_DIR = "${homeDir}/.password-store"; };
+      };
+
+      programs.vscode = {
+        enable = true;
+        package = pkgs.vscode;
+        extensions = with pkgs.vscode-extensions;
+          [
+            vscodevim.vim
+            ms-azuretools.vscode-docker
+            justusadam.language-haskell
+            bbenoist.Nix
+            alanz.vscode-hie-server
+          ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [{
+            name = "nord-visual-studio-code";
+            publisher = "arcticicestudio";
+            version = "0.14.0";
+            sha256 = "0ni924bm62awk9p39cf297kximy6xldhjjjycswx4qg2w89b505x";
+          }
+          {
+            name = "vscode-yaml";
+            publisher = "redhat";
+            version = "0.9.1";
+            sha256 = "1nn1ksqadak8zgmlpl98q55pglm900d96wp8i5z42wx7pqrb02pp";
+          }
+          {
+            name = "terraform";
+            publisher = "HashiCorp";
+            version = "2.1.1";
+            sha256 = "1l4a950sgv0jzgdax97x9gr7w5dl4gchdqf68wzwm1bykm5cznqx";
+          }
+          {
+            name = "nixfmt-vscode";
+            publisher = "brettm12345";
+            version = "0.0.1";
+            sha256 = "07w35c69vk1l6vipnq3qfack36qcszqxn8j3v332bl0w6m02aa7k";
+          }
+          {
+            name = "nix-env-selector";
+            publisher = "arrterian";
+            version = "0.1.2";
+            sha256 = "1n5ilw1k29km9b0yzfd32m8gvwa2xhh6156d4dys6l8sbfpp2cv9";
+          }
+          {
+            name = "Go";
+            publisher = "golang";
+            version = "0.16.1";
+            sha256 = "1jqg0kq5ivkzqpbyppx48am79vkg68hm54l4ffwfm58xlak8a46y";
+          }];
+          userSettings = {
+            "editor.fontSize" = 18;
+            "editor.fontFamily" = "Hasklig, Monaco, 'Courier New', monospace";
+            "editor.minimap.enabled" = false;
+            "workbench.colorTheme" = "Nord";
+            "update.channel" = "none";
+            "[nix]"."editor.tabSize" = 2;
+            "vim.insertModeKeyBindings" = [{
+              "before" = ["j" "k"];
+              "after" = ["<Esc>"];
+            }];
+          };
       };
 
       home.file.".ssh/config".text = ''

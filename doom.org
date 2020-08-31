@@ -386,6 +386,25 @@ nix
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/packages.el
+(package! org-drill)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/packages.el
+(package! org-tree-slide)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/packages.el
+(package! fancy-narrow)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/config.el
+(use-package demo-it
+  :load-path "~/.config/doom/lisp/demo-it"
+  :bind (("s-<up>" . demo-it-step)
+         ("s-<down>" . demo-it-step)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.config/doom/packages.el
 (package! literate-calc-mode)
 #+END_SRC
 

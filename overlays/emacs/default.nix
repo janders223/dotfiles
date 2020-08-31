@@ -4,15 +4,15 @@
 
   stdenv.mkDerivation rec {
     name = "emacs-${version}";
-    version = "27.0.90";
+    version = "27.1";
 
     src = fetchFromGitHub {
       owner = "emacs-mirror";
       repo = "emacs";
 
-      # 27.0.90
-      rev = "c36c5a3dedbb2e0349be1b6c3b7567ea7b594f1c";
-      sha256 = "0mlrg2npy1r79laahkgzhxd1qassfcdz8qk1cpw7mqgf6y5x505h";
+      # 27.1
+      rev = "86d8d76aa36037184db0b2897c434cdaab1a9ae8";
+      sha256 = "1i50ksf96fxa3ymdb1irpc82vi67861sr4xlcmh9f64qw9imm3ks";
     };
 
     enableParallelBuilding = true;

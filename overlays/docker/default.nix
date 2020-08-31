@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://download.docker.com/mac/stable/Docker.dmg";
-    sha256 = "0pkgsb6wbm715h76lgwza625idi593d2g3crkf0rfd46s3wxi6zn";
+    sha256 = "1md1h3n3n983qarl6f94vjamb697c20w31mk5kk13ixgdgwc4py2";
   };
 
   installPhase = ''

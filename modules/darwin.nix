@@ -518,6 +518,18 @@ with lib; {
             sha256 = "1n5ilw1k29km9b0yzfd32m8gvwa2xhh6156d4dys6l8sbfpp2cv9";
           }
           {
+            name = "jsonnet";
+            publisher = "heptio";
+            version = "0.1.0";
+            sha256 = "1m0iwk7qn3dhg3qwafm2xzyrcms421xd24ivrz138abj8f8ra203";
+          }
+          {
+            name = "markdown-all-in-one";
+            publisher = "yzhang";
+            version = "3.3.0";
+            sha256 = "0jq6zvppg6pagrzqisx3h3ra2x92x72xli41jmd464wr5jwrg0ls";
+          }
+          {
             name = "Go";
             publisher = "golang";
             version = "0.16.1";

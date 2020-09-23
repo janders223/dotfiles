@@ -219,7 +219,7 @@ with lib; {
 
       home.sessionVariables = {
         PAGER = "less -R";
-        EDITOR = "emacsclient";
+        EDITOR = "vim";
         ftp_proxy = "http://127.0.0.1:3128";
         http_proxy = "http://127.0.0.1:3128";
         https_proxy = "http://127.0.0.1:3128";
@@ -455,7 +455,7 @@ with lib; {
           "gitlab.gitlab.kroger.com/api/v4".user = "kon8522";
           core = {
             whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
-            editor = "emacs";
+            editor = "vim";
             quotepath = "false";
             trustctime = false;
           };

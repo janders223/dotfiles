@@ -1,9 +1,1 @@
-.DS_Store
-.idea
-*.log
-tmp/
-
-
-gnupg.symlink/*
-/.config/zsh/history
-/doom/private.el
+result

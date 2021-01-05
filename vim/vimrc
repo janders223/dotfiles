@@ -282,3 +282,7 @@ let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
             \   'nix': ['nixpkgs-fmt'],
             \}
+
+nnoremap <silent> gd :ALEGoToDefinition -vsplit<CR>
+nnoremap <silent> gr :ALEFindReferences -vsplit<CR>
+nnoremap <silent> K :ALEHover<CR>

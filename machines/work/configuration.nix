@@ -55,57 +55,67 @@
     fonts = with pkgs; [ hasklig ];
   };
   environment.systemPackages =
-    [
+    with pkgs; [
       config.programs.vim.package
 
-      pkgs.direnv
-      pkgs.fzf
-      pkgs.hasklig
-      pkgs.ripgrep
-      pkgs.starship
+      curl
+      direnv
+      fzf
+      gitAndTools.gitFull
+      hasklig
+      nixpkgs-fmt
+      oh-my-zsh
+      ripgrep
+      starship
     ];
 
-    nix.package = pkgs.nixFlakes; # NOTE: EXPERIMENTAL.
+  nix.package = pkgs.nixFlakes; # NOTE: EXPERIMENTAL.
 
-    environment.darwinConfig = "$HOME/src/dotfiles-redux/configuration.nix";
+  environment.darwinConfig = "$HOME/src/dotfiles-redux/configuration.nix";
 
-    programs.gnupg.agent.enable = true;
-    programs.gnupg.agent.enableSSHSupport = true;
+  programs.gnupg.agent.enable = true;
+  programs.gnupg.agent.enableSSHSupport = true;
 
-    programs.bash.enableCompletion = true;
+  programs.bash.enableCompletion = true;
 
-    programs.tmux.enable = true;
-    programs.tmux.enableSensible = true;
-    programs.tmux.enableMouse = true;
-    programs.tmux.enableFzf = true;
-    programs.tmux.enableVim = true;
+  programs.tmux.enable = true;
+  programs.tmux.enableSensible = true;
+  programs.tmux.enableMouse = true;
+  programs.tmux.enableFzf = true;
+  programs.tmux.enableVim = true;
 
-    programs.tmux.extraConfig = builtins.readFile ../../tmux/tmux.conf;
+  programs.tmux.extraConfig = builtins.readFile ../../tmux/tmux.conf;
 
-    programs.zsh.enable = true;
-    programs.zsh.enableBashCompletion = true;
-    programs.zsh.enableFzfCompletion = true;
-    programs.zsh.enableFzfGit = true;
-    programs.zsh.enableFzfHistory = true;
+  programs.zsh.enable = true;
+  programs.zsh.enableBashCompletion = true;
+  programs.zsh.enableFzfCompletion = true;
+  programs.zsh.enableFzfGit = true;
+  programs.zsh.enableFzfHistory = true;
 
-    programs.zsh.loginShellInit = ''
-      eval "$(starship init zsh)"
+  programs.zsh.loginShellInit = ''
+    eval "$(starship init zsh)"
 
-      eval "$(direnv hook zsh)"
+    eval "$(direnv hook zsh)"
 
-      ls() {
-        ${pkgs.coreutils}/bin/ls --color=auto "$@"
-      }
-    '';
+    ls() {
+      ${pkgs.coreutils}/bin/ls --color=auto "$@"
+    }
+  '';
 
-    programs.vim.package = import ../../vim/vim.nix { pkgs = pkgs; };
+  programs.vim.package = import ../../vim/vim.nix { pkgs = pkgs; };
 
-    environment.loginShell = "${pkgs.zsh}/bin/zsh -l";
-    environment.variables.SHELL = "${pkgs.zsh}/bin/zsh";
+  environment.loginShell = "${pkgs.zsh}/bin/zsh -l";
+  environment.variables.SHELL = "${pkgs.zsh}/bin/zsh";
+  environment.variables.ftp_proxy = "http://127.0.0.1:3128";
+  environment.variables.http_proxy = "http://127.0.0.1:3128";
+  environment.variables.https_proxy = "http://127.0.0.1:3128";
+  environment.variables.FTP_PROXY = "http://127.0.0.1:3128";
+  environment.variables.HTTP_PROXY = "http://127.0.0.1:3128";
+  environment.variables.HTTPS_PROXY = "http://127.0.0.1:3128";
 
-    environment.variables.LANG = "en_US.UTF-8";
+  environment.variables.LANG = "en_US.UTF-8";
 
-    environment.shellAliases.l = "ls -halF";
+  environment.shellAliases.l = "ls -halF";
 
-    system.stateVersion = 4;
-  }
+  system.stateVersion = 4;
+}

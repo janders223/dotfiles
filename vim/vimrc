@@ -179,11 +179,6 @@ map :Sp :sp
 " File Type settings 			    		"
 " ----------------------------------------- "
 
-augroup filetype_dhall
-    autocmd!
-    autocmd FileType dhall :packadd dhall-vim
-augroup END
-
 augroup filetype_nix
     autocmd!
     autocmd FileType nix :packadd vim-nix
@@ -198,9 +193,15 @@ au BufNewFile,BufRead *.json setlocal expandtab ts=2 sw=2
 augroup filetypedetect
     au BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
     au BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
+    au BufNewFile,BufRead *.dhall setf dhall
 augroup END
 
 au FileType nginx setlocal noet ts=4 sw=4 sts=4
+
+augroup filetype_dhall
+    autocmd!
+    autocmd FileType dhall :packadd dhall-vim
+augroup END
 
 let g:airline_theme='minimalist'
 
@@ -272,6 +273,12 @@ let g:indentLine_conceallevel = 2
 
 let g:vim_json_syntax_conceal = 0
 
-let g:LanguageClient_serverCommands = {
-            \ 'dhall': ['dhall-lsp-server'],
-            \ }
+let g:dhall_format=1
+let g:dhall_strip_whitespace=1
+
+let g:ale_fix_on_save = 1
+
+let g:ale_fixers = {
+            \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \   'nix': ['nixpkgs-fmt'],
+            \}

@@ -184,24 +184,18 @@ augroup filetype_nix
     autocmd FileType nix :packadd vim-nix
 augroup END
 
+augroup filetypedetect
+    au BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
+    au BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
+augroup END
+
 au BufNewFile,BufRead *.vim setlocal noet ts=4 sw=4 sts=4
 au BufNewFile,BufRead *.txt setlocal noet ts=4 sw=4
 au BufNewFile,BufRead *.md setlocal spell noet ts=4 sw=4
 au BufNewFile,BufRead *.yml,*.yaml setlocal expandtab ts=2 sw=2
 au BufNewFile,BufRead *.json setlocal expandtab ts=2 sw=2
-
-augroup filetypedetect
-    au BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
-    au BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
-    au BufNewFile,BufRead *.dhall setf dhall
-augroup END
-
+au FileType terraform setlocal noet ts=2 sw=2 sts=2
 au FileType nginx setlocal noet ts=4 sw=4 sts=4
-
-augroup filetype_dhall
-    autocmd!
-    autocmd FileType dhall :packadd dhall-vim
-augroup END
 
 let g:airline_theme='minimalist'
 
@@ -245,13 +239,6 @@ let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|sv
 let g:better_whitespace_enabled = 1
 let g:strip_whitespace_on_save  = 1
 
-" let g:hcl_fmt_autosave = 0
-" let g:tf_fmt_autosave  = 0
-
-" let g:terraform_align         = 1
-" let g:terraform_fold_sections = 1
-" let g:terraform_fmt_on_save   = 1
-
 let NERDTreeShowHidden=1
 let NERDTreeWinSize=25
 nnoremap <C-n> :NERDTreeToggle<CR>
@@ -269,20 +256,35 @@ let g:indentLine_concealcursor = 'inc'
 " do not hide markdown
 set conceallevel=0
 
-let g:indentLine_conceallevel = 2
+let g:indentLine_conceallevel=2
 
-let g:vim_json_syntax_conceal = 0
+let g:vim_json_syntax_conceal=0
 
 let g:dhall_format=1
 let g:dhall_strip_whitespace=1
 
-let g:ale_fix_on_save = 1
+let g:ale_sign_column_always = 1
+let g:ale_disable_lsp = 1
+let g:ale_fix_on_save=1
 
 let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
             \   'nix': ['nixpkgs-fmt'],
             \}
 
-nnoremap <silent> gd :ALEGoToDefinition -vsplit<CR>
-nnoremap <silent> gr :ALEFindReferences -vsplit<CR>
-nnoremap <silent> K :ALEHover<CR>
+let g:terraform_align=1
+let g:terraform_fold_sections=1
+let g:terraform_fmt_on_save=1
+
+let g:deoplete#enable_at_startup = 1
+
+if (executable('terraform-lsp'))
+    augroup LSPTerraform
+        autocmd!
+        autocmd User lsp_setup call lsp#register_server({
+      \ 'name': 'terraform',
+      \ 'cmd': {server_info->['terraform-lsp']},
+      \ 'allowlist': ['terraform']
+      \ })
+    augroup END
+endif

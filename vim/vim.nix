@@ -20,15 +20,27 @@ let
     };
   };
 
-in
-pkgs.vim_configurable.customize {
-  name = "vim";
+  vim-hcl = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-hcl";
+    src = pkgs.fetchFromGitHub {
+      owner = "jvirtanen";
+      repo = "vim-hcl";
+      rev = "94fbd199c8a947ede62f98509f91d637d7967454";
+      sha256 = "0n2dmgfajji8nxxirb9q9jmqnzc1mjqnic5igs84pxmbc6r57zqq";
+    };
+  };
 
-  vimrcConfig.packages.myVimPackage = with pkgs.vimPlugins; {
-    start = [
+in
+pkgs.neovim.override {
+  configure = {
+    customRC = builtins.readFile ./vimrc;
+    packages.myVimPackage.start = with pkgs.vimPlugins; [
       ale
       ctrlp-vim
       delimitMate
+      deoplete-nvim
+      deoplete-vim-lsp
+      dhall-vim
       indentLine
       nerdtree
       nord-vim
@@ -40,24 +52,19 @@ pkgs.vim_configurable.customize {
       vim-commentary
       vim-endwise
       vim-fugitive
-      vim-misc
-      # vim-qf
-      vim-repeat
-      vim-surround
-      vim-tmux-navigator
-    ];
-
-    opt = [
-      dhall-vim
+      vim-hcl
       vim-json
+      vim-lsp
       vim-lua
       vim-markdown
+      vim-misc
       vim-nix
+      vim-repeat
+      vim-surround
       vim-terraform
+      vim-tmux-navigator
       vim-toml
       vim-yaml
     ];
   };
-
-  vimrcConfig.customRC = builtins.readFile ./vimrc;
 }

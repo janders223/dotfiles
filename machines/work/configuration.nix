@@ -64,8 +64,10 @@
       gitAndTools.gitFull
       hasklig
       nixpkgs-fmt
+      nodejs
       oh-my-zsh
       ripgrep
+      rnix-lsp
       starship
     ];
 

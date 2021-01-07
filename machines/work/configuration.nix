@@ -86,7 +86,7 @@
   programs.tmux.enableFzf = true;
   programs.tmux.enableVim = true;
 
-  programs.tmux.extraConfig = builtins.readFile ../../tmux/tmux.conf;
+  programs.tmux.extraConfig = import ../../tmux/tmux.nix { inherit pkgs; };
 
   programs.zsh.enable = true;
   programs.zsh.enableBashCompletion = true;
@@ -114,10 +114,11 @@
   environment.variables.FTP_PROXY = "http://127.0.0.1:3128";
   environment.variables.HTTP_PROXY = "http://127.0.0.1:3128";
   environment.variables.HTTPS_PROXY = "http://127.0.0.1:3128";
-
+  environment.variables.EDITOR = "nvim";
   environment.variables.LANG = "en_US.UTF-8";
 
   environment.shellAliases.l = "ls -halF";
+  environment.shellAliases.vim = "nvim";
 
   system.stateVersion = 4;
 }

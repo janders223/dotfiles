@@ -30,6 +30,18 @@ let
     };
   };
 
+  vim-rest-console = pkgs.vimUtils.buildVimPlugin
+    {
+      name = "vim-rest-console";
+      src = pkgs.fetchFromGitHub
+        {
+          owner = "diepm";
+          repo = "vim-rest-console";
+          rev = "7b407f47185468d1b57a8bd71cdd66c9a99359b2";
+          sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj";
+        };
+    };
+
 in
 pkgs.neovim.override {
   configure = {
@@ -60,6 +72,7 @@ pkgs.neovim.override {
       vim-misc
       vim-nix
       vim-repeat
+      vim-rest-console
       vim-surround
       vim-terraform
       vim-tmux-navigator

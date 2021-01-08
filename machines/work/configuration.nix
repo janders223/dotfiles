@@ -73,8 +73,6 @@
 
   nix.package = pkgs.nixFlakes; # NOTE: EXPERIMENTAL.
 
-  environment.darwinConfig = "$HOME/src/dotfiles-redux/configuration.nix";
-
   programs.gnupg.agent.enable = true;
   programs.gnupg.agent.enableSSHSupport = true;
 

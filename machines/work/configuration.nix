@@ -97,6 +97,10 @@
 
     eval "$(direnv hook zsh)"
 
+    if [ -z "$TMUX" ]; then
+      tmux attach -t default || tmux new -s default
+    fi
+
     ls() {
       ${pkgs.coreutils}/bin/ls --color=auto "$@"
     }

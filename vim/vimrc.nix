@@ -1,10 +1,9 @@
-set nocompatible              " be iMproved, required
+{}:
+{
+  config = ''
+    set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" Enable file type detection.
-" Use the default filetype settings, so that mail gets 'tw' set to 72,
-" 'cindent' is on in C files, etc.
-" Also load indent files, to automatically do language-dependent indenting.
 filetype plugin indent on
 
 "
@@ -85,42 +84,42 @@ set complete=.,w,b,u,t
 set completeopt=longest,menuone
 
 if &history < 1000
-    set history=50
+set history=50
 endif
 
 if &tabpagemax < 50
-    set tabpagemax=50
+set tabpagemax=50
 endif
 
 if !empty(&viminfo)
-    set viminfo^=!
+set viminfo^=!
 endif
 
 if !&scrolloff
-    set scrolloff=1
+set scrolloff=1
 endif
 if !&sidescrolloff
-    set sidescrolloff=5
+set sidescrolloff=5
 endif
 set display+=lastline
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
-    set mouse=a
+set mouse=a
 endif
 
 " If linux then set ttymouse
 let s:uname = system("echo -n \"$(uname)\"")
 if !v:shell_error && s:uname == "Linux" && !has('nvim')
-    set ttymouse=xterm
+set ttymouse=xterm
 endif
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
 if !exists(":DiffOrig")
-    command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-                \ | wincmd p | diffthis
+command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+\ | wincmd p | diffthis
 endif
 
 " When editing a file, always jump to the last known cursor position.
@@ -129,16 +128,16 @@ endif
 " Also don't do it when the mark is in the first line, that is the default
 " position when opening a file.
 autocmd BufReadPost *
-            \ if line("'\"") > 1 && line("'\"") <= line("$") |
-            \	exe "normal! g`\"" |
-            \ endif
+\ if line("'\"") > 1 && line("'\"") <= line("$") |
+\	exe "normal! g`\"" |
+\ endif
 
 syntax enable
 if has('gui_running')
-    set transparency=3
-    " fix js regex syntax
-    set regexpengine=1
-    syntax enable
+set transparency=3
+" fix js regex syntax
+set regexpengine=1
+syntax enable
 endif
 set background=dark
 colorscheme nord
@@ -180,13 +179,13 @@ map :Sp :sp
 " ----------------------------------------- "
 
 augroup filetype_nix
-    autocmd!
-    autocmd FileType nix :packadd vim-nix
+autocmd!
+autocmd FileType nix :packadd vim-nix
 augroup END
 
 augroup filetypedetect
-    au BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
-    au BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
+au BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
+au BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
 augroup END
 
 au BufNewFile,BufRead *.vim setlocal noet ts=4 sw=4 sts=4
@@ -200,109 +199,111 @@ au FileType nginx setlocal noet ts=4 sw=4 sts=4
 let g:airline_theme='minimalist'
 
 " Wildmenu completion {{{
-set wildmenu
-" set wildmode=list:longest
-set wildmode=list:full
+  set wildmenu
+  " set wildmode=list:longest
+  set wildmode=list:full
 
-set wildignore+=.hg,.git,.svn                    " Version control
-set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
-set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
-set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
-set wildignore+=*.spl                            " compiled spelling word lists
-set wildignore+=*.sw?                            " Vim swap files
-set wildignore+=*.DS_Store                       " OSX bullshit
-set wildignore+=*.luac                           " Lua byte code
-set wildignore+=migrations                       " Django migrations
-set wildignore+=go/pkg                           " Go static files
-set wildignore+=go/bin                           " Go bin files
-set wildignore+=go/bin-vagrant                   " Go bin-vagrant files
-set wildignore+=*.pyc                            " Python byte code
-set wildignore+=*.orig                           " Merge resolution files
+  set wildignore+=.hg,.git,.svn                    " Version control
+  set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
+  set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
+  set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
+  set wildignore+=*.spl                            " compiled spelling word lists
+  set wildignore+=*.sw?                            " Vim swap files
+  set wildignore+=*.DS_Store                       " OSX bullshit
+  set wildignore+=*.luac                           " Lua byte code
+  set wildignore+=migrations                       " Django migrations
+  set wildignore+=go/pkg                           " Go static files
+  set wildignore+=go/bin                           " Go bin files
+  set wildignore+=go/bin-vagrant                   " Go bin-vagrant files
+  set wildignore+=*.pyc                            " Python byte code
+  set wildignore+=*.orig                           " Merge resolution files
 
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_max_height = 10		" maxiumum height of match window
-let g:ctrlp_switch_buffer = 'et'	" jump to a file if it's open already
-let g:ctrlp_mruf_max=450 		" number of recently opened files
-let g:ctrlp_max_files=0  		" do not limit the number of searchable files
-let g:ctrlp_use_caching = 1
-let g:ctrlp_clear_cache_on_exit = 1
-let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+  let g:ctrlp_cmd = 'CtrlP'
+  let g:ctrlp_working_path_mode = 'ra'
+  let g:ctrlp_max_height = 10		" maxiumum height of match window
+  let g:ctrlp_switch_buffer = 'et'	" jump to a file if it's open already
+  let g:ctrlp_mruf_max=450 		" number of recently opened files
+  let g:ctrlp_max_files=0  		" do not limit the number of searchable files
+  let g:ctrlp_use_caching = 1
+  let g:ctrlp_clear_cache_on_exit = 1
+  let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 
-" ignore files in .gitignore
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+  " ignore files in .gitignore
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
-let g:ctrlp_buftag_types = {'go' : '--language-force=go --golang-types=ftv'}
+  let g:ctrlp_buftag_types = {'go' : '--language-force=go --golang-types=ftv'}
 
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
+  let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
 
-let g:better_whitespace_enabled = 1
-let g:strip_whitespace_on_save  = 1
+  let g:better_whitespace_enabled = 1
+  let g:strip_whitespace_on_save  = 1
 
-let NERDTreeShowHidden=1
-let NERDTreeWinSize=25
-nnoremap <C-n> :NERDTreeToggle<CR>
+  let NERDTreeShowHidden=1
+  let NERDTreeWinSize=25
+  nnoremap <C-n> :NERDTreeToggle<CR>
 
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+  autocmd StdinReadPre * let s:std_in=1
+  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
-" ==================== Fugitive ====================
-nnoremap <leader>ga :Git add %:p<CR><CR>
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gp :Gpush<CR>
-vnoremap <leader>gb :Gblame<CR>
+  " ==================== Fugitive ====================
+    nnoremap <leader>ga :Git add %:p<CR><CR>
+    nnoremap <leader>gs :Gstatus<CR>
+    nnoremap <leader>gp :Gpush<CR>
+    vnoremap <leader>gb :Gblame<CR>
 
-let g:indentLine_concealcursor = 'inc'
-" do not hide markdown
-set conceallevel=0
+    let g:indentLine_concealcursor = 'inc'
+    " do not hide markdown
+    set conceallevel=0
 
-let g:indentLine_conceallevel=2
+    let g:indentLine_conceallevel=2
 
-let g:vim_json_syntax_conceal=0
+    let g:vim_json_syntax_conceal=0
 
-let g:dhall_format=1
-let g:dhall_strip_whitespace=1
+    let g:dhall_format=1
+    let g:dhall_strip_whitespace=1
 
-let g:ale_sign_column_always = 1
-let g:ale_fix_on_save=1
-let g:ale_close_preview_on_insert=1
-let g:ale_cursor_detail=1
-let g:ale_echo_cursor=0
-let g:ale_hover_to_preview=1
-let g:ale_keep_list_window_open=1
-let g:ale_lint_on_text_changed=0
-let g:ale_set_loclist=0
-let g:ale_set_quickfix=1
+    let g:ale_sign_column_always = 1
+    let g:ale_fix_on_save=1
+    let g:ale_close_preview_on_insert=1
+    let g:ale_cursor_detail=1
+    let g:ale_echo_cursor=0
+    let g:ale_hover_to_preview=1
+    let g:ale_keep_list_window_open=1
+    let g:ale_lint_on_text_changed=0
+    let g:ale_set_loclist=0
+    let g:ale_set_quickfix=1
 
-let g:ale_fixers = {
-            \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \   'nix': ['nixpkgs-fmt'],
-            \}
+    let g:ale_fixers = {
+      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \   'nix': ['nixpkgs-fmt'],
+      \}
 
-let g:terraform_align=1
-let g:terraform_fold_sections=1
-let g:terraform_fmt_on_save=1
+      let g:terraform_align=1
+      let g:terraform_fold_sections=1
+      let g:terraform_fmt_on_save=1
 
-let g:deoplete#enable_at_startup = 1
+      let g:deoplete#enable_at_startup = 1
 
-if (executable('terraform-lsp'))
-    augroup LSPTerraform
-        autocmd!
-        autocmd User lsp_setup call lsp#register_server({
+      if (executable('terraform-lsp'))
+      augroup LSPTerraform
+      autocmd!
+      autocmd User lsp_setup call lsp#register_server({
       \ 'name': 'terraform',
       \ 'cmd': {server_info->['terraform-lsp']},
       \ 'allowlist': ['terraform']
       \ })
-    augroup END
-endif
+      augroup END
+      endif
 
-if (executable('dhall-lsp-server'))
-    augroup LSPDhall
-        autocmd!
-        autocmd User lsp_setup call lsp#register_server({
+      if (executable('dhall-lsp-server'))
+      augroup LSPDhall
+      autocmd!
+      autocmd User lsp_setup call lsp#register_server({
       \ 'name': 'dhall',
       \ 'cmd': {server_info->['dhall-lsp-server']},
       \ 'allowlist': ['dhall']
       \ })
-    augroup END
-endif
+      augroup END
+      endif
+      '';
+    }

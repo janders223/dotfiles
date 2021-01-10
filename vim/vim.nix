@@ -42,11 +42,7 @@ let
         };
     };
 
-in
-pkgs.neovim.override {
-  configure = {
-    customRC = builtins.readFile ./vimrc;
-    packages.myVimPackage.start = with pkgs.vimPlugins; [
+in with pkgs.vimPlugins; [
       ale
       ctrlp-vim
       delimitMate
@@ -78,6 +74,5 @@ pkgs.neovim.override {
       vim-tmux-navigator
       vim-toml
       vim-yaml
-    ];
-  };
-}
+    ]
+

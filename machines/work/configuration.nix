@@ -1,5 +1,9 @@
 { config, pkgs, ... }:
+let
+  vimrc = import ../../vim/vimrc.nix { };
+  vimPackages = import ../../vim/vim.nix { inherit pkgs; };
 
+in
 {
   system.defaults = {
     NSGlobalDomain = {
@@ -106,7 +110,12 @@
     }
   '';
 
-  programs.vim.package = import ../../vim/vim.nix { pkgs = pkgs; };
+  programs.vim.package = pkgs.neovim.override {
+    configure = {
+      packages.darwin.start = vimPackages;
+      customRC = vimrc.config;
+    };
+  };
 
   environment.loginShell = "${pkgs.zsh}/bin/zsh -l";
   environment.variables.SHELL = "${pkgs.zsh}/bin/zsh";

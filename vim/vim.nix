@@ -42,37 +42,43 @@ let
         };
     };
 
-in with pkgs.vimPlugins; [
-      ale
-      ctrlp-vim
-      delimitMate
-      deoplete-nvim
-      deoplete-vim-lsp
-      dhall-vim
-      indentLine
-      nerdtree
-      nord-vim
-      tabular
-      vim-airline
-      vim-airline-themes
-      vim-better-whitespace
-      vim-bettergrep
-      vim-commentary
-      vim-endwise
-      vim-fugitive
-      vim-hcl
-      vim-json
-      vim-lsp
-      vim-lua
-      vim-markdown
-      vim-misc
-      vim-nix
-      vim-repeat
-      vim-rest-console
-      vim-surround
-      vim-terraform
-      vim-tmux-navigator
-      vim-toml
-      vim-yaml
-    ]
-
+in
+with pkgs.vimPlugins; [
+  ale
+  ctrlp-vim
+  delimitMate
+  deoplete-nvim
+  deoplete-vim-lsp
+  dhall-vim
+  indentLine
+  nord-vim
+  tabular
+  vim-airline
+  vim-airline-themes
+  vim-better-whitespace
+  vim-bettergrep
+  vim-commentary
+  vim-dadbod
+  vim-dirvish
+  vim-dirvish-git
+  vim-endwise
+  vim-eunuch
+  vim-fugitive
+  vim-hcl
+  vim-json
+  vim-lsp
+  vim-lua
+  vim-markdown
+  vim-misc
+  vim-nix
+  vim-repeat
+  vim-rest-console
+  vim-rhubarb
+  vim-speeddating
+  vim-surround
+  vim-terraform
+  vim-tmux-navigator
+  vim-toml
+  vim-unimpaired
+  vim-yaml
+]

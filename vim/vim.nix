@@ -20,6 +20,16 @@ let
     };
   };
 
+  vim-lsp-settings = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-lsp-settings";
+    src = pkgs.fetchFromGitHub {
+      owner = "janders223";
+      repo = "vim-lsp-settings";
+      rev = "b644e2405c2d9d3d6f8384aedb8def5208641a73";
+      sha256 = "1llfxx0mhgfn14vk0s0bjf6rv644kgkaxiw4zdbwbzmwjp9brphg";
+    };
+  };
+
   vim-hcl = pkgs.vimUtils.buildVimPlugin {
     name = "vim-hcl";
     src = pkgs.fetchFromGitHub {
@@ -30,25 +40,22 @@ let
     };
   };
 
-  vim-rest-console = pkgs.vimUtils.buildVimPlugin
-    {
-      name = "vim-rest-console";
-      src = pkgs.fetchFromGitHub
-        {
-          owner = "diepm";
-          repo = "vim-rest-console";
-          rev = "7b407f47185468d1b57a8bd71cdd66c9a99359b2";
-          sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj";
-        };
-    };
+  vim-rest-console = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-rest-console";
+    src = pkgs.fetchFromGitHub
+      {
+        owner = "diepm";
+        repo = "vim-rest-console";
+        rev = "7b407f47185468d1b57a8bd71cdd66c9a99359b2";
+        sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj";
+      };
+  };
 
 in
 with pkgs.vimPlugins; [
   ale
   ctrlp-vim
   delimitMate
-  deoplete-nvim
-  deoplete-vim-lsp
   dhall-vim
   indentLine
   nord-vim
@@ -67,9 +74,11 @@ with pkgs.vimPlugins; [
   vim-hcl
   vim-json
   vim-lsp
+  vim-lsp-settings
   vim-lua
   vim-markdown
   vim-misc
+  vim-mucomplete
   vim-nix
   vim-repeat
   vim-rest-console

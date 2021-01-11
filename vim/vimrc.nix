@@ -39,6 +39,9 @@
     set ttyfast
     set lazyredraw                 " Wait to redraw "
 
+    set shortmess+=c   " Shut off completion messages
+    set belloff+=ctrlg " If Vim beeps during completion
+
     " speed up syntax highlighting
     set nocursorcolumn
     set nocursorline
@@ -81,7 +84,8 @@
 
     " Better Completion
     set complete=.,w,b,u,t
-    set completeopt=longest,menuone
+    set completeopt-=preview
+    set completeopt=longest,menuone,noinsert
 
     if &history < 1000
     set history=50
@@ -262,6 +266,7 @@
         let g:ale_close_preview_on_insert=1
         let g:ale_cursor_detail=1
         let g:ale_echo_cursor=0
+        let g:ale_echo_delay=350
         let g:ale_hover_to_preview=1
         let g:ale_keep_list_window_open=1
         let g:ale_lint_on_text_changed=0
@@ -273,32 +278,19 @@
           \   'nix': ['nixpkgs-fmt'],
           \}
 
-          let g:terraform_align=1
-          let g:terraform_fold_sections=1
-          let g:terraform_fmt_on_save=1
+        let g:terraform_align=1
+        let g:terraform_fold_sections=1
+        let g:terraform_fmt_on_save=1
 
-          let g:deoplete#enable_at_startup = 1
+        let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
+        let g:lsp_log_verbose = 1
+        let g:lsp_log_file = expand('~/.vim-lsp.log')
 
-          if (executable('terraform-lsp'))
-          augroup LSPTerraform
-          autocmd!
-          autocmd User lsp_setup call lsp#register_server({
-          \ 'name': 'terraform',
-          \ 'cmd': {server_info->['terraform-lsp']},
-          \ 'allowlist': ['terraform']
-          \ })
-          augroup END
-          endif
+        let g:lsp_settings_root_markers = ['.git', '.git/', '.terraform', '.terraform/']
+        let g:lsp_settings_filetype_nix = ['nixpkgs-fmt']
 
-          if (executable('dhall-lsp-server'))
-          augroup LSPDhall
-          autocmd!
-          autocmd User lsp_setup call lsp#register_server({
-          \ 'name': 'dhall',
-          \ 'cmd': {server_info->['dhall-lsp-server']},
-          \ 'allowlist': ['dhall']
-          \ })
-          augroup END
-          endif
+        " =========mucomplete
+        let g:mucomplete#enable_auto_at_startup = 1
+        autocmd FileType terraform setlocal omnifunc=lsp#complete
   '';
 }

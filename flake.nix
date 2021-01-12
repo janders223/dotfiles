@@ -3,9 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-20.09-darwin";
+    nixos.url = "github:nixos/nixpkgs/nixos-unstable";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixos";
   };
 
   outputs = { self, darwin, nixpkgs, ... }@inputs: {
@@ -13,18 +15,17 @@
       modules = [ ./machines/work/configuration.nix ];
     };
 
-    nixosConfigurations.loki = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.loki = inputs.nixos.lib.nixosSystem {
       system = "x86_64-linux";
-      modules = [ ./machines/loki/configuration.nix ];
+      modules = [
+        ./machines/loki/configuration.nix
+        inputs.home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.janders223 = import ./machines/loki/home.nix;
+        }
+      ];
     };
-
-    # homeManagerConfigurations = {
-    #   loki = inputs.home-manager.lib.homeManagerConfiguration {
-    #     configuration = import ./machines/loki/configuration.nix;
-    #     system = "x86_64-linux";
-    #     homeDirectory = "/home/janders223";
-    #     username = "janders223";
-    #   };
-    # };
   };
 }

@@ -91,6 +91,7 @@ in
   programs.tmux.extraConfig = import ../../tmux/tmux.nix { inherit pkgs; };
 
   programs.zsh.enable = true;
+  programs.zsh.enableCompletion = true;
   programs.zsh.enableBashCompletion = true;
   programs.zsh.enableFzfCompletion = true;
   programs.zsh.enableFzfGit = true;

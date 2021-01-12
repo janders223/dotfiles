@@ -6,11 +6,7 @@ let
 
 in
 {
-  home.packages = with pkgs; [
-    vim
-    direnv
-    starship
-  ];
+  home.packages = with pkgs; [ ];
 
   manual.manpages.enable = true;
 
@@ -121,11 +117,11 @@ in
     plugins = vimPackages;
   };
 
-  # programs.startship = {
-  #   enable = true;
-  #   enableBashIntegration = true;
-  #   enableZshIntegration = true;
-  # };
+  programs.starship = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+  };
 
   programs.tmux = {
     enable = true;

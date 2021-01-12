@@ -289,6 +289,14 @@
         let g:lsp_settings_root_markers = ['.git', '.git/', '.terraform', '.terraform/']
         let g:lsp_settings_filetype_nix = ['nixpkgs-fmt']
 
+        if executable('rnix-lsp')
+          au User lsp_setup call lsp#register_server({
+              \ 'name': 'rnix-lsp',
+              \ 'cmd': {server_info->[&shell, &shellcmdflag, 'rnix-lsp']},
+              \ 'whitelist': ['nix'],
+              \ })
+        endif
+
         " =========mucomplete
         let g:mucomplete#enable_auto_at_startup = 1
         autocmd FileType terraform setlocal omnifunc=lsp#complete

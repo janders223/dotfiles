@@ -13,13 +13,18 @@
       modules = [ ./machines/work/configuration.nix ];
     };
 
-    homeManagerConfigurations = {
-      loki = inputs.home-manager.lib.homeManagerConfiguration {
-        configuration = import ./machines/loki/configuration.nix;
-        system = "x86_64-linux";
-        homeDirectory = "/home/janders223";
-        username = "janders223";
-      };
+    nixosConfigurations.loki = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [ ./machines/loki/configuration.nix ];
     };
+
+    # homeManagerConfigurations = {
+    #   loki = inputs.home-manager.lib.homeManagerConfiguration {
+    #     configuration = import ./machines/loki/configuration.nix;
+    #     system = "x86_64-linux";
+    #     homeDirectory = "/home/janders223";
+    #     username = "janders223";
+    #   };
+    # };
   };
 }

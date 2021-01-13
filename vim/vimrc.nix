@@ -300,5 +300,6 @@
         " =========mucomplete
         let g:mucomplete#enable_auto_at_startup = 1
         autocmd FileType terraform setlocal omnifunc=lsp#complete
+        autocmd FileType nix setlocal omnifunc=lsp#complete
   '';
 }

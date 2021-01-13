@@ -13,8 +13,14 @@
     darwinConfigurations."OF060VV4A8HTD6F" = darwin.lib.darwinSystem {
       modules = [
         ./machines/work/configuration.nix
+        #home-manager.darwinModules.home-manager
+        #{
+        #  home-manager.useGlobalPkgs = true;
+        #  home-manager.useUserPackages = true;
+        #  home-manager.users.kon8522 = import ./machines/home.nix;
+	#  home-manager.verbose = true;
+        #}
       ];
-      inputs = { inherit nixpkgs home-manager; };
     };
 
     nixosConfigurations.loki = inputs.nixos.lib.nixosSystem {

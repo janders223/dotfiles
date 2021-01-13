@@ -4,7 +4,7 @@ let
   vimPackages = import ../vim/vim.nix { inherit pkgs; };
   dir_colors = import ../dir_colors/dir_colors.nix { };
   packages = import ./packages.nix { inherit pkgs; };
-  bin = import ./bin { inherit pkgs; };
+  bin = import ../bin { inherit pkgs; };
 in
 {
   home.packages = packages ++ bin;

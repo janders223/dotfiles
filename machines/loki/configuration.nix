@@ -6,12 +6,13 @@
 
   users.groups = {
     sudo = { };
+    janders223 = {};
   };
 
   security.sudo.wheelNeedsPassword = false;
 
   users.users.janders223 = {
-    name = "Jim Anders";
+    name = "janders223";
     createHome = true;
     group = "janders223";
     extraGroups = [ "wheel" ];
@@ -30,5 +31,8 @@
     enable = true;
     ports = [ 3518 ];
     passwordAuthentication = false;
+    extraConfig = ''
+      StreamLocalBindUnlink yes
+    '';
   };
 }

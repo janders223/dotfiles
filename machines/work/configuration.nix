@@ -2,6 +2,9 @@
 let
   vimrc = import ../../vim/vimrc.nix { };
   vimPackages = import ../../vim/vim.nix { inherit pkgs; };
+  globalPackages = import ../packages.nix { inherit pkgs; };
+  bin = import ../../bin { inherit pkgs; };
+
 
 in
 {
@@ -63,18 +66,13 @@ in
     with pkgs; [
       config.programs.vim.package
 
-      curl
       direnv
       fzf
       gitAndTools.gitFull
       hasklig
-      nixpkgs-fmt
-      nodejs
-      oh-my-zsh
-      ripgrep
-      rnix-lsp
       starship
-    ];
+    ] ++ globalPackages
+    ++ bin;
 
   nix.package = pkgs.nixFlakes; # NOTE: EXPERIMENTAL.
 

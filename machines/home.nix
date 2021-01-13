@@ -3,11 +3,10 @@ let
   vimrc = import ../vim/vimrc.nix { };
   vimPackages = import ../vim/vim.nix { inherit pkgs; };
   dir_colors = import ../dir_colors/dir_colors.nix { };
+  packages = import ./packages.nix { inherit pkgs; };
 in
 {
-  home.packages = with pkgs; [
-    gnupg
-  ];
+  home.packages = packages;
 
   manual.manpages.enable = true;
 

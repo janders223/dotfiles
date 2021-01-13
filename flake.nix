@@ -2,17 +2,24 @@
   description = "janders223 nixes";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-20.09-darwin";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixos";
   };
 
   outputs = { self, darwin, nixpkgs, ... }@inputs: {
     darwinConfigurations."OF060VV4A8HTD6F" = darwin.lib.darwinSystem {
-      modules = [ ./machines/work/configuration.nix ];
+      modules = [
+        ./machines/work/configuration.nix
+        inputs.home-manager.darwinModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.kon8522 = import ./machines/home.nix;
+        }
+      ];
     };
 
     nixosConfigurations.loki = inputs.nixos.lib.nixosSystem {
@@ -23,7 +30,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.janders223 = import ./machines/loki/home.nix;
+          home-manager.users.janders223 = import ./machines/home.nix;
         }
       ];
     };

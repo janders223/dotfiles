@@ -1,8 +1,8 @@
 { pkgs ? import <nixpkgs> { }, ... }:
 let
-  vimrc = import ../../vim/vimrc.nix { };
-  vimPackages = import ../../vim/vim.nix { inherit pkgs; };
-  dir_colors = import ../../dir_colors/dir_colors.nix { };
+  vimrc = import ../vim/vimrc.nix { };
+  vimPackages = import ../vim/vim.nix { inherit pkgs; };
+  dir_colors = import ../dir_colors/dir_colors.nix { };
 
 in
 {

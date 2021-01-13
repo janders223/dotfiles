@@ -91,10 +91,10 @@ in
       top = "!git log - -format=format:%an | sort | uniq -c | sort -r | head -n 20";
     };
 
-    signing = {
-      key = "0x14642134887B748A";
-      signByDefault = true;
-    };
+    # signing = {
+    #   key = "0x14642134887B748A";
+    #   signByDefault = true;
+    # };
 
     userEmail = "jimanders223@gmail.com";
     userName = "Jim Anders";

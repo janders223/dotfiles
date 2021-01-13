@@ -1,9 +1,9 @@
 { config, pkgs, ... }:
-# let
-#   vimrc = import ../../vim/vimrc.nix { };
-#   vimPackages = import ../../vim/vim.nix { inherit pkgs; };
+let
+  vimrc = import ../../vim/vimrc.nix { };
+  vimPackages = import ../../vim/vim.nix { inherit pkgs; };
 
-# in
+in
 {
   system.defaults = {
     NSGlobalDomain = {
@@ -59,79 +59,79 @@
     fonts = with pkgs; [ hasklig ];
   };
 
-  # environment.systemPackages =
-  #   with pkgs; [
-  #     config.programs.vim.package
+  environment.systemPackages =
+    with pkgs; [
+      config.programs.vim.package
 
-  #     curl
-  #     direnv
-  #     fzf
-  #     gitAndTools.gitFull
-  #     hasklig
-  #     nixpkgs-fmt
-  #     nodejs
-  #     oh-my-zsh
-  #     ripgrep
-  #     rnix-lsp
-  #     starship
-  #   ];
+      curl
+      direnv
+      fzf
+      gitAndTools.gitFull
+      hasklig
+      nixpkgs-fmt
+      nodejs
+      oh-my-zsh
+      ripgrep
+      rnix-lsp
+      starship
+    ];
 
   nix.package = pkgs.nixFlakes; # NOTE: EXPERIMENTAL.
 
-  # programs.gnupg.agent.enable = true;
-  # programs.gnupg.agent.enableSSHSupport = true;
+  programs.gnupg.agent.enable = true;
+  programs.gnupg.agent.enableSSHSupport = true;
 
-  # programs.bash.enableCompletion = true;
+  programs.bash.enableCompletion = true;
 
-  # programs.tmux.enable = true;
-  # programs.tmux.enableSensible = true;
-  # programs.tmux.enableMouse = true;
-  # programs.tmux.enableFzf = true;
-  # programs.tmux.enableVim = true;
+  programs.tmux.enable = true;
+  programs.tmux.enableSensible = true;
+  programs.tmux.enableMouse = true;
+  programs.tmux.enableFzf = true;
+  programs.tmux.enableVim = true;
 
-  # programs.tmux.extraConfig = import ../../tmux/tmux.nix { inherit pkgs; };
+  programs.tmux.extraConfig = import ../../tmux/tmux.nix { inherit pkgs; };
 
-  # programs.zsh.enable = true;
-  # programs.zsh.enableCompletion = true;
-  # programs.zsh.enableBashCompletion = true;
-  # programs.zsh.enableFzfCompletion = true;
-  # programs.zsh.enableFzfGit = true;
-  # programs.zsh.enableFzfHistory = true;
+  programs.zsh.enable = true;
+  programs.zsh.enableCompletion = true;
+  programs.zsh.enableBashCompletion = true;
+  programs.zsh.enableFzfCompletion = true;
+  programs.zsh.enableFzfGit = true;
+  programs.zsh.enableFzfHistory = true;
 
-  # programs.zsh.loginShellInit = ''
-  #   eval "$(starship init zsh)"
+  programs.zsh.loginShellInit = ''
+    eval "$(starship init zsh)"
 
-  #   eval "$(direnv hook zsh)"
+    eval "$(direnv hook zsh)"
 
-  #   if [ -z "$TMUX" ]; then
-  #     tmux attach -t default || tmux new -s default
-  #   fi
+    if [ -z "$TMUX" ]; then
+      tmux attach -t default || tmux new -s default
+    fi
 
-  #   ls() {
-  #     ${pkgs.coreutils}/bin/ls --color=auto "$@"
-  #   }
-  # '';
+    ls() {
+      ${pkgs.coreutils}/bin/ls --color=auto "$@"
+    }
+  '';
 
-  # programs.vim.package = pkgs.neovim.override {
-  #   configure = {
-  #     packages.darwin.start = vimPackages;
-  #     customRC = vimrc.config;
-  #   };
-  # };
+  programs.vim.package = pkgs.neovim.override {
+    configure = {
+      packages.darwin.start = vimPackages;
+      customRC = vimrc.config;
+    };
+  };
 
-  # environment.loginShell = "${pkgs.zsh}/bin/zsh -l";
-  # environment.variables.SHELL = "${pkgs.zsh}/bin/zsh";
-  # environment.variables.ftp_proxy = "http://127.0.0.1:3128";
-  # environment.variables.http_proxy = "http://127.0.0.1:3128";
-  # environment.variables.https_proxy = "http://127.0.0.1:3128";
-  # environment.variables.FTP_PROXY = "http://127.0.0.1:3128";
-  # environment.variables.HTTP_PROXY = "http://127.0.0.1:3128";
-  # environment.variables.HTTPS_PROXY = "http://127.0.0.1:3128";
-  # environment.variables.EDITOR = "nvim";
-  # environment.variables.LANG = "en_US.UTF-8";
+  environment.loginShell = "${pkgs.zsh}/bin/zsh -l";
+  environment.variables.SHELL = "${pkgs.zsh}/bin/zsh";
+  environment.variables.ftp_proxy = "http://127.0.0.1:3128";
+  environment.variables.http_proxy = "http://127.0.0.1:3128";
+  environment.variables.https_proxy = "http://127.0.0.1:3128";
+  environment.variables.FTP_PROXY = "http://127.0.0.1:3128";
+  environment.variables.HTTP_PROXY = "http://127.0.0.1:3128";
+  environment.variables.HTTPS_PROXY = "http://127.0.0.1:3128";
+  environment.variables.EDITOR = "nvim";
+  environment.variables.LANG = "en_US.UTF-8";
 
-  # environment.shellAliases.l = "ls -halF";
-  # environment.shellAliases.vim = "nvim";
+  environment.shellAliases.l = "ls -halF";
+  environment.shellAliases.vim = "nvim";
 
   system.stateVersion = 4;
 }

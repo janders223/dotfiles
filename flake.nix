@@ -9,24 +9,19 @@
     home-manager.url = "github:nix-community/home-manager";
   };
 
-  outputs = { self, darwin, nixpkgs, ... }@inputs: {
+  outputs = { self, darwin, nixpkgs, home-manager, ... }@inputs: {
     darwinConfigurations."OF060VV4A8HTD6F" = darwin.lib.darwinSystem {
       modules = [
         ./machines/work/configuration.nix
-        inputs.home-manager.darwinModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.kon8522 = import ./machines/home.nix;
-        }
       ];
+      inputs = { inherit nixpkgs home-manager; };
     };
 
     nixosConfigurations.loki = inputs.nixos.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         ./machines/loki/configuration.nix
-        inputs.home-manager.nixosModules.home-manager
+        home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;

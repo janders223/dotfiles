@@ -5,7 +5,9 @@ let
   dir_colors = import ../dir_colors/dir_colors.nix { };
 in
 {
-  home.packages = with pkgs; [ ];
+  home.packages = with pkgs; [
+    gnupg
+  ];
 
   manual.manpages.enable = true;
 
@@ -17,13 +19,22 @@ in
       "ignorespace"
     ];
     shellAliases = {
-      l = "ls -halF";
+      l = "${pkgs.coreutils}/bin/ls -halF";
       vim = "nvim";
     };
   };
 
   programs.zsh = {
     enable = true;
+    enableAutosuggestions = true;
+    enableCompletion = true;
+    autocd = true;
+    shellAliases = {
+      l = "${pkgs.coreutils}/bin/ls -halF";
+      vim = "nvim";
+    };
+    initExtra = ''
+      '';
   };
 
   programs.dircolors = {

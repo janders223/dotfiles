@@ -32,6 +32,7 @@
   };
 
   services.openssh = {
+    enable = true;
     ports = [ 3518 ];
     passwordAuthentication = false;
   };

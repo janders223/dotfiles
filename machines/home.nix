@@ -3,7 +3,6 @@ let
   vimrc = import ../vim/vimrc.nix { };
   vimPackages = import ../vim/vim.nix { inherit pkgs; };
   dir_colors = import ../dir_colors/dir_colors.nix { };
-
 in
 {
   home.packages = with pkgs; [ ];
@@ -140,12 +139,12 @@ in
     shell = "${pkgs.zsh}/bin/shell";
   };
 
-  services.gpg-agent = {
-    enable = true;
-    enableSshSupport = true;
-    extraConfig = ''
-      default-cache-ttl 600
-      max-cache-ttl 7200
-    '';
-  };
+  # services.gpg-agent = {
+  #   enable = true;
+  #   enableSshSupport = true;
+  #   extraConfig = ''
+  #     default-cache-ttl 600
+  #     max-cache-ttl 7200
+  #   '';
+  # };
 }

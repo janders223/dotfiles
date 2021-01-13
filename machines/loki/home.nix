@@ -21,15 +21,6 @@ in
       l = "ls -halF";
       vim = "nvim";
     };
-    profileExtra = ''
-      . /home/janders223/.nix-profile/etc/profile.d/nix.sh
-
-      eval "$(starship init bash)"
-
-      ls() {
-      ${pkgs.coreutils}/bin/ls --color=auto "$@"
-      }
-    '';
   };
 
   programs.zsh = {

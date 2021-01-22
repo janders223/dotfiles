@@ -59,6 +59,7 @@ with pkgs.vimPlugins; [
   dhall-vim
   indentLine
   nord-vim
+  rust-vim
   tabular
   vim-airline
   vim-airline-themes

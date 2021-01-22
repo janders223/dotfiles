@@ -68,6 +68,7 @@ in
       direnv
       fzf
       gitAndTools.gitFull
+      gitAndTools.hub
       hasklig
       starship
     ] ++ globalPackages
@@ -96,32 +97,32 @@ in
   programs.zsh.enableFzfHistory = true;
 
   programs.zsh.shellInit = ''
-    bindkey -e
+      bindkey -e
 
-  autoload -U edit-command-line
-  zle -N edit-command-line
-  bindkey '^xe' edit-command-line
-  bindkey '^x^e' edit-command-line
+    autoload -U edit-command-line
+    zle -N edit-command-line
+    bindkey '^xe' edit-command-line
+    bindkey '^x^e' edit-command-line
   '';
 
   programs.zsh.loginShellInit = ''
-    bindkey -e
+      bindkey -e
 
-  autoload -U edit-command-line
-  zle -N edit-command-line
-  bindkey '^xe' edit-command-line
-  bindkey '^x^e' edit-command-line
-    eval "$(starship init zsh)"
+    autoload -U edit-command-line
+    zle -N edit-command-line
+    bindkey '^xe' edit-command-line
+    bindkey '^x^e' edit-command-line
+      eval "$(starship init zsh)"
 
-    eval "$(direnv hook zsh)"
+      eval "$(direnv hook zsh)"
 
-    if [ -z "$TMUX" ]; then
-      tmux attach -t default || tmux new -s default
-    fi
+      if [ -z "$TMUX" ]; then
+        tmux attach -t default || tmux new -s default
+      fi
 
-    ls() {
-      ${pkgs.coreutils}/bin/ls --color=auto "$@"
-    }
+      ls() {
+        ${pkgs.coreutils}/bin/ls --color=auto "$@"
+      }
   '';
 
   programs.vim.package = pkgs.neovim.override {
@@ -144,6 +145,7 @@ in
 
   environment.shellAliases.l = "ls -halF";
   environment.shellAliases.vim = "nvim";
+  environment.shellAliases.git = "hub";
 
   system.stateVersion = 4;
 }

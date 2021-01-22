@@ -1,7 +1,6 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 
 with pkgs; [
   curl
-  gnupg
   ripgrep
 ]

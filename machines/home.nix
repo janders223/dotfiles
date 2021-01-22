@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { }, ... }:
+{ pkgs ? import <nixpkgs> { }, inputs, ... }:
 let
   vimrc = import ../vim/vimrc.nix { };
   vimPackages = import ../vim/vim.nix { inherit pkgs; };
@@ -34,10 +34,10 @@ in
       vim = "nvim";
     };
     initExtraFirst = ''
-    autoload -U edit-command-line
-    zle -N edit-command-line
-    bindkey -M vicmd v edit-command-line
-      '';
+      autoload -U edit-command-line
+      zle -N edit-command-line
+      bindkey -M vicmd v edit-command-line
+    '';
   };
 
   programs.dircolors = {
@@ -135,6 +135,7 @@ in
 
   programs.neovim = {
     enable = true;
+    package = inputs.neovim-nightly.defaultPackage."${pkgs.system}";
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;

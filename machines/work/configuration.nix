@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 let
   vimrc = import ../../vim/vimrc.nix { };
   vimPackages = import ../../vim/vim.nix { inherit pkgs; };
@@ -75,6 +75,10 @@ in
     ++ bin;
 
   nix.package = pkgs.nixFlakes; # NOTE: EXPERIMENTAL.
+
+  nixpkgs.overlays = [
+    inputs.neovim-nightly.overlay
+  ];
 
   programs.gnupg.agent.enable = true;
   programs.gnupg.agent.enableSSHSupport = true;

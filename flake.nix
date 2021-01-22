@@ -7,9 +7,10 @@
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
+    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = { self, darwin, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, darwin, nixpkgs, home-manager, neovim-nightly, ... }@inputs: {
     darwinConfigurations."OF060VV4A8HTD6F" = darwin.lib.darwinSystem {
       modules = [
         ./machines/work/configuration.nix
@@ -18,9 +19,10 @@
         #  home-manager.useGlobalPkgs = true;
         #  home-manager.useUserPackages = true;
         #  home-manager.users.kon8522 = import ./machines/home.nix;
-	#  home-manager.verbose = true;
+        #  home-manager.verbose = true;
         #}
       ];
+      inputs = { inherit neovim-nightly; };
     };
 
     nixosConfigurations.loki = inputs.nixos.lib.nixosSystem {

@@ -1,6 +1,6 @@
 { pkgs, inputs, ... }:
 let
-  vimrc = import ../vim/vimrc.nix { };
+  # vimrc = import ../vim/vimrc.nix { };
   vimPackages = import ../vim/vim.nix { inherit pkgs; };
   dir_colors = import ../dir_colors/dir_colors.nix { };
   packages = import ./packages.nix { inherit pkgs; };
@@ -139,7 +139,7 @@ in
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
-    extraConfig = vimrc.config;
+    extraConfig = builtins.readFile ../vim/vimrc;
     plugins = vimPackages;
   };
 

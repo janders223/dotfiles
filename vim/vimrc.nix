@@ -222,23 +222,6 @@
       set wildignore+=*.pyc                            " Python byte code
       set wildignore+=*.orig                           " Merge resolution files
 
-      let g:ctrlp_cmd = 'CtrlP'
-      let g:ctrlp_working_path_mode = 'ra'
-      let g:ctrlp_max_height = 10    " maxiumum height of match window
-      let g:ctrlp_switch_buffer = 'et'  " jump to a file if it's open already
-      let g:ctrlp_mruf_max=450     " number of recently opened files
-      let g:ctrlp_max_files=0      " do not limit the number of searchable files
-      let g:ctrlp_use_caching = 1
-      let g:ctrlp_clear_cache_on_exit = 1
-      let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
-
-      " ignore files in .gitignore
-      let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-
-      let g:ctrlp_buftag_types = {'go' : '--language-force=go --golang-types=ftv'}
-
-      let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
-
       let g:better_whitespace_enabled = 1
       let g:strip_whitespace_on_save  = 1
 
@@ -254,53 +237,66 @@
         " do not hide markdown
         set conceallevel=0
 
-        let g:indentLine_conceallevel=2
-
         let g:vim_json_syntax_conceal=0
-
-        let g:dhall_format=1
-        let g:dhall_strip_whitespace=1
-
-        let g:ale_sign_column_always = 1
-        let g:ale_fix_on_save=1
-        let g:ale_close_preview_on_insert=1
-        let g:ale_cursor_detail=1
-        let g:ale_echo_cursor=0
-        let g:ale_echo_delay=350
-        let g:ale_hover_to_preview=1
-        let g:ale_keep_list_window_open=1
-        let g:ale_lint_on_text_changed=0
-        let g:ale_set_loclist=0
-        let g:ale_set_quickfix=1
-
-        let g:ale_fixers = {
-          \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-          \   'nix': ['nixpkgs-fmt'],
-          \}
 
         let g:terraform_align=1
         let g:terraform_fold_sections=1
         let g:terraform_fmt_on_save=1
 
-        let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
-        let g:lsp_log_verbose = 1
-        let g:lsp_log_file = expand('~/.vim-lsp.log')
+        lua << EOF
+    local nvim_lsp = require('lspconfig')
+    local on_attach = function(client, bufnr)
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-        let g:lsp_settings_root_markers = ['.git', '.git/', '.terraform', '.terraform/']
-        let g:lsp_settings_filetype_nix = ['nixpkgs-fmt']
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-        if executable('rnix-lsp')
-          au User lsp_setup call lsp#register_server({
-              \ 'name': 'rnix-lsp',
-              \ 'cmd': {server_info->[&shell, &shellcmdflag, 'rnix-lsp']},
-              \ 'whitelist': ['nix'],
-              \ })
-        endif
+    -- Mappings.
+    local opts = { noremap=true, silent=true }
+    buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+    buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+    buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
-        " =========mucomplete
-        let g:mucomplete#enable_auto_at_startup = 1
-        autocmd FileType terraform setlocal omnifunc=lsp#complete
-        autocmd FileType nix setlocal omnifunc=lsp#complete
-        autocmd FileType rust setlocal omnifunc=lsp#complete
+    -- Set some keybinds conditional on server capabilities
+    if client.resolved_capabilities.document_formatting then
+    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    elseif client.resolved_capabilities.document_range_formatting then
+    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    end
+
+    -- Set autocommands conditional on server_capabilities
+    if client.resolved_capabilities.document_highlight then
+    require('lspconfig').util.nvim_multiline_command [[
+      :hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+      :hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+      :hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      augroup lsp_document_highlight
+        autocmd!
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]]
+    end
+    end
+
+    -- Use a loop to conveniently both setup defined servers
+    -- and map buffer local keybindings when the language server attaches
+    local servers = { "rnix", "terraformls" }
+    for _, lsp in ipairs(servers) do
+    nvim_lsp[lsp].setup { on_attach = on_attach }
+    end
+    EOF
   '';
 }

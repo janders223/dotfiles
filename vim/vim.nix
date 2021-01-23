@@ -53,14 +53,20 @@ let
 
 in
 with pkgs.vimPlugins; [
-  ale
-  ctrlp-vim
+  nvim-treesitter # neovim 0.5
+  nvim-lspconfig # neovim 0.5
+  completion-nvim # neovim 0.5
+  completion-treesitter # neovim 0.5
+  lsp-status-nvim # neovim 0.5
+  lsp_extensions-nvim # neovim 0.5
+  # ale
+  # ctrlp-vim
   delimitMate
   dhall-vim
-  indentLine
+  # indentLine
   nord-vim
   rust-vim
-  tabular
+  # tabular
   vim-airline
   vim-airline-themes
   vim-better-whitespace
@@ -74,12 +80,12 @@ with pkgs.vimPlugins; [
   vim-fugitive
   vim-hcl
   vim-json
-  vim-lsp
-  vim-lsp-settings
+  # vim-lsp
+  # vim-lsp-settings
   vim-lua
   vim-markdown
   vim-misc
-  vim-mucomplete
+  # vim-mucomplete
   vim-nix
   vim-repeat
   vim-rest-console

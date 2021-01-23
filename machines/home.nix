@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { }, inputs, ... }:
+{ pkgs, inputs, ... }:
 let
   vimrc = import ../vim/vimrc.nix { };
   vimPackages = import ../vim/vim.nix { inherit pkgs; };

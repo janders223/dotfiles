@@ -12,6 +12,7 @@
 
   outputs = inputs:
     let
+      nixpkgs = inputs.nixpkgs;
       neovim-nightly = inputs.neovim-nightly;
       darwinDefaults = { config, pkgs, lib, ... }: {
         imports = [ inputs.home-manager.darwinModules.home-manager ];
@@ -22,7 +23,10 @@
         {
           "OF060VV4A8HTD6F" = inputs.darwin.lib.darwinSystem
             {
-              modules = [ ./machines/work.nix darwinDefaults ];
+              modules = [
+                ./machines/work.nix
+                darwinDefaults
+              ];
               inputs = { inherit neovim-nightly; };
             };
         };

@@ -23,6 +23,12 @@
       signByDefault = true;
     };
 
+    ignores = [
+      "result"
+      ".envrc"
+      ".direnv"
+    ];
+
     userEmail = "jimanders223@gmail.com";
     userName = "Jim Anders";
   }

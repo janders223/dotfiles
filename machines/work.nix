@@ -9,7 +9,7 @@
 
   nix.package = pkgs.nixFlakes; # NOTE: EXPERIMENTAL.
 
-  home-manager.users.kon8522 = import ./home.nix { inherit config pkgs inputs; };
+  home-manager.users.kon8522 = import ../modules/home.nix { inherit pkgs inputs; };
 
   system.defaults = {
     NSGlobalDomain = {

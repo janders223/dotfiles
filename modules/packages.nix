@@ -1,8 +1,7 @@
 { pkgs, ... }:
 
 with pkgs; [
+  gitAndTools.hub
   curl
   ripgrep
-  rnix-lsp
-  terraform-ls
 ]

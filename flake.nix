@@ -8,6 +8,7 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = inputs:
@@ -16,6 +17,10 @@
       neovim-nightly = inputs.neovim-nightly;
       darwinDefaults = { config, pkgs, lib, ... }: {
         imports = [ inputs.home-manager.darwinModules.home-manager ];
+      };
+
+      pkgs = import nixpkgs {
+        system = "x86_64-darwin";
       };
     in
     {
@@ -43,5 +48,7 @@
           }
         ];
       };
+
+      devShell.x86_64-darwin = import ./shell.nix { inherit pkgs; };
     };
 }

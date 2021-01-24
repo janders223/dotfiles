@@ -42,6 +42,10 @@ in
       autoload -U edit-command-line
       zle -N edit-command-line
       bindkey -M vicmd v edit-command-line
+
+      export GPG_TTY="$(tty)"
+      export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+      gpgconf --launch gpg-agent
     '';
   };
 
@@ -133,6 +137,8 @@ in
       throw-keyids = true;
     };
   };
+
+  programs.home-manager.enable = true;
 
   programs.man = {
     enable = true;

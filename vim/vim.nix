@@ -60,13 +60,13 @@ with pkgs.vimPlugins; [
   lsp-status-nvim # neovim 0.5
   lsp_extensions-nvim # neovim 0.5
   # ale
-  # ctrlp-vim
+  ctrlp-vim
   delimitMate
   dhall-vim
-  # indentLine
+  indentLine
   nord-vim
   rust-vim
-  # tabular
+  tabular
   vim-airline
   vim-airline-themes
   vim-better-whitespace

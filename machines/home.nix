@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ config, pkgs, inputs, ... }:
 let
   # vimrc = import ../vim/vimrc.nix { };
   vimPackages = import ../vim/vim.nix { inherit pkgs; };
@@ -29,11 +29,16 @@ in
     enableAutosuggestions = true;
     enableCompletion = true;
     autocd = true;
+    defaultKeymap = "emacs";
+    dotDir = ".config/zsh";
+    history.path = ".config/zsh/zsh_history";
     shellAliases = {
       l = "${pkgs.coreutils}/bin/ls -halF";
       vim = "nvim";
     };
     initExtraFirst = ''
+      source ~/.nix-profile/etc/profile.d/nix.sh
+
       autoload -U edit-command-line
       zle -N edit-command-line
       bindkey -M vicmd v edit-command-line
@@ -151,15 +156,19 @@ in
 
   programs.tmux = {
     enable = true;
-    shell = "${pkgs.zsh}/bin/shell";
+    shell = "${pkgs.zsh}/bin/zsh";
+    sensibleOnTop = false;
+    terminal = "screen-256color";
+    shortcut = "s";
+    secureSocket = true;
+    newSession = true;
+    clock24 = true;
+    escapeTime = 50;
+    baseIndex = 1;
+    extraConfig = builtins.readFile ../config/tmux.conf;
+    plugins = with pkgs; [
+      tmuxPlugins.nord
+      tmuxPlugins.vim-tmux-navigator
+    ];
   };
-
-  # services.gpg-agent = {
-  #   enable = true;
-  #   enableSshSupport = true;
-  #   extraConfig = ''
-  #     default-cache-ttl 600
-  #     max-cache-ttl 7200
-  #   '';
-  # };
 }

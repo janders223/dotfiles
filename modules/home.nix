@@ -1,7 +1,5 @@
 { pkgs, inputs, ... }:
 let
-  vimPackages = import ../vim/vim.nix { inherit pkgs; };
-  dir_colors = import ../dir_colors/dir_colors.nix { };
   packages = import ./packages.nix { inherit pkgs; };
 in
 {
@@ -33,7 +31,7 @@ in
     shellAliases = {
       l = "${pkgs.coreutils}/bin/ls -halF";
       vim = "nvim";
-      git = "${pkgs.gitAndTools.hub}";
+      git = "hub";
     };
     initExtraFirst = ''
       source ~/.nix-profile/etc/profile.d/nix.sh
@@ -52,7 +50,7 @@ in
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
-    extraConfig = dir_colors;
+    extraConfig = builtins.readFile ../config/dir_colors;
   };
 
   programs.direnv = {
@@ -103,15 +101,7 @@ in
     enable = true;
   };
 
-  programs.neovim = {
-    enable = true;
-    package = inputs.neovim-nightly.defaultPackage."${pkgs.system}";
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
-    extraConfig = builtins.readFile ../vim/vimrc;
-    plugins = vimPackages;
-  };
+  programs.neovim = import ./vim { inherit pkgs inputs; };
 
   programs.starship = {
     enable = true;

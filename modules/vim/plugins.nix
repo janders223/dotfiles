@@ -1,12 +1,12 @@
 { pkgs }:
 let
-  vim-bettergrep = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-bettergrep";
+  vim-galaxyline = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-galaxyline";
     src = pkgs.fetchFromGitHub {
-      owner = "qalshidi";
-      repo = "vim-bettergrep";
-      rev = "6db797d2a03efeee8fb4414c93a9016f6ccd38b8";
-      sha256 = "01fa955mgn9p59sycp46g7vnw1h9v0xbszrz86j6hix51x7kzvzx";
+      owner = "glepnir";
+      repo = "galaxyline.nvim";
+      rev = "22791e9aadfc2a24ccc22d21b4c50f6b52e12980";
+      sha256 = "1dw9k5ql7h8mgj7ag34pxa2jr9b2k788csc2a0jmyp6qp0d0x5ad";
     };
   };
 
@@ -51,6 +51,17 @@ let
       };
   };
 
+  nvim-web-devicons = pkgs.vimUtils.buildVimPlugin {
+    # https://github.com//
+    name = "nvim-web-devicons";
+    src = pkgs.fetchFromGitHub {
+      owner = "kyazdani42";
+      repo = "nvim-web-devicons";
+      rev = "aaffb87b5a640d15a566d9af9e74baafcf9ec016";
+      sha256 = "1qk2h8cwcb0v12lxayjdxka6wh5r1phn9cz5xkm5hvm1vcwrvlln";
+    };
+  };
+
 in
 with pkgs.vimPlugins; [
   nvim-treesitter # neovim 0.5
@@ -60,17 +71,21 @@ with pkgs.vimPlugins; [
   lsp-status-nvim # neovim 0.5
   lsp_extensions-nvim # neovim 0.5
   # ale
-  ctrlp-vim
+  # ctrlp-vim
   delimitMate
   dhall-vim
+  fzf-vim
+  gv-vim
   indentLine
   nord-vim
+  nvim-treesitter
+  nvim-web-devicons
   rust-vim
   tabular
-  vim-airline
-  vim-airline-themes
+  # vim-airline
+  # vim-airline-themes
   vim-better-whitespace
-  vim-bettergrep
+  vim-galaxyline
   vim-commentary
   vim-dadbod
   vim-dirvish
@@ -80,12 +95,9 @@ with pkgs.vimPlugins; [
   vim-fugitive
   vim-hcl
   vim-json
-  # vim-lsp
-  # vim-lsp-settings
   vim-lua
   vim-markdown
   vim-misc
-  # vim-mucomplete
   vim-nix
   vim-repeat
   vim-rest-console

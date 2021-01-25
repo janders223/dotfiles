@@ -19,8 +19,18 @@
         imports = [ inputs.home-manager.darwinModules.home-manager ];
       };
 
+      hasklig-nerd-font = self: super:
+      {
+        hasklig = super.hasklig.overrideAttrs (old: {
+            url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hasklig.zip";
+
+            sha256 = "19wv1k4dbirzkks7d3i0j14zpb0dh87yxxa9bz5b77949bkiyx0a";
+        });
+      };
+
       pkgs = import nixpkgs {
         system = "x86_64-darwin";
+        overlays = [ hasklig-nerd-font ];
       };
     in
     {
@@ -32,7 +42,7 @@
                 ./machines/work.nix
                 darwinDefaults
               ];
-              inputs = { inherit neovim-nightly; };
+              inputs = { inherit neovim-nightly pkgs; };
             };
         };
 

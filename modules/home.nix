@@ -127,4 +127,6 @@ in
   };
 
   home.file.".gnupg/gpg-agent.conf".source = ../config/gpg-agent.conf;
+  home.file.".config/nvim/lua/statusline.lua".source = ../modules/vim/lua/statusline.lua;
+  home.file.".config/nvim/lua/treesitter.lua".source = ../modules/vim/lua/treesitter.lua;
 }

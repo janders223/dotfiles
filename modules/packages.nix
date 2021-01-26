@@ -1,9 +1,10 @@
 { pkgs, ... }:
 
 with pkgs; [
+  curl
   gcc
   gitAndTools.hub
-  curl
+  llvm
   ripgrep
   tree-sitter
 ]

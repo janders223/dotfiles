@@ -1,39 +1,39 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, proxy, ... }:
 let
   packages = import ./packages.nix { inherit pkgs; };
 in
-{
-  home.packages = packages;
+  {
+    home.packages = packages;
 
-  manual.manpages.enable = true;
+    manual.manpages.enable = true;
 
-  programs.bash = {
-    enable = true;
-    historyControl = [
-      "erasedups"
-      "ignoredups"
-      "ignorespace"
-    ];
-    shellAliases = {
-      l = "${pkgs.coreutils}/bin/ls -halF";
-      vim = "nvim";
+    programs.bash = {
+      enable = true;
+      historyControl = [
+        "erasedups"
+        "ignoredups"
+        "ignorespace"
+      ];
+      shellAliases = {
+        l = "${pkgs.coreutils}/bin/ls -halF";
+        vim = "nvim";
+      };
     };
-  };
 
-  programs.zsh = {
-    enable = true;
-    enableAutosuggestions = true;
-    enableCompletion = true;
-    autocd = true;
-    defaultKeymap = "emacs";
-    dotDir = ".config/zsh";
-    history.path = ".config/zsh/zsh_history";
-    shellAliases = {
-      l = "${pkgs.coreutils}/bin/ls -halF";
-      vim = "nvim";
-      git = "hub";
-    };
-    initExtraFirst = ''
+    programs.zsh = {
+      enable = true;
+      enableAutosuggestions = true;
+      enableCompletion = true;
+      autocd = true;
+      defaultKeymap = "emacs";
+      dotDir = ".config/zsh";
+      history.path = ".config/zsh/zsh_history";
+      shellAliases = {
+        l = "${pkgs.coreutils}/bin/ls -halF";
+        vim = "nvim";
+        git = "hub";
+      };
+      initExtraFirst = ''
       source ~/.nix-profile/etc/profile.d/nix.sh
 
       autoload -U edit-command-line
@@ -43,21 +43,30 @@ in
       export GPG_TTY="$(tty)"
       export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
       gpgconf --launch gpg-agent
-    '';
-  };
+      '';
 
-  programs.dircolors = {
-    enable = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
-    extraConfig = builtins.readFile ../config/dir_colors;
-  };
+      envExtra = pkgs.lib.mkIf proxy ''
+        export ftp_proxy=http://127.0.0.1:3128
+        export http_proxy=http://127.0.0.1:3128
+        export https_proxy=http://127.0.0.1:3128
+        export FTP_PROXY=http://127.0.0.1:3128
+        export HTTP_PROXY=http://127.0.0.1:3128
+        export HTTPS_PROXY=http://127.0.0.1:3128
+      '';
+    };
 
-  programs.direnv = {
-    enable = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
-    enableNixDirenvIntegration = true;
+    programs.dircolors = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+      extraConfig = builtins.readFile ../config/dir_colors;
+    };
+
+    programs.direnv = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+      enableNixDirenvIntegration = true;
     #config = {};
   };
 
@@ -126,7 +135,15 @@ in
     ];
   };
 
-  home.file.".gnupg/gpg-agent.conf".source = ../config/gpg-agent.conf;
-  home.file.".config/nvim/lua/statusline.lua".source = ../modules/vim/lua/statusline.lua;
-  home.file.".config/nvim/lua/treesitter.lua".source = ../modules/vim/lua/treesitter.lua;
+  home.file = {
+    ".gnupg/gpg-agent.conf".source = ../config/gpg-agent.conf;
+    ".config/nvim/lua" = {
+      source = ../modules/vim/lua;
+      recursive = true;
+    };
+    ".curlrc" = pkgs.lib.mkIf proxy {
+      text = "proxy=http://127.0.0.1:3128";
+    };
+  };
+
 }

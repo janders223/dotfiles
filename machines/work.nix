@@ -1,6 +1,8 @@
 { config, pkgs, inputs, ... }:
+let
+  proxy = true;
 
-{
+in {
   users.users.kon8522 = {
     home = "/Users/kon8522";
     isHidden = false;
@@ -9,7 +11,7 @@
 
   nix.package = pkgs.nixFlakes; # NOTE: EXPERIMENTAL.
 
-  home-manager.users.kon8522 = import ../modules/home.nix { inherit pkgs inputs; };
+  home-manager.users.kon8522 = import ../modules/home.nix { inherit pkgs inputs proxy; };
 
   system.defaults = {
     NSGlobalDomain = {

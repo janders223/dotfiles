@@ -52,7 +52,6 @@ let
   };
 
   nvim-web-devicons = pkgs.vimUtils.buildVimPlugin {
-    # https://github.com//
     name = "nvim-web-devicons";
     src = pkgs.fetchFromGitHub {
       owner = "kyazdani42";
@@ -62,6 +61,25 @@ let
     };
   };
 
+  nvim-utils = pkgs.vimUtils.buildVimPlugin {
+    name = "nvim-utils";
+    src = pkgs.fetchFromGitHub {
+      owner = "norcalli";
+      repo = "nvim_utils";
+      rev = "71919c2f05920ed2f9718b4c2e30f8dd5f167194";
+      sha256 = "0wn1lzbpa69aplxqyp4mrf6gaa937mfjm8p3hcglhmsfw8v2ifln";
+    };
+  };
+
+  treesitter-playground = pkgs.vimUtils.buildVimPlugin {
+    name = "treesitter-playground";
+    src = pkgs.fetchFromGitHub {
+      owner = "nvim-treesitter";
+      repo = "playground";
+      rev = "7e373e5706a2df71fd3a96b50d1f7b0c3e7a0b36";
+      sha256 = "1vrfjv22whdmwna4xlvpsajx69fs8dkfwk0ji1jnvbyxmhki8mik";
+    };
+  };
 in
 with pkgs.vimPlugins; [
   nvim-treesitter # neovim 0.5
@@ -70,8 +88,6 @@ with pkgs.vimPlugins; [
   completion-treesitter # neovim 0.5
   lsp-status-nvim # neovim 0.5
   lsp_extensions-nvim # neovim 0.5
-  # ale
-  # ctrlp-vim
   delimitMate
   dhall-vim
   fzf-vim
@@ -79,11 +95,10 @@ with pkgs.vimPlugins; [
   indentLine
   nord-vim
   nvim-treesitter
+  nvim-utils
   nvim-web-devicons
   rust-vim
   tabular
-  # vim-airline
-  # vim-airline-themes
   vim-better-whitespace
   vim-galaxyline
   vim-commentary

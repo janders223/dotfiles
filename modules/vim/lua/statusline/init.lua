@@ -5,17 +5,17 @@ local gls = gl.section
 gl.short_line_list = {'LuaTree','vista','dbui'}
 
 local colors = {
-  bg = '#282c34',
-  yellow = '#fabd2f',
-  cyan = '#008080',
+  bg = '#2E3440',
+  yellow = '#EBCB8B',
+  cyan = '#88C0D0',
   darkblue = '#081633',
-  green = '#608B4E',
-  orange = '#FF8800',
-  purple = '#5d4d7a',
-  magenta = '#d16d9e',
-  grey = '#c0c0c0',
-  blue = '#569CD6',
-  red = '#D16969'
+  green = '#A3BE8C',
+  orange = '#D08770',
+  purple = '#81A1C1',
+  magenta = '#B48EAD',
+  grey = '#D8DEE9',
+  blue = '#81A1C1',
+  red = '#BF616A'
 }
 
 local buffer_not_empty = function()
@@ -50,7 +50,7 @@ gls.left[2] = {
                           ['!']  = colors.red,
                           t = colors.red}
       vim.api.nvim_command('hi GalaxyViMode guibg='..mode_color[vim.fn.mode()])
-      return '  NVCode '
+      return '  janders223 '
     end,
     separator = ' ',
     separator_highlight = {colors.yellow,function()

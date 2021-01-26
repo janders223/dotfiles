@@ -27,6 +27,11 @@
       "result"
       ".envrc"
       ".direnv"
+      ".terraform"
+      ".DS_Store"
+      ".direnv/*"
+			".lua"
+			"~/"
     ];
 
     userEmail = "jimanders223@gmail.com";

@@ -4,6 +4,7 @@ with pkgs;
 
 mkShell {
   buildInputs = [
+    lua
     nixpkgs-fmt
     rnix-lsp
   ];

@@ -141,6 +141,10 @@ in
       source = ../modules/vim/lua;
       recursive = true;
     };
+		".config/nvim/after" = {
+			source = ../modules/vim/after;
+			recursive = true;
+		};
     ".curlrc" = pkgs.lib.mkIf proxy {
       text = "proxy=http://127.0.0.1:3128";
     };

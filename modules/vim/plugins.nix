@@ -80,6 +80,17 @@ let
       sha256 = "1vrfjv22whdmwna4xlvpsajx69fs8dkfwk0ji1jnvbyxmhki8mik";
     };
   };
+
+  fzf-checkout = pkgs.vimUtils.buildVimPlugin {
+    name = "fzf-checkout";
+    src = pkgs.fetchFromGitHub {
+      owner = "stsewd";
+      repo = "fzf-checkout.vim";
+      rev = "bc85ea55103e3c9a58c8cd2c9a501aaf155384af";
+      sha256 = "119qnc673v972cmfaiw0afd6wb85zg3l5sq2p9i9lfyy00kqg32h";
+    };
+		buildPhase = ":";
+  };
 in
 with pkgs.vimPlugins; [
   nvim-treesitter # neovim 0.5
@@ -90,6 +101,7 @@ with pkgs.vimPlugins; [
   lsp_extensions-nvim # neovim 0.5
   delimitMate
   dhall-vim
+	fzf-checkout
   fzf-vim
   gv-vim
   indentLine

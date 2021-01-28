@@ -8,7 +8,7 @@
       p = "!'git pull; git submodule foreach git pull origin master'";
       go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f";
       tags = "tag - l";
-      branches = "branch - a";
+      branches = "branch -a";
       remotes = "remote -v";
       amend = "commit --amend --reuse-message=HEAD";
       credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f";

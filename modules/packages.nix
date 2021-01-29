@@ -1,10 +1,12 @@
 { pkgs, ... }:
 
 with pkgs; [
-  curl
-  gcc
-  gitAndTools.hub
-  llvm
-  ripgrep
-  tree-sitter
+    curl
+    exa
+    fd
+    gcc
+    gitAndTools.hub
+    llvm
+    ripgrep
+    tree-sitter
 ]

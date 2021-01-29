@@ -1,28 +1,13 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
-filetype plugin indent on
+let g:mapleader=" "
+inoremap jk <ESC>
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 
-" open help vertically
-command! -nargs=* -complete=help Help vertical belowright help <args>
-autocmd FileType help wincmd L
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" Builtins
-luafile $HOME/.config/nvim/lua/settings/init.lua
-luafile $HOME/.config/nvim/lua/lsp/init.lua
-" Plugins
-luafile $HOME/.config/nvim/lua/statusline/init.lua
-luafile $HOME/.config/nvim/lua/treesitter/init.lua
-luafile $HOME/.config/nvim/lua/fugitive/init.lua
-luafile $HOME/.config/nvim/lua/fzf/init.lua
-luafile $HOME/.config/nvim/lua/dirvish/init.lua
-luafile $HOME/.config/nvim/lua/better_whitespace/init.lua
-" Languages
-luafile $HOME/.config/nvim/lua/terraform/init.lua
-luafile $HOME/.config/nvim/lua/json/init.lua
-luafile $HOME/.config/nvim/lua/nginx/init.lua
-luafile $HOME/.config/nvim/lua/yml/init.lua
-luafile $HOME/.config/nvim/lua/md/init.lua
-luafile $HOME/.config/nvim/lua/txt/init.lua
-luafile $HOME/.config/nvim/lua/vim/init.lua
-luafile $HOME/.config/nvim/lua/tmux/init.lua
-luafile $HOME/.config/nvim/lua/nix/init.lua
+luafile $HOME/.config/nvim/lua/lsp_config.lua
+luafile $HOME/.config/nvim/lua/statusline.lua

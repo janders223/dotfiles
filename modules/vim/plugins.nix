@@ -10,45 +10,14 @@ let
     };
   };
 
-  vim-lua = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-lua";
+  lspsaga.nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "lspsaga.nvim";
     src = pkgs.fetchFromGitHub {
-      owner = "xolox";
-      repo = "vim-lua-ftplugin";
-      rev = "bcbf914046684f19955f24664c1659b330fcb241";
-      sha256 = "18i1205hf2zz1ldjbdisaqknqqghh5wz59baplmxqnsm1wbrcb6n";
+      owner = "glepnir";
+      repo = "lspsaga.nvim";
+      rev = "7fdaaad337ec7f6ba684c8a0dec90053a7c87f51";
+      sha256 = "116i9p0gc5q16nwc9m0c2mkhrjvymh0yjmzbrw8nvbc9dsqz4gny";
     };
-  };
-
-  vim-lsp-settings = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-lsp-settings";
-    src = pkgs.fetchFromGitHub {
-      owner = "janders223";
-      repo = "vim-lsp-settings";
-      rev = "b644e2405c2d9d3d6f8384aedb8def5208641a73";
-      sha256 = "1llfxx0mhgfn14vk0s0bjf6rv644kgkaxiw4zdbwbzmwjp9brphg";
-    };
-  };
-
-  vim-hcl = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-hcl";
-    src = pkgs.fetchFromGitHub {
-      owner = "jvirtanen";
-      repo = "vim-hcl";
-      rev = "94fbd199c8a947ede62f98509f91d637d7967454";
-      sha256 = "0n2dmgfajji8nxxirb9q9jmqnzc1mjqnic5igs84pxmbc6r57zqq";
-    };
-  };
-
-  vim-rest-console = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-rest-console";
-    src = pkgs.fetchFromGitHub
-      {
-        owner = "diepm";
-        repo = "vim-rest-console";
-        rev = "7b407f47185468d1b57a8bd71cdd66c9a99359b2";
-        sha256 = "1x7qicd721vcb7zgaqzy5kgiqkyj69z1lkl441rc29n6mwncpkjj";
-      };
   };
 
   nvim-web-devicons = pkgs.vimUtils.buildVimPlugin {
@@ -61,26 +30,6 @@ let
     };
   };
 
-  nvim-utils = pkgs.vimUtils.buildVimPlugin {
-    name = "nvim-utils";
-    src = pkgs.fetchFromGitHub {
-      owner = "norcalli";
-      repo = "nvim_utils";
-      rev = "71919c2f05920ed2f9718b4c2e30f8dd5f167194";
-      sha256 = "0wn1lzbpa69aplxqyp4mrf6gaa937mfjm8p3hcglhmsfw8v2ifln";
-    };
-  };
-
-  treesitter-playground = pkgs.vimUtils.buildVimPlugin {
-    name = "treesitter-playground";
-    src = pkgs.fetchFromGitHub {
-      owner = "nvim-treesitter";
-      repo = "playground";
-      rev = "7e373e5706a2df71fd3a96b50d1f7b0c3e7a0b36";
-      sha256 = "1vrfjv22whdmwna4xlvpsajx69fs8dkfwk0ji1jnvbyxmhki8mik";
-    };
-  };
-
   fzf-checkout = pkgs.vimUtils.buildVimPlugin {
     name = "fzf-checkout";
     src = pkgs.fetchFromGitHub {
@@ -89,51 +38,55 @@ let
       rev = "bc85ea55103e3c9a58c8cd2c9a501aaf155384af";
       sha256 = "119qnc673v972cmfaiw0afd6wb85zg3l5sq2p9i9lfyy00kqg32h";
     };
-		buildPhase = ":";
+    buildPhase = ":";
   };
+
+	nvim-ts-rainbow = pkgs.vimUtils.buildVimPlugin {
+    name = "nvim-ts-rainbow";
+    src = pkgs.fetchFromGitHub {
+      owner = "p00f";
+      repo = "nvim-ts-rainbow";
+      rev = "adad3ea7eb820b7e0cc926438605e7637ee1f5e6";
+      sha256 = "0vbd0a3kblbx28s2p7ljsalb1hymr2qjhjqgr03sg1a6hmxib1i0";
+    };
+	};
+
+	playground = pkgs.vimUtils.buildVimPlugin {
+    name = "playground";
+    src = pkgs.fetchFromGitHub {
+      owner = "nvim-treesitter";
+      repo = "playground";
+      rev = "7e373e5706a2df71fd3a96b50d1f7b0c3e7a0b36";
+      sha256 = "1vrfjv22whdmwna4xlvpsajx69fs8dkfwk0ji1jnvbyxmhki8mik";
+    };
+	};
+
 in
-with pkgs.vimPlugins; [
-  nvim-treesitter # neovim 0.5
-  nvim-lspconfig # neovim 0.5
-  completion-nvim # neovim 0.5
-  completion-treesitter # neovim 0.5
-  lsp-status-nvim # neovim 0.5
-  lsp_extensions-nvim # neovim 0.5
-  delimitMate
-  dhall-vim
-	fzf-checkout
-  fzf-vim
-  gv-vim
-  indentLine
-  nord-vim
-  nvim-treesitter
-  nvim-utils
-  nvim-web-devicons
-  rust-vim
-  tabular
-  vim-better-whitespace
-  vim-galaxyline
-  vim-commentary
-  vim-dadbod
-  vim-dirvish
-  vim-dirvish-git
-  vim-endwise
-  vim-eunuch
-  vim-fugitive
-  vim-hcl
-  vim-json
-  vim-lua
-  vim-markdown
-  vim-misc
-  vim-nix
-  vim-repeat
-  vim-rest-console
-  vim-rhubarb
-  vim-speeddating
-  vim-surround
-  vim-terraform
-  vim-tmux-navigator
-  vim-toml
-  vim-unimpaired
-  vim-yaml
-]
+  with pkgs.vimPlugins; [
+		completion-treesitter
+		lspsaga.nvim
+		nvim-treesitter
+		playground
+    completion-nvim
+    delimitMate
+    dracula-vim
+    fzf-checkout
+    fzf-vim
+    indentLine
+    nvim-lspconfig
+    nvim-web-devicons
+    tabular
+    vim-commentary
+    vim-dirvish
+    vim-dirvish-git
+    vim-endwise
+    vim-fugitive
+    vim-galaxyline
+    vim-json
+    vim-nix
+    vim-repeat
+    vim-surround
+    vim-terraform
+    vim-tmux-navigator
+    vim-yaml
+  ]

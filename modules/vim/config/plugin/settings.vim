@@ -2,7 +2,6 @@
 command! -nargs=* -complete=help Help vertical belowright help <args>
 autocmd FileType help wincmd L
 
-set cmdheight=2
 set colorcolumn=80
 set completeopt=menuone,noinsert,noselect
 set expandtab

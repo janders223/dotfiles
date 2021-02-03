@@ -147,6 +147,7 @@ in
 		clock24 = true;
 		escapeTime = 50;
 		baseIndex = 1;
+		keyMode = "vi";
 		extraConfig = builtins.readFile ../config/tmux.conf;
 		plugins = with pkgs.tmuxPlugins; [
 			vim-tmux-navigator

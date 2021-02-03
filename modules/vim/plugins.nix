@@ -75,6 +75,7 @@ in
     indentLine
     nvim-lspconfig
     nvim-web-devicons
+		rust-vim
     tabular
     vim-commentary
     vim-dirvish
